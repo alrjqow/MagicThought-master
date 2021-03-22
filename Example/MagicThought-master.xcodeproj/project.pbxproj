@@ -12,8 +12,8 @@
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* MTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* MTAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* MTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* MTViewController.m */; };
+		6003F59E195388D20070C39A /* MTTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* MTTestAppDelegate.m */; };
+		6003F5A7195388D20070C39A /* MTTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* MTTestViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		009005AA5FDB08F04BF0205A /* MagicThought-master.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = "MagicThought-master.podspec"; path = "../MagicThought-master.podspec"; sourceTree = "<group>"; };
+		009005AA5FDB08F04BF0205A /* MagicThought-master.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "MagicThought-master.podspec"; path = "../MagicThought-master.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6003F58A195388D20070C39A /* MagicThought-master_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MagicThought-master_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,10 +45,10 @@
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* MagicThought-master-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MagicThought-master-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* MTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* MTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* MTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* MTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTViewController.m; sourceTree = "<group>"; };
+		6003F59C195388D20070C39A /* MTTestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTTestAppDelegate.h; sourceTree = "<group>"; };
+		6003F59D195388D20070C39A /* MTTestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTTestAppDelegate.m; sourceTree = "<group>"; };
+		6003F5A5195388D20070C39A /* MTTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTTestViewController.h; sourceTree = "<group>"; };
+		6003F5A6195388D20070C39A /* MTTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTTestViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* MagicThought-master_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MagicThought-master_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -57,10 +57,10 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6C9B625E1944F671A30369A2 /* Pods_MagicThought_master_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicThought_master_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D5D43DC92E0B423DD3386BA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		6D5D43DC92E0B423DD3386BA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		88E40ADA72F4F0BAD4F92F6D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		88E40ADA72F4F0BAD4F92F6D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		91D0E618ED429153D27A61B1 /* Pods-MagicThought-master_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Example.release.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DC59A5BA389F6ACB73826AD5 /* Pods-MagicThought-master_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Example.debug.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,11 +126,11 @@
 		6003F593195388D20070C39A /* Example for MagicThought-master */ = {
 			isa = PBXGroup;
 			children = (
-				6003F59C195388D20070C39A /* MTAppDelegate.h */,
-				6003F59D195388D20070C39A /* MTAppDelegate.m */,
+				6003F59C195388D20070C39A /* MTTestAppDelegate.h */,
+				6003F59D195388D20070C39A /* MTTestAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* MTViewController.h */,
-				6003F5A6195388D20070C39A /* MTViewController.m */,
+				6003F5A5195388D20070C39A /* MTTestViewController.h */,
+				6003F5A6195388D20070C39A /* MTTestViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -185,7 +185,6 @@
 				DC59A5BA389F6ACB73826AD5 /* Pods-MagicThought-master_Example.debug.xcconfig */,
 				91D0E618ED429153D27A61B1 /* Pods-MagicThought-master_Example.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -249,6 +248,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -347,8 +347,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F59E195388D20070C39A /* MTAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* MTViewController.m in Sources */,
+				6003F59E195388D20070C39A /* MTTestAppDelegate.m in Sources */,
+				6003F5A7195388D20070C39A /* MTTestViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

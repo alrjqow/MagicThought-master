@@ -4,12 +4,5 @@ platform :ios, '9.0'
 
 target 'MagicThought-master_Example' do
   pod 'MagicThought-master', :path => '../'
-
-  pod 'MJRefresh'
-  pod 'MJExtension'
-  pod 'MBProgressHUD'
-  pod 'YTKNetwork'
-  pod 'SDWebImage'
-  pod 'SAMKeychain'
   
 end

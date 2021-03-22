@@ -30,7 +30,12 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
+  s.resources = ['MagicThought-master/Classes/MagicThought/MTHud/MTHud.bundle']
   s.source_files = 'MagicThought-master/Classes/**/*'
+  
+#  s.subspec 'MagicThought' do |ss|
+#  ss.source_files = 'MagicThought-master/Classes/MagicThought/**/*'
+#  end
   
   # s.resource_bundles = {
   #   'MagicThought-master' => ['MagicThought-master/Assets/*.png']
@@ -39,4 +44,12 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'MJRefresh'
+  s.dependency 'MJExtension'
+  s.dependency 'MBProgressHUD'
+  s.dependency 'YTKNetwork'
+  s.dependency 'SDWebImage'
+  s.dependency 'SAMKeychain'
+  
+  
 end

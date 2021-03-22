@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		58825FCBEF5BB446598A7126 /* Pods_MagicThought_master_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFB85C937FB72B3117DEF1A /* Pods_MagicThought_master_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -57,15 +56,12 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		646E10AAAEDA18E3834E7C18 /* Pods-MagicThought-master_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Tests.release.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Tests/Pods-MagicThought-master_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		6BFB85C937FB72B3117DEF1A /* Pods_MagicThought_master_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicThought_master_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C9B625E1944F671A30369A2 /* Pods_MagicThought_master_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicThought_master_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5D43DC92E0B423DD3386BA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88E40ADA72F4F0BAD4F92F6D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		91D0E618ED429153D27A61B1 /* Pods-MagicThought-master_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Example.release.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B533E5F874B1B49FE499531E /* Pods-MagicThought-master_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Tests.debug.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Tests/Pods-MagicThought-master_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC59A5BA389F6ACB73826AD5 /* Pods-MagicThought-master_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicThought-master_Example.debug.xcconfig"; path = "Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +84,6 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				58825FCBEF5BB446598A7126 /* Pods_MagicThought_master_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +119,6 @@
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				6C9B625E1944F671A30369A2 /* Pods_MagicThought_master_Example.framework */,
-				6BFB85C937FB72B3117DEF1A /* Pods_MagicThought_master_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -190,8 +184,6 @@
 			children = (
 				DC59A5BA389F6ACB73826AD5 /* Pods-MagicThought-master_Example.debug.xcconfig */,
 				91D0E618ED429153D27A61B1 /* Pods-MagicThought-master_Example.release.xcconfig */,
-				B533E5F874B1B49FE499531E /* Pods-MagicThought-master_Tests.debug.xcconfig */,
-				646E10AAAEDA18E3834E7C18 /* Pods-MagicThought-master_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -223,7 +215,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "MagicThought-master_Tests" */;
 			buildPhases = (
-				AE69FCC855738450445E8C73 /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
@@ -324,37 +315,29 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MagicThought-master/MagicThought_master.framework",
+				"${BUILT_PRODUCTS_DIR}/SAMKeychain/SAMKeychain.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YTKNetwork/YTKNetwork.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicThought_master.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAMKeychain.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YTKNetwork.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MagicThought-master_Example/Pods-MagicThought-master_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE69FCC855738450445E8C73 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MagicThought-master_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -523,7 +506,6 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B533E5F874B1B49FE499531E /* Pods-MagicThought-master_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -548,7 +530,6 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 646E10AAAEDA18E3834E7C18 /* Pods-MagicThought-master_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

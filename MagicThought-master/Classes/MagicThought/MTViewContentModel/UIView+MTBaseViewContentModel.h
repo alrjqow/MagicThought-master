@@ -15,11 +15,11 @@
 #define imageShowContent(...) setObjects(mt_imageShowContent(__VA_ARGS__))
 #define baseContentModel(...) setObjects(@[__VA_ARGS__].arrBind(@"baseContentModel"))
 
-#define defaultViewContent(...) viewContent(mt_beDefault(),##__VA_ARGS__)
-#define defaultCellContent(...) cellContent(mt_beDefault(),##__VA_ARGS__)
-#define defaultViewStateContent(...) viewStateContent(mt_beDefault(),##__VA_ARGS__)
-#define defaultViewVerifyContent(...) viewVerifyContent(mt_beDefault(),##__VA_ARGS__)
-#define defaultImageShowContent(...) imageShowContent(mt_beDefault(),##__VA_ARGS__)
+#define defaultViewContent(...) viewContent(mt_beDefault(),__VA_ARGS__)
+#define defaultCellContent(...) cellContent(mt_beDefault(),__VA_ARGS__)
+#define defaultViewStateContent(...) viewStateContent(mt_beDefault(),__VA_ARGS__)
+#define defaultViewVerifyContent(...) viewVerifyContent(mt_beDefault(),__VA_ARGS__)
+#define defaultImageShowContent(...) imageShowContent(mt_beDefault(),__VA_ARGS__)
 
 
 @class MTBaseViewContentModel;

@@ -12,19 +12,19 @@
 #define RegisterContentManager(manager) typedef manager __MTViewContentManager__;
 #define ResignContentManager [__MTViewContentManager__ clear];
 
-#define wishContent(arrayProperty, ...) setObjects(mt_contentByManager(arrayProperty,  ##__VA_ARGS__))
+#define wishContent(arrayProperty, ...) setObjects(mt_contentByManager(arrayProperty,  __VA_ARGS__))
 
-#define wishStateContent(arrayProperty, ...) setObjects( mt_stateContentByManager(arrayProperty, ##__VA_ARGS__))
+#define wishStateContent(arrayProperty, ...) setObjects( mt_stateContentByManager(arrayProperty, __VA_ARGS__))
 
-#define wishVerifyContent(arrayProperty, ...) setObjects( mt_verifyContentByManager(arrayProperty, ##__VA_ARGS__))
+#define wishVerifyContent(arrayProperty, ...) setObjects( mt_verifyContentByManager(arrayProperty, __VA_ARGS__))
 
 /*-----------------------------------华丽分割线-----------------------------------*/
 
-#define wishDefaultContent(arrayProperty, ...)  setObjects(mt_contentByManager(arrayProperty, mt_beDefault(), ##__VA_ARGS__))
+#define wishDefaultContent(arrayProperty, ...)  setObjects(mt_contentByManager(arrayProperty, mt_beDefault(), __VA_ARGS__))
 
-#define wishDefaultStateContent(arrayProperty, ...) setObjects( mt_stateContentByManager(arrayProperty, mt_beDefault(), ##__VA_ARGS__))
+#define wishDefaultStateContent(arrayProperty, ...) setObjects( mt_stateContentByManager(arrayProperty, mt_beDefault(), __VA_ARGS__))
 
-#define wishDefaultVerifyContent(arrayProperty, ...) setObjects( mt_verifyContentByManager(arrayProperty, mt_beDefault(), ##__VA_ARGS__))
+#define wishDefaultVerifyContent(arrayProperty, ...) setObjects( mt_verifyContentByManager(arrayProperty, mt_beDefault(), __VA_ARGS__))
 
 /*-----------------------------------华丽分割线-----------------------------------*/
 
@@ -35,7 +35,7 @@
 #define mt_verifyContentByManager(arrayProperty, ...) MTTextVerifyModel.new.setObjects([[__MTViewContentManager__ manager].arrayProperty extendWithArray:@[__VA_ARGS__]])
 
 
-#define mt_selectedContentByManager(arrayProperty, ...) mt_selected(mt_contentByManager(arrayProperty,  ##__VA_ARGS__))
+#define mt_selectedContentByManager(arrayProperty, ...) mt_selected(mt_contentByManager(arrayProperty,  __VA_ARGS__))
 
 
 #define createArray(property, ...) \

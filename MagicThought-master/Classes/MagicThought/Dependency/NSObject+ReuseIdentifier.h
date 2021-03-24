@@ -52,8 +52,8 @@ CG_EXTERN NSReuseObject* _Nonnull mt_empty(void);
 #define objects(...) setObjects(@[__VA_ARGS__])
 #define bindNotification(...) bindNotifications(@[__VA_ARGS__])
 
-#define mt_defaultContent(...) mt_content(mt_beDefault(),##__VA_ARGS__)
-#define mt_defaultStateContent(...) mt_stateContent(mt_beDefault(),##__VA_ARGS__)
+#define mt_defaultContent(...) mt_content(mt_beDefault(),__VA_ARGS__)
+#define mt_defaultStateContent(...) mt_stateContent(mt_beDefault(),__VA_ARGS__)
 
 #define mt_selectedContent(...) mt_selected(mt_content(__VA_ARGS__))
 #define mt_highlightedContent(...) mt_highlighted(mt_content(__VA_ARGS__))

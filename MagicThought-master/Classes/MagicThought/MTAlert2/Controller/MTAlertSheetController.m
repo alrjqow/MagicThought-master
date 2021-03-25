@@ -28,6 +28,7 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
 {
     [super setupDefault];
     
+    self.alertView = self.mtListView;
     self.mtListView.bounces = false;
     self.mtListView.contentInset = UIEdgeInsetsZero;
     self.mtListView.currentContradictIndex = self.currentIndex;
@@ -37,14 +38,9 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
 
 #pragma mark - 懒加载
 
--(UIView *)alertView
-{
-    return self.mtListView;
-}
-
 -(UIScrollView *)mtListView
 {
-    return self.mtBase_tableView;
+    return self.mtBase_collectionView;
 }
 
 -(BOOL)adjustListViewHeightByData

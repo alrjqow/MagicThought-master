@@ -34,6 +34,8 @@ CG_EXTERN NSString*  MTBaseAlertDismissOrder;
 
 @property (nonatomic,assign) CGFloat animateTime;
 
+-(void)setupAlertView;
+
 /**用来弹出*/
 -(void)alert;
 -(void)willAlert;

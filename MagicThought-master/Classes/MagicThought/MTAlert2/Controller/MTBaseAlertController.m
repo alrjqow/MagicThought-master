@@ -37,13 +37,14 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     self.blackView.backgroundColor = rgba(0, 0, 0, 0.3);
     self.blackView.alpha = self.type == MTBaseAlertTypeDefault || self.type == MTBaseAlertTypeDefault_NotBackgroundDismiss;
     
-    self.animateTime = 0.25;    
+    self.animateTime = 0.25;
 }
 
 -(void)setupSubview
 {
     [super setupSubview];
     
+    [self setupAlertView];
     [self.view insertSubview:self.blackView atIndex:0];
     
     if(self.alertView)
@@ -65,6 +66,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     }
 }
 
+-(void)setupAlertView{}
 
 #pragma mark - 弹出
 

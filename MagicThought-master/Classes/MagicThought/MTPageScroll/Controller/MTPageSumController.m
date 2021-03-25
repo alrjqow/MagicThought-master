@@ -140,8 +140,13 @@
 {
     [super viewDidLayoutSubviews];
         
-    self.mtListView.frame = self.view.bounds;
+    [self layoutScrollListView];
     [self loadData];
+}
+
+- (void)layoutScrollListView
+{
+    self.mtListView.frame = self.view.bounds;
 }
 
 -(void)loadData

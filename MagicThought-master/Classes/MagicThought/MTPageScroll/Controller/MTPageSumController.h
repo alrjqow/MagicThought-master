@@ -29,4 +29,6 @@
 @property (nonatomic,strong) MTPageScrollListView* pageScrollListView;
 @property (nonatomic,strong) MTPageScrollListViewX* pageScrollListViewX;
 
+- (void)layoutScrollListView;
+
 @end

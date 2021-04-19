@@ -646,7 +646,7 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray* list = [self getSectionDataListForSection:indexPath.section];
-    NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % list.count) inSection:indexPath.section]];
+    NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
         
     NSString* mt_reuseIdentifier = list.mt_reuseIdentifier ? list.mt_reuseIdentifier : data.mt_reuseIdentifier;
     
@@ -822,7 +822,7 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
     
     CGSize zeroSize = CGSizeMake(0.000001, 0.000001);
     NSArray* list = [self getSectionDataListForSection:indexPath.section];
-    NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % list.count) inSection:indexPath.section]];    
+    NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
     
     if(data.mt_automaticDimension)
         [self getAutomaticDimensionSizeWithData:data IndexPath:indexPath SuperView:collectionView];

@@ -17,8 +17,6 @@
 
 @interface MTNavigationController : UINavigationController<UINavigationControllerDelegate>
 
-@property (nonatomic,strong) NSString* order;
-
 /**返回按钮图片名*/
 @property (nonatomic,strong) NSString* leftBtnImageName;
 

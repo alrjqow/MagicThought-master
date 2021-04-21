@@ -32,6 +32,7 @@ TODO: Add long description of the pod here.
 
   s.resources = ['MagicThought-master/Classes/MagicThought/MTHud/MTHud.bundle']
   s.source_files = 'MagicThought-master/Classes/**/*'
+  s.xcconfig = {'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'}
   
 #  s.subspec 'MagicThought' do |ss|
 #  ss.source_files = 'MagicThought-master/Classes/MagicThought/**/*'

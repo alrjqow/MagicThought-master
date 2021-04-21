@@ -33,7 +33,23 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
     
+    [self setupTabBar];
+    
     [self setupChildController];
+}
+
+-(void)setupTabBar
+{
+    if(!self.tabBarName)
+        return;
+    
+    Class c = NSClassFromString(self.tabBarName);
+    if(![c isSubclassOfClass:[UITabBar class]])
+        return;
+    
+    UITabBar* tabBar = c.new;
+    [self setValue:tabBar forKey:@"tabBar"];    
+    [self.view layoutIfNeeded];
 }
 
 -(void)setupChildController
@@ -86,15 +102,5 @@
 }
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray{}
-
-#pragma mark - 懒加载
-
--(void)setTabBar_mt:(UITabBar *)tabBar_mt
-{
-    _tabBar_mt = tabBar_mt;
-    [self setValue:tabBar_mt forKey:@"tabBar"];
-    
-    [self.view layoutIfNeeded];
-}
 
 @end

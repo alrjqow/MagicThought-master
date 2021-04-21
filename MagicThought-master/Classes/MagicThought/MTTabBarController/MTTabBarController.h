@@ -11,7 +11,7 @@
 
 @interface MTTabBarController : UITabBarController<UITabBarControllerDelegate>
 
-@property (nonatomic,strong) UITabBar* tabBar_mt;
+@property (nonatomic,strong) NSString* tabBarName;
 
 @property (nonatomic,strong,readonly) NSArray<NSDictionary*>* tabBarItemArr;
 

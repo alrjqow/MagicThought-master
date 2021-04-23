@@ -179,7 +179,7 @@
 
 -(UIScrollView *)mtListView
 {
-    return self.mtBase_tableView;
+    return self.mtBase_collectionView;
 }
 
 -(MTDataSourceModel *)dataModel

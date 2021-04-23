@@ -7,6 +7,7 @@
 //
 
 #import "MTViewController.h"
+#import "UIView+MBHud.h"
 #import "MBProgressHUD.h"
 #import "MTCloud.h"
 #import "MJRefresh.h"
@@ -19,8 +20,13 @@
 
 @implementation MTViewController
 
-
 #pragma mark - 生命周期
+
+- (void)whenDealloc
+{
+    [super whenDealloc];
+    NSLog(@"%@销毁", NSStringFromClass(self.class));
+}
 
 -(instancetype)init
 {
@@ -36,7 +42,6 @@
     [super viewWillAppear:animated];
     
     self.isVisible = YES;
-    [self.view bringSubviewToFront:[MBProgressHUD HUDForView:self.view]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -86,6 +91,16 @@
     [super viewDidLayoutSubviews];
     
     _isViewDidLoad = YES;
+    
+    if(!self.navigationBarHidden)
+        [self.view bringSubviewToFront:self.navigationBar];
+    [self.view bringSubviewToFront:[MBProgressHUD HUDForView:self.view]];
+}
+
+/**缺省加载圈*/
+-(instancetype)showNoMsg
+{
+    return [self showMsg:nil];
 }
 
 #pragma mark - 重载方法
@@ -104,7 +119,15 @@
 /**初始化导航栏item*/
 -(void)setupNavigationItem{}
 
-- (void)setupSubview{}
+- (void)setupSubview{
+    
+    if(self.navigationBarHidden)
+        return;
+    self.title = self.title;
+    
+    if(![self isKindOfClass:NSClassFromString(@"MTAlertBigImageController")])
+        [self.view addSubview:self.navigationBar];
+}
 
 -(void)navigationBarRightBtnClick{}
 
@@ -146,14 +169,44 @@
 
 #pragma mark - 懒加载
 
--(NSDictionary *)endRefreshBlackList
+-(MTNavigationBar *)navigationBar
 {
-    if(!_endRefreshBlackList)
+    MTNavigationBar* _navigationBar = objc_getAssociatedObject(self, _cmd);
+    if(!_navigationBar)
     {
-        _endRefreshBlackList = @{};
+        Class c = NSClassFromString(self.navigationBarClassName);
+                
+        if(![c isSubclassOfClass:[MTNavigationBar class]])
+            return nil;
+                
+        _navigationBar = (MTNavigationBar*)c.new;
+        __weak __typeof(self) weakSelf = self;
+        _navigationBar.button.bindClick(^(NSString *order) {
+            [weakSelf goBack];
+        });
+        
+        _navigationBar.button2.bindClick(^(NSString *order) {
+            [weakSelf navigationBarRightBtnClick];
+        });
+        
+        objc_setAssociatedObject(self, _cmd, _navigationBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
-    return _endRefreshBlackList;
+    return _navigationBar;
 }
+
+-(NSString *)navigationBarClassName
+{
+    return @"MTNavigationBar";
+}
+
+-(void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+
+    self.navigationBar.textLabel.text = title;
+    [self.navigationBar.textLabel sizeToFit];
+}
+
 
 @end

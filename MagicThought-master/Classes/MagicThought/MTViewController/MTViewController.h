@@ -11,6 +11,7 @@
 
 #import "UIView+MBHud.h"
 #import "NSObject+CommonProtocol.h"
+#import "MTNavigationBar.h"
 
 @class MTBaseDataModel;
 @protocol MTDelegateProtocol;
@@ -20,7 +21,13 @@
 @property (nonatomic,copy) void (^block)(id object);
 @property (nonatomic,copy) void (^initBlock)(id object);
 
-@property (nonatomic,strong) NSString* order;
+/**缺省加载圈*/
+-(instancetype)showNoMsg;
+
+@property (nonatomic,strong, readonly) MTNavigationBar* navigationBar;
+@property (nonatomic,assign, readonly) BOOL navigationBarHidden;
+/**给定类名，生成对应导航栏，默认为 MTNavigationBar*/
+@property (nonatomic,strong, readonly) NSString* navigationBarClassName;
 
 /**是否加入 [MTCloud shareCloud].currentViewController */
 @property (nonatomic,assign) BOOL isNotCurrentController;
@@ -31,12 +38,6 @@
 /**判断视图的是否已加载*/
 @property (nonatomic,assign, readonly) BOOL isViewDidLoad;
 
-/**是否第一次请求成功*/
-@property (nonatomic,assign) BOOL isFirstRequestSuccess;
-
-/**结束刷新黑名单*/
-@property (nonatomic,strong) NSDictionary* endRefreshBlackList;
-
 /**想要pop到的Controller*/
 @property (nonatomic,weak) UIViewController* popToController;
 
@@ -45,7 +46,6 @@
 
 /**返回页面*/
 -(void)goBack;
-
 
 
 @end

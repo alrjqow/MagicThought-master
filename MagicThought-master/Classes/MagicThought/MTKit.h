@@ -22,6 +22,7 @@
 #import "MTDelegateMode.h"
 #import "MTNetwork.h"
 
+#import "MTNavigationBar.h"
 #import "MTTabBarController.h"
 #import "MTNavigationControllers.h"
 #import "MTListControllers.h"

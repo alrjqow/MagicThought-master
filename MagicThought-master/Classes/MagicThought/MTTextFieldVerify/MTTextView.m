@@ -70,10 +70,11 @@
         case MTTextFieldVerifyTypePassword:
         case MTTextFieldVerifyTypeNumberPassword:
         case MTTextFieldVerifyTypeCustom:
-            return (self.text.length + text.length) <= self.verifyModel.maxChar.integerValue;
+            if(self.verifyModel.maxChar)
+                return (self.text.length + text.length) <= self.verifyModel.maxChar.integerValue;
+            return YES;
             
-            
-            
+                        
         case MTTextFieldVerifyTypeMoney:
         {
             //如果输入的是“.”  判断之前已经有"."或者字符串为空

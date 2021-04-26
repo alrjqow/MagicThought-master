@@ -400,8 +400,8 @@
     return
        [self findBaseViewContentModel:baseViewContentModel Key:@"isNoMatchWordStyle" For:^BOOL(MTBaseViewContentModel *model) {
            BOOL isMatch = [baseViewContentModel valueForKey:@"isPlaceholder"] == [model valueForKey:@"isPlaceholder"];
-        
-           if(!baseViewContentModel.wordStyle.isMake && model.wordStyle.isMake && isMatch)
+                   
+           if(!baseViewContentModel.wordStyle.isMake && model.wordStyle.isMake && isMatch && !baseViewContentModel.textColor)
                baseViewContentModel.wordStyle = model.wordStyle;
            
            return isMatch && model.wordStyle.isMake;

@@ -80,7 +80,9 @@
         case MTTextFieldVerifyTypePassword:
         case MTTextFieldVerifyTypeNumberPassword:
         case MTTextFieldVerifyTypeCustom:
-            return (self.text.length + string.length) <= self.verifyModel.maxChar.integerValue;
+            if(self.verifyModel.maxChar)
+                return (self.text.length + string.length) <= self.verifyModel.maxChar.integerValue;
+            return YES;
             
         case MTTextFieldVerifyTypeMoney:
         {

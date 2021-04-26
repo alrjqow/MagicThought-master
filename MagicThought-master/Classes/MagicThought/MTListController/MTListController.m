@@ -18,8 +18,11 @@
 -(void)setupDefault
 {
     [super setupDefault];
-    
-    self.mtListView.frame = self.view.bounds;    
+        
+    if(self.navigationBarHidden)
+        self.mtListView.frame = self.view.bounds;
+    else
+        self.mtListView.frame = CGRectMake(0, self.navigationBar.maxY, self.view.width, self.view.height - self.navigationBar.height);
 }
 
 -(void)setupSubview

@@ -40,6 +40,7 @@
         [self.button2 sizeToFit];
     self.button2.center = CGPointMake(contentWidth - self.button2.halfWidth, self.navigationBarCenterY);
      
+    self.textLabel.hidden = false;
      [self.textLabel sizeToFit];
      CGFloat maxWidth = contentWidth - self.button.width - self.button2.width;
      if(self.textLabel.width > maxWidth)

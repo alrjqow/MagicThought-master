@@ -7,9 +7,12 @@
 //
 
 #import "UIView+Delegate.h"
+#import "UIView+Dependency.h"
 
 extern NSString*  MTCountButtonDidFinishedCountDownOrder;
-@interface MTCountButton : UIButton
+@interface MTCountButton : MTButton
+
+@property (nonatomic,assign) BOOL  isShowZero;
 
 -(void)stop;
 

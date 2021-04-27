@@ -26,6 +26,13 @@ NSString*  MTCountButtonDidFinishedCountDownOrder = @"MTCountButtonDidFinishedCo
 
 @implementation MTCountButton
 
+-(void)whenDealloc
+{
+    [super whenDealloc];
+    
+    NSLog(@"%@销毁", NSStringFromClass(MTCountButton.class));
+}
+
 -(void)startCountWithTitle:(NSString*)title Time:(NSInteger)time
 {
     [self startCountWithTitle:title Time:time CountDownTitle:nil];
@@ -36,7 +43,7 @@ NSString*  MTCountButtonDidFinishedCountDownOrder = @"MTCountButtonDidFinishedCo
     self.countDownTitle = countDownTitle;
     
     //使用_mt_来替代秒数
-    [self setTitle:[title stringByReplacingOccurrencesOfString:@"_mt_" withString: (time < 1) ? @"" : [NSString stringWithFormat:@"%zd",time]]  forState:UIControlStateNormal];
+    [self setTitle:[title stringByReplacingOccurrencesOfString:@"_mt_" withString: (!self.isShowZero && time < 1) ? @"" : [NSString stringWithFormat:@"%zd",time]]  forState:UIControlStateNormal];
     self.title = title;
     self.time = time;
     
@@ -57,14 +64,14 @@ NSString*  MTCountButtonDidFinishedCountDownOrder = @"MTCountButtonDidFinishedCo
         
         
         if(self.mt_click)
-            self.mt_click(@"");
+            self.mt_click(MTCountButtonDidFinishedCountDownOrder);
         else if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
            [self.mt_delegate doSomeThingForMe:self withOrder:MTCountButtonDidFinishedCountDownOrder];
         return;
     }
     
     self.time--;
-    [self setTitle:[self.title stringByReplacingOccurrencesOfString:@"_mt_" withString:(self.time < 1) ? @"" : [NSString stringWithFormat:@"%zd",self.time]] forState:UIControlStateNormal];
+    [self setTitle:[self.title stringByReplacingOccurrencesOfString:@"_mt_" withString:(!self.isShowZero && self.time < 1) ? @"" : [NSString stringWithFormat:@"%zd",self.time]] forState:UIControlStateNormal];
 }
 
 

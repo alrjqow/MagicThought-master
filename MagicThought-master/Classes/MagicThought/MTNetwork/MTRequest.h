@@ -42,6 +42,8 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 
 @property (nonatomic, copy, readonly) NSString *responeMessage;
 
+-(void)convertComplete:(MTRequest*)request;
+
 @end
 
 @interface MTRequest : YTKRequest

@@ -142,6 +142,8 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 else
                     self.responseJSONModel = [self.cls mj_objectWithKeyValues:responseModel.keyData] ;
             }
+            
+            [responseModel convertComplete:self];
         }
     } else if ([self.responseJSONObject isKindOfClass:[NSArray class]] && self.cls)
         self.responseJSONModel = [self.cls mj_objectArrayWithKeyValuesArray:self.responseJSONObject];
@@ -189,7 +191,11 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
 
 @end
 
-@implementation MTResponseModel @end
+@implementation MTResponseModel
+
+-(void)convertComplete:(MTRequest*)request{}
+
+@end
 
 NSObject* _Nonnull cls_mtRequest(Class cls)
 {return mt_reuse(cls).bindKey(@"cls");}

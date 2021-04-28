@@ -197,8 +197,8 @@
     else if([imageName isKindOfClass:[NSString class]])
     {
         if(self.mt_hudStyle == MBHudStyleBlack)
-            imageName = [(NSString*)imageName stringByAppendingString:@"_black"];
-        image = [[UIImage imageNamed:(NSString*)imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            imageName = [(NSString*)imageName stringByAppendingString:@"_black"];        
+        image = [[self imageInBundle:(NSString*)imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     
     hud.customView = [[UIImageView alloc] initWithImage:image];
@@ -210,6 +210,21 @@
 //    self.mt_hudStyle = style;
 }
 
+- (UIImage *)imageInBundle:(NSString *)name {
+
+    UIImage *image = nil;
+
+    NSString *image_name = [NSString stringWithFormat:@"%@.png", name];
+
+    NSString *resourcePath = [[NSBundle bundleForClass:NSClassFromString(@"MTIndicatorView")] resourcePath];
+    
+    NSString *image_path = [resourcePath stringByAppendingPathComponent:image_name];
+
+    image = [[UIImage alloc] initWithContentsOfFile:image_path];
+
+    return image;
+
+}
 
 @end
 

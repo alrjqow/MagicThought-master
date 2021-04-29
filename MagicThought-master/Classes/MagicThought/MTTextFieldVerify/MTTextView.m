@@ -49,7 +49,7 @@
     
     self.placeholderLabel.width = self.width - 1;
     [self.placeholderLabel sizeToFit];
-    self.placeholderLabel.x = self.textContainerInset.left + self.font.pointSize * 0.5;
+    self.placeholderLabel.x = self.textContainerInset.left;// + self.font.pointSize * 0.5;
     self.placeholderLabel.y = self.textContainerInset.top;
 }
 

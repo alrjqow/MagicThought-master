@@ -35,6 +35,20 @@
     
     [self setupTabBar];
     
+    if(self.selectedColor)
+        self.tabBar.tintColor = self.selectedColor;
+
+    if(self.normalColor)
+        if (@available(iOS 10.0, *)) {
+            self.tabBar.unselectedItemTintColor = self.normalColor;
+        } else {
+            [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:self.normalColor} forState:UIControlStateNormal];
+        }
+
+    if(self.tabBarFont)
+        [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName:self.tabBarFont} forState:UIControlStateNormal];
+
+    
     [self setupChildController];
 }
 
@@ -48,8 +62,8 @@
         return;
     
     UITabBar* tabBar = c.new;
-    [self setValue:tabBar forKey:@"tabBar"];    
-    [self.view layoutIfNeeded];
+    [self setValue:tabBar forKey:@"tabBar"];
+//    [self.view layoutIfNeeded];
 }
 
 -(void)setupChildController

@@ -43,5 +43,9 @@
     [self.controller loadData];
 }
 
+-(MTViewController *)showNoMsgController
+{
+    return [self.controller showNoMsg];
+}
 
 @end

@@ -67,7 +67,8 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 
 @property (nonatomic, strong) id responseJSONModel;
 
-
+/*发起者*/
+@property (nonatomic,weak) id promoterObject;
 @property (nonatomic,copy, readonly) MTSetRequestCallbackHandler setHandle;
 @property (nonatomic,copy, readonly) MTStartRequestCallbackHandler startHandle;
 

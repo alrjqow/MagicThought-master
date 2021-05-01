@@ -169,6 +169,7 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
     MTSetRequestCallbackHandler setHandle  = ^(MTRequestCallbackHandler* handler){
         __strong typeof(self) strongSelf = weakSelf;//第一层
         weakSelf.callBackHandler = handler;
+        weakSelf.promoterObject = handler.object;
         
         __weak typeof(self) weakSelf2 = strongSelf;
         [strongSelf setCompletionBlockWithSuccess:^(__kindof MTRequest * _Nonnull request) {

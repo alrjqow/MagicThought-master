@@ -13,6 +13,12 @@
 
 @property (nonatomic,strong) NSString* tabBarName;
 
+@property (nonatomic,strong) UIColor* normalColor;
+
+@property (nonatomic,strong) UIColor* selectedColor;
+
+@property (nonatomic,strong) UIFont* tabBarFont;
+
 @property (nonatomic,strong,readonly) NSArray<NSDictionary*>* tabBarItemArr;
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray;

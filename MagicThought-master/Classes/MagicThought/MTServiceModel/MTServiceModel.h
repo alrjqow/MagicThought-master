@@ -10,6 +10,8 @@
 
 @interface MTServiceModel : NSObject
 
+@property (nonatomic,weak, readonly) MTViewController* showNoMsgController;
+
 @property (nonatomic,weak, readonly) MTViewController* controller;
 
 @property (nonatomic,weak, readonly) MTBaseListController* listController;

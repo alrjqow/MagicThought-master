@@ -22,7 +22,7 @@ CG_EXTERN NSString*  MTBaseAlertDismissOrder;
 
 @interface MTBaseAlertBlackView : UIView @end
 
-@interface MTBaseAlertController : MTListController<UITableViewDelegate>
+@interface MTBaseAlertController : MTListController<UITableViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,assign) MTBaseAlertType type;
 

@@ -28,6 +28,14 @@ NSString*  MTAlertGetPhotoWayLibraryOrder = @"MTAlertGetPhotoWayLibraryOrder_MTB
         [self.takePhotoModel takePhotoFromPhotoLibrary];
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([indexPath.mt_order containsString:@"MTAlertGetPhotoWayCameraOrder"])
+        [self.takePhotoModel takePhotoFromCamera];
+    else if([indexPath.mt_order containsString:@"MTAlertGetPhotoWayLibraryOrder"])
+        [self.takePhotoModel takePhotoFromPhotoLibrary];
+}
+
 #pragma mark - 懒加载
 
 -(MTTakePhotoModel *)takePhotoModel

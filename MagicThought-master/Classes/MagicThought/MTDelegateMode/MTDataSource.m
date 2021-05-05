@@ -867,10 +867,10 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
     
     NSObject* data = [self getDataForIndexPath:indexPath];
     UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-    indexPath.bindOrder([data.mt_order isExist] ? data.mt_order : ([data.mt_reuseIdentifier isExist] ? data.mt_reuseIdentifier : NSStringFromClass(cell.class)));    
+    indexPath.bindOrder([data.mt_order isExist] ? data.mt_order : ([data.mt_reuseIdentifier isExist] ? data.mt_reuseIdentifier : NSStringFromClass(cell.class)));
     [cell clickWithClearData:indexPath.bindClick(data.mt_click)];
     if([self.delegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)])
-        [self.delegate collectionView:collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath];
+        [self.delegate collectionView:collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath.bindOrder([data.mt_order isExist] ? data.mt_order : data.mt_reuseIdentifier)];
 }
 
 

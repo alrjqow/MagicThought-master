@@ -112,6 +112,8 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     return mt_rootViewController();
 }
 
+-(BOOL)navigationBarHidden{return YES;}
+
 #pragma mark - 点击
 
 #pragma mark - 消失

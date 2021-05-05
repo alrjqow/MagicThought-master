@@ -76,7 +76,7 @@
 
 -(void)adjustListViewHeightWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList EmptyData:(NSObject*)emptyData
 {
-    if(self.mtListView != _mtBase_tableView)
+    if(self.mtListView != _mtBase_tableView && self.mtListView != _mtBase_collectionView)
         return;
     
     CGFloat height = 0;
@@ -126,9 +126,10 @@
         }
     }
     
-    height += (self.mtBase_tableView.contentInset.top + self.mtBase_tableView.contentInset.bottom);
-    height += (self.mtBase_tableView.tableHeaderView.height + self.mtBase_tableView.tableFooterView.height);
-    self.mtBase_tableView.height = height;
+    height += (self.mtListView.contentInset.top + self.mtListView.contentInset.bottom);
+    if(self.mtListView == self.mtBase_tableView)
+        height += (self.mtBase_tableView.tableHeaderView.height + self.mtBase_tableView.tableFooterView.height);
+    self.mtListView.height = height;
 }
 
 #pragma mark - 重载方法

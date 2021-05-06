@@ -24,6 +24,7 @@
     [super viewDidLoad];
     
     [self setupDefault];
+    [self startRequest];
 }
 
 -(void)setupDefault

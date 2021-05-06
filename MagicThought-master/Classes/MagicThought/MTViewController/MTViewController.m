@@ -144,7 +144,7 @@
 
 -(void)goBack
 {
-    if (self.presentingViewController)
+    if (self.presentingViewController && !self.navigationController)
         [self dismissViewControllerAnimated:YES completion:nil];
     else if (self.navigationController.presentingViewController && self.navigationController.viewControllers.count == 1)
         [self dismissViewControllerAnimated:YES completion:nil];

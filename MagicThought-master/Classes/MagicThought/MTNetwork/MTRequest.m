@@ -215,7 +215,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 
 
 
-@implementation MTViewController (EndRefresh)
+@implementation UIViewController (EndRefresh)
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{}
 

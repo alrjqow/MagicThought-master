@@ -88,7 +88,7 @@ CG_EXTERN NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializer
 
 typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerCallback)(MTEndRefreshStatusCallback);
 
-@interface MTViewController (EndRefresh)<MTEndRefreshStatusProtocol>
+@interface UIViewController (EndRefresh)<MTEndRefreshStatusProtocol>
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBack;
 

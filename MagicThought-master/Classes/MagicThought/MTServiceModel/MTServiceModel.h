@@ -10,7 +10,9 @@
 
 @interface MTServiceModel : NSObject
 
-@property (nonatomic,weak, readonly) MTViewController* showNoMsgController;
+@property (nonatomic,weak, readonly) UIViewController* viewController;
+
+@property (nonatomic,weak, readonly) UIViewController* showNoMsgController;
 
 @property (nonatomic,weak, readonly) MTViewController* controller;
 

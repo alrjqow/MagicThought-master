@@ -13,6 +13,9 @@
 {
     [super setWithObject:obj];
     
+    if([obj isKindOfClass:[UIViewController class]])
+        _viewController = (UIViewController*)obj;
+    
     if([obj isKindOfClass:[MTViewController class]])
         _controller = (MTViewController*)obj;
     
@@ -43,9 +46,9 @@
     [self.controller loadData];
 }
 
--(MTViewController *)showNoMsgController
+-(UIViewController *)showNoMsgController
 {
-    return [self.controller showNoMsg];
+    return [self.viewController showMsg:nil];
 }
 
 @end

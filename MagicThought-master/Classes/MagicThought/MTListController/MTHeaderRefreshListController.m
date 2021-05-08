@@ -24,6 +24,11 @@
         self.mtListView.mj_header = self.mj_header;
 }
 
+-(void)startRequest
+{
+    [self.mtListView.mj_header endRefreshing];
+}
+
 -(MTBlock)mj_Block
 {
     if(!_mj_Block)
@@ -31,7 +36,7 @@
         __weak __typeof(self) weakSelf = self;
         _mj_Block = ^{
             
-            [weakSelf.mtListView.mj_header endRefreshing];
+            [weakSelf startRequest];
         };
     }
     

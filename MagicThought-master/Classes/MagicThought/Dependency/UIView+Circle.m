@@ -20,11 +20,11 @@
     // 绘制线的宽度
     CGContextSetLineWidth(context, 1.0);
     // 线的颜色
-    CGContextSetStrokeColorWithColor(context, hex(0x666666).CGColor);
+    CGContextSetStrokeColorWithColor(context, (self.lineColor ? self.lineColor : hex(0x666666)).CGColor);
     // 开始绘制
     CGContextBeginPath(context);
     // 设置虚线绘制起点
-    CGContextMoveToPoint(context, 0, 0);
+    CGContextMoveToPoint(context, 0, CGRectGetMidY(rect));
     // lengths的值｛10,10｝表示先绘制10个点，再跳过10个点，如此反复
     
     if(!self.lineWidth)
@@ -36,7 +36,8 @@
     // 虚线的起始点
     CGContextSetLineDash(context, 0, lengths,2);
     // 绘制虚线的终点
-    CGContextAddLineToPoint(context, CGRectGetMaxX(rect),0.0);
+    
+    CGContextAddLineToPoint(context, CGRectGetMaxX(rect),CGRectGetMidY(rect));
     // 绘制
     CGContextStrokePath(context);
     // 关闭图像

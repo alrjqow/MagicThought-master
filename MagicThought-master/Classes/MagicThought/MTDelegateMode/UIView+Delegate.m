@@ -180,6 +180,7 @@
 {
     objc_setAssociatedObject(self, @selector(dataSourceModel), dataSourceModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
+    if(dataSourceModel.dataList || dataSourceModel.sectionList || dataSourceModel.emptyData)
     [self reloadDataWithDataList:dataSourceModel.dataList SectionList:dataSourceModel.sectionList EmptyData:dataSourceModel.emptyData];
 }
 

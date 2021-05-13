@@ -65,8 +65,8 @@
     if(self.isScrollLimit && self.collectionView.tag >= self.dataCount)
         self.collectionView.tag = 0;
         
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] animated:YES];
+        
     _currentPage = self.collectionView.tag % self.dataCount;
 }
 
@@ -78,6 +78,13 @@
 
 #pragma mark - 滚动完重置位置
 
+- (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath  animated:(BOOL)animated
+{    
+//    [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
+    
+    [self.collectionView setContentOffset:CGPointMake(indexPath.row * self.collectionView.width, 0) animated:animated];
+}
+
 -(void)resetPosition
 {
     if(self.isScrollLimit)
@@ -85,7 +92,7 @@
     
     NSInteger row = self.dataCount > 1 ? self.dataCount * self.dataTimes * 0.5 + self.currentPage : 0;
     self.collectionView.tag = row;
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:false];
 }
 
 #pragma mark - collectionView数据源
@@ -140,19 +147,19 @@
 
 -(void)doSomeThingForMe:(id)obj withOrder:(NSString *)order
 {
-    if(self.collectionView.tag >= self.dataCount)
-        return;
+//    if(self.collectionView.tag >= self.dataCount)
+//        return;
     if([order isEqualToString:@"MTDataSourceReloadDataAfterOrder"])
     {
-           self.tag = 1;           
-           [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+           self.tag = 1;
+        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] animated:false];
            [self setupTimer];
     }
     else if([order isEqualToString:@"layoutSubviews"])
     {
         if(self.tag)
         {
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+            [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] animated:false];
             self.tag = 0;
         }
     }

@@ -200,6 +200,7 @@
 
 -(void)whenDealloc
 {
+    NSLog(@"%@销毁", NSStringFromClass(self.class));
     if(self.scriptDelegate)
         [[MTCloud shareCloud] removeObjectForKey:self.scriptDelegate];
     [[self.webView configuration].userContentController removeScriptMessageHandlerForName:@"iOSHandler"];
@@ -315,7 +316,8 @@
 {
     if(!self.url.length || self.isWait) return;
     
-    [self.view showMsg:@"正在加载..."];
+    if(self.isViewDidLoad)
+        [self.view showMsg:@"正在加载..."];
     [self.webView loadRequest:[self loadSpecialRequest]];
 }
 

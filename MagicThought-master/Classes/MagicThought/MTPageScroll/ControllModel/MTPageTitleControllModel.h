@@ -45,6 +45,7 @@ typedef enum : NSInteger {
 @property (nonatomic,assign) CGFloat cellWidth;
 
 @property (nonatomic,strong) UIColor* bottomLineColor;
+@property (nonatomic,strong) UIImage* bottomLineImage;
 
 /**标题高度*/
 @property (nonatomic,assign) CGFloat titleViewHeight;

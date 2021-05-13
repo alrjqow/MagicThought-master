@@ -40,8 +40,6 @@
 @property (nonatomic,assign) BOOL isUnknownCell;
 @property (nonatomic,assign) BOOL isPageScrollHorizontalViewDragging;
 
-/**pageScrollView固定的偏移值*/
-@property (nonatomic,assign, readonly) NSInteger pageScrollViewMaxOffsetY;
 @property (nonatomic,assign, readonly) NSInteger pageScrollViewMaxOffsetYWithoutTitleHeight;
 
 /**水平与垂直滚动控制*/
@@ -192,7 +190,10 @@
 -(void)reloadPageTitleView
 {
     self.pageTitleView.backgroundColor = self.titleControllModel.titleViewBgColor;
-    self.pageTitleView.bottomLine.backgroundColor = self.titleControllModel.bottomLineColor;
+    if(self.titleControllModel.bottomLineImage)
+        self.pageTitleView.bottomLine.image = self.titleControllModel.bottomLineImage;
+    else
+        self.pageTitleView.bottomLine.backgroundColor = self.titleControllModel.bottomLineColor;
          
     self.pageTitleView.bottomLine.width = self.titleControllModel.isEqualBottomLineWidth ? self.titleControllModel.bottomLineWidth :  [self.selectedCellWidthList[self.currentIndex] floatValue];
     self.pageTitleView.bottomLine.centerX = [self.cellCenterXList[self.currentIndex] floatValue];

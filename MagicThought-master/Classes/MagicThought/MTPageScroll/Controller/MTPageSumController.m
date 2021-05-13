@@ -8,6 +8,7 @@
 
 #import "MTPageSumController.h"
 #import "MTCloud.h"
+#import "MTPageControllModel.h"
 
 @interface MTPageSumController ()
 
@@ -79,8 +80,9 @@
 {
     if(!_pageControllModel)
     {
-        Class c = NSClassFromString(self.pageControllModelClassName); 
-        _pageControllModel = [c isSubclassOfClass:[MTPageControllModel class]] ? c.new : MTPageControllModel.new;
+        Class c = NSClassFromString(self.pageControllModelClassName);
+        
+        _pageControllModel = [c isSubclassOfClass:[MTPageControllModel class]] ? [c.new setWithObject:self] : MTPageControllModel.new(self);
         _pageControllModel.delegate = self;
     }
     
@@ -148,6 +150,8 @@
 {
     self.mtListView.frame = self.view.bounds;
 }
+
+-(BOOL)navigationBarHidden{return YES;}
 
 -(void)loadData
 {

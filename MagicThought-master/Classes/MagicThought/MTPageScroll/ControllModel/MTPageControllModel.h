@@ -10,6 +10,7 @@
 
 #import "MTPageTitleControllModel.h"
 #import "MTDelegateProtocol.h"
+#import "MTServiceModel.h"
 
 typedef enum : NSInteger {
     
@@ -29,7 +30,8 @@ typedef enum : NSInteger {
 @end
 
 @class MTPageScrollListController;
-@interface MTPageControllModel : NSObject
+
+@interface MTPageControllModel : MTServiceModel
 
 @property (nonatomic,assign) MTPageControllModelScrollType scrollType;
 
@@ -43,6 +45,9 @@ typedef enum : NSInteger {
 
 /**contentView固定的偏移值*/
 @property (nonatomic,assign) CGFloat contentViewFixOffset;
+
+/**pageScrollView固定的偏移值*/
+@property (nonatomic,assign, readonly) NSInteger pageScrollViewMaxOffsetY;
 
 @property (nonatomic,assign) NSInteger beginPage;
 

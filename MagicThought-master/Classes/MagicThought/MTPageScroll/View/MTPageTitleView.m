@@ -51,11 +51,11 @@
     return layout;
 }
 
--(UIView *)bottomLine
+-(UIImageView *)bottomLine
 {
     if(!_bottomLine)
     {
-        _bottomLine = [UIView new];
+        _bottomLine = [UIImageView new];
         _bottomLine.height = 2;
     }
     

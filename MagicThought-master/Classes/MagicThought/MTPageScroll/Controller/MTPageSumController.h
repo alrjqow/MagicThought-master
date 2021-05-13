@@ -7,9 +7,10 @@
 //
 
 #import "MTHeaderFooterRefreshListController.h"
-#import "MTPageControllModel.h"
 #import "MTPageScrollView.h"
 
+@class MTPageControllModel;
+@protocol MTPageControllModelDelegate;
 
 @interface MTPageSumController : MTHeaderRefreshListController<MTPageControllModelDelegate>
 

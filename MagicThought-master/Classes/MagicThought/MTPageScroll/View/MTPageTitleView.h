@@ -14,7 +14,7 @@
 
 @property (nonatomic,weak) MTPageControllModel* pageControllModel;
 
-@property (nonatomic,strong) UIView* bottomLine;
+@property (nonatomic,strong) UIImageView* bottomLine;
 
 @end
 

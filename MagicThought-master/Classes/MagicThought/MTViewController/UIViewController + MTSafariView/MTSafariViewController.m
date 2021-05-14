@@ -114,7 +114,8 @@
         config.userContentController = [self safariViewUserContentController];
                 
         CGFloat topInset = [self valueForKey:@"navigationBarAlpha"] ? kNavigationBarHeight_mt() : 0;
-        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), mt_ScreenH() - topInset) configuration:config];
+        
+        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), self.isAutoHeight ? 1 : (mt_ScreenH() - topInset)) configuration:config];        
         
         _webView.multipleTouchEnabled=YES;
         _webView.scrollView.showsVerticalScrollIndicator = false;

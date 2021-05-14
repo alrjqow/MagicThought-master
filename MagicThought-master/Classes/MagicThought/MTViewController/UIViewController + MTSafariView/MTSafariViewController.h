@@ -12,6 +12,8 @@
 @class MTSafariView;
 @interface MTSafariViewController : MTViewController<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
+@property (nonatomic,assign) BOOL isAutoHeight;
+
 @property (nonatomic,weak) MTViewController* scriptDelegate;
 
 @property (strong, nonatomic)  MTSafariView *webView;

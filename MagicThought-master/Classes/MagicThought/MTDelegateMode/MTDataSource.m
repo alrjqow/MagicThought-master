@@ -441,15 +441,15 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
             cell = [[c alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    if(![tableView.cellStateArray.mt_order containsString:MTCellKeepStateOrder])
-    {
-         if(tableView.cellStateArray.count > indexPath.section)
-        {
-            NSMutableArray* arr = tableView.cellStateArray[indexPath.section];
-            if(arr.count > indexPath.row)
-                arr[indexPath.row] = @(kDeselected);
-        }
-    }
+//    if(![tableView.cellStateArray.mt_order containsString:MTCellKeepStateOrder])
+//    {
+//         if(tableView.cellStateArray.count > indexPath.section)
+//        {
+//            NSMutableArray* arr = tableView.cellStateArray[indexPath.section];
+//            if(arr.count > indexPath.row)
+//                arr[indexPath.row] = @(kDeselected);
+//        }
+//    }
                 
     indexPath.mt_order = nil;
     cell.indexPath = indexPath;

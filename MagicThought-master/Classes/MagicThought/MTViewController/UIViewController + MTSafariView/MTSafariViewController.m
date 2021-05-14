@@ -186,21 +186,18 @@
     });
 }
 
--(void)dealloc
+-(void)whenDealloc
 {
+    [super whenDealloc];
+    
     self.webView.scrollView.delegate = nil;
     
     if(self.isShowProgressBar)
        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     
     [self deleteWebCache];
-    [self whenDealloc];
     NSLog(@"webView死亡");
-}
-
--(void)whenDealloc
-{
-    NSLog(@"%@销毁", NSStringFromClass(self.class));
+    
     if(self.scriptDelegate)
         [[MTCloud shareCloud] removeObjectForKey:self.scriptDelegate];
     [[self.webView configuration].userContentController removeScriptMessageHandlerForName:@"iOSHandler"];

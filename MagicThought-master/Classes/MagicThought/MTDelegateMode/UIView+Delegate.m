@@ -95,8 +95,8 @@
     if(![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])
         return;
     
-    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
-        self.cellStateArray.mt_order = nil;    
+//    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
+//        self.cellStateArray.mt_order = nil;
     
     NSString* key = [self isKindOfClass:[UITableView class]] ? @"tableView" : @"collectionView";
     
@@ -137,13 +137,13 @@
     if(![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])
         return;
     
-    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
-    {
-        if(self.cellStateArray.mt_order.mt_tag != kNew)
-            self.cellStateArray.mt_order = nil;
-        else
-            self.cellStateArray.mt_order.bindEnum(kOld);
-    }
+//    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
+//    {
+//        if(self.cellStateArray.mt_order.mt_tag != kNew)
+//            self.cellStateArray.mt_order = nil;
+//        else
+//            self.cellStateArray.mt_order.bindEnum(kOld);
+//    }
     
     self.mt_dataSource.emptyData = emptyData;
     self.mt_dataSource.dataList = dataList;

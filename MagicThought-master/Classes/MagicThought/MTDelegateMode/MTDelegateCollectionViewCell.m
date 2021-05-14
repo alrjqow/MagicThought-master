@@ -35,4 +35,14 @@
     [self insertSubview:self.contentView atIndex:0];    
 }
 
+-(NSIndexPath *)indexPath
+{
+    if(!_indexPath)
+    {
+        _indexPath = NSIndexPath.new;
+    }
+    
+    return _indexPath;
+}
+
 @end

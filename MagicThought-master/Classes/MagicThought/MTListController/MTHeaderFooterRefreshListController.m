@@ -37,6 +37,12 @@
         };
 }
 
+-(void)startRequest
+{
+    [self.mtListView.mj_header endRefreshing];
+    [self.mtListView.mj_footer endRefreshing];
+}
+
 #pragma mark - 重载方法
 
 
@@ -205,7 +211,8 @@
         __weak __typeof(self) weakSelf = self;
         _mj_footer_Block = ^{
             
-            [weakSelf.mtListView.mj_footer endRefreshing];
+            [weakSelf startRequest];
+            
         };
     }
     

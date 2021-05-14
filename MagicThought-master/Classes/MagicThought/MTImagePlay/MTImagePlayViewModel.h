@@ -10,8 +10,7 @@
 
 @interface MTImagePlayViewModel : NSObject<MTViewModelProtocol>
 
-/**当前索引*/
-@property (nonatomic,assign, readonly) NSInteger currentPage;
+@property (nonatomic,copy) void (^pageChange)(NSInteger currentPage);
 
 @end
 

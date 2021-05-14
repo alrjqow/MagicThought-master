@@ -17,7 +17,8 @@
 
 @property (nonatomic,assign) NSInteger tag;
 
-
+/**当前索引*/
+@property (nonatomic,assign) NSInteger currentPage;
 
 /**数量与倍数*/
 @property(nonatomic,assign) NSInteger dataCount;
@@ -67,7 +68,7 @@
         
     [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.collectionView.tag inSection:0] animated:YES];
         
-    _currentPage = self.collectionView.tag % self.dataCount;
+    self.currentPage = self.collectionView.tag % self.dataCount;
 }
 
 -(void)stopTimer
@@ -121,7 +122,7 @@
     {
         CGFloat indexFloat = scrollView.offsetX / scrollView.width;
         NSInteger index = indexFloat;
-        _currentPage = (index + ((indexFloat - index) > 0.5 ? 1 : 0)) % self.dataCount;
+        self.currentPage = (index + ((indexFloat - index) > 0.5 ? 1 : 0)) % self.dataCount;
         
         [self resetPosition];
         [self setupTimer];
@@ -132,7 +133,7 @@
 {
     CGFloat indexFloat = scrollView.offsetX / scrollView.width;
     NSInteger index = indexFloat;
-    _currentPage = (index + ((indexFloat - index) > 0.5 ? 1 : 0)) % (self.dataCount > 0 ? self.dataCount : 1);
+    self.currentPage = (index + ((indexFloat - index) > 0.5 ? 1 : 0)) % (self.dataCount > 0 ? self.dataCount : 1);
     
     [self resetPosition];
     [self setupTimer];
@@ -187,6 +188,14 @@
 }
 
 #pragma mark - 其他
+
+-(void)setCurrentPage:(NSInteger)currentPage
+{
+    _currentPage = currentPage;
+    
+    if(self.pageChange)
+        self.pageChange(currentPage);
+}
 
 -(void)dealloc
 {

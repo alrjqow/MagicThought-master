@@ -46,5 +46,15 @@
     }
 }
 
+-(NSIndexPath *)indexPath
+{
+    if(!_indexPath)
+    {
+        _indexPath = NSIndexPath.new;
+    }
+    
+    return _indexPath;
+}
+
 @end
 

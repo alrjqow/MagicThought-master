@@ -23,6 +23,8 @@ typedef enum : NSUInteger {
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString*)message;
 
+-(void)afterSetEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString*)message;
+
 @end
 
 @interface MTRequestCallbackHandler : NSObject @end

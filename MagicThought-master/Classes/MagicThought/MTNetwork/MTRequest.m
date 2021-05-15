@@ -171,6 +171,10 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
         weakSelf.callBackHandler = handler;
         weakSelf.promoterObject = handler.object;
         
+        if([weakSelf.requestUrl containsString:@"api/home/v1/upload/a-li-yun-policy"])
+            NSLog(@"=== %p ==== %p", weakSelf.promoterObject, weakSelf);
+        
+        
         __weak typeof(self) weakSelf2 = strongSelf;
         [strongSelf setCompletionBlockWithSuccess:^(__kindof MTRequest * _Nonnull request) {
             __strong typeof(self) strongSelf2 = weakSelf2;//第二层
@@ -218,6 +222,8 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 @implementation UIViewController (EndRefresh)
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{}
+
+-(void)afterSetEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{}
 
 -(MTCreateRequestCallbackHandlerCallback)callBack
 {
@@ -288,6 +294,8 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
             break;
         }
     }
+    
+    [self afterSetEndRefreshStatus:endRefreshStatus Message:message];
 }
 
 @end

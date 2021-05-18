@@ -100,6 +100,8 @@
 
 /**扩展内容*/
 @property (nonatomic,strong) NSObject* mtExternContent;
+/**扩展内容*/
+@property (nonatomic,weak) NSObject* mtWeakExternContent;
 
 -(CGFloat)setUpEstimateHeight;
 

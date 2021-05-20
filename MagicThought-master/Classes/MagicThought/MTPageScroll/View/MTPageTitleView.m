@@ -33,12 +33,12 @@
      [self addTarget:self EmptyData:nil DataList:nil SectionList:nil];
 }
 
--(void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    self.bottomLine.maxY = self.height;
-}
+//-(void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//
+//    self.bottomLine.maxY = self.height;
+//}
 
 
 #pragma mark - 懒加载

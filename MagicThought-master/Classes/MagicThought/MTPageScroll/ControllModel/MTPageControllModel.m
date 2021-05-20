@@ -196,6 +196,11 @@
         self.pageTitleView.bottomLine.backgroundColor = self.titleControllModel.bottomLineColor;
          
     self.pageTitleView.bottomLine.width = self.titleControllModel.isEqualBottomLineWidth ? self.titleControllModel.bottomLineWidth :  [self.selectedCellWidthList[self.currentIndex] floatValue];
+    if(self.titleControllModel.isEqualBottomLineWidth)
+        self.pageTitleView.bottomLine.height = self.titleControllModel.bottomLineHeight;
+       
+    self.pageTitleView.bottomLine.maxY = self.pageTitleView.height - self.titleControllModel.bottomLineBottomMargin;
+    
     self.pageTitleView.bottomLine.centerX = [self.cellCenterXList[self.currentIndex] floatValue];
             
     self.pageTitleView.contentInset = UIEdgeInsetsMake(0, self.titleControllModel.margin, 0, self.titleControllModel.margin);

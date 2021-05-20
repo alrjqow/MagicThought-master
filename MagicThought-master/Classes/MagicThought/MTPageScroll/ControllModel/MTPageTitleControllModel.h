@@ -34,8 +34,14 @@ typedef enum : NSInteger {
 
 /**要开启才能用下面的属性*/
 @property (nonatomic,assign) BOOL isEqualBottomLineWidth;
-/**固定下划线高度*/
+/**固定下划线宽度*/
 @property (nonatomic,assign) CGFloat bottomLineWidth;
+/**固定下划线高度*/
+@property (nonatomic,assign) CGFloat bottomLineHeight;
+
+/**固定下划线距离底部距离*/
+@property (nonatomic,assign) CGFloat bottomLineBottomMargin;
+
 /**下划线变化样式*/
 @property (nonatomic,assign) MTPageTitleViewBottomLineStyle bottomLineStyle;
 

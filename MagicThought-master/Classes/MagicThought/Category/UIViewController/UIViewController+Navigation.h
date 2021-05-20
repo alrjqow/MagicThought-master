@@ -11,6 +11,9 @@
 
 @interface UIViewController (Navigation)
 
+-(void)push:(UIViewController*)controller RemoveControllersClass:(NSArray<NSString*>*)viewControllersClass;
+-(void)pushWithAnimate:(UIViewController*)controller RemoveControllersClass:(NSArray<NSString*>*)viewControllersClass;
+
 -(void)push;
 -(void)pushWithAnimate;
 

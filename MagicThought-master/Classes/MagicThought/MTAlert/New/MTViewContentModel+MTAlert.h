@@ -29,7 +29,8 @@
 
 @property (nonatomic,assign) BOOL configCanBackgroundViewTouchDismiss;
 
+@property (nonatomic,assign) CGPoint centerOffset;
+
 @end
 
-CG_EXTERN MTAlertConfig* mt_AlertConfigMake(NSTimeInterval configAnimationDuration, CGFloat  configBackgroundViewAlpha, BOOL configCanBackgroundViewTouchDismiss);
-
+MTAlertConfig* mt_AlertConfigMake(NSTimeInterval configAnimationDuration, CGFloat  configBackgroundViewAlpha, BOOL configCanBackgroundViewTouchDismiss, CGPoint centerOffset);

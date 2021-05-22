@@ -138,6 +138,8 @@
     CGSize size = [view layoutSubviewsForWidth:attachView.width Height:attachView.height];
     view.bounds = CGRectMake(0, 0, size.width, size.height);
     view.center = attachView.mt_BackgroundView.center;
+    view.centerX += config.centerOffset.x;
+    view.centerY += config.centerOffset.y;
     view.layer.transform = CATransform3DMakeScale(0.6, 0.6, 0.6);
     view.alpha = 0;
     [attachView.mt_BackgroundView addSubview:view];
@@ -199,7 +201,7 @@
     return self;
 }
 
-MTAlertConfig* mt_AlertConfigMake(NSTimeInterval configAnimationDuration, CGFloat  configBackgroundViewAlpha, BOOL configCanBackgroundViewTouchDismiss)
+MTAlertConfig* mt_AlertConfigMake(NSTimeInterval configAnimationDuration, CGFloat  configBackgroundViewAlpha, BOOL configCanBackgroundViewTouchDismiss, CGPoint centerOffset)
 {
     MTAlertConfig* config = [MTAlertConfig new];
     if(configAnimationDuration >= 0)
@@ -207,6 +209,7 @@ MTAlertConfig* mt_AlertConfigMake(NSTimeInterval configAnimationDuration, CGFloa
     if(configBackgroundViewAlpha >= 0)
         config.configBackgroundViewAlpha = configBackgroundViewAlpha;
     config.configCanBackgroundViewTouchDismiss = configCanBackgroundViewTouchDismiss;
+    config.centerOffset = centerOffset;
     
     return config;
 }

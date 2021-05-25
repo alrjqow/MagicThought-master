@@ -61,6 +61,7 @@
 @property (nonatomic,copy,readonly) UIView* (^setObjects) (NSObject* objects);
 
 @property (nonatomic,assign,readonly) BOOL isAssistCell;
+@property (nonatomic,assign,readonly) BOOL isRealCell;
 
 @end
 

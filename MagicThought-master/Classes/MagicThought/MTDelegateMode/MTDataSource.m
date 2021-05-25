@@ -184,7 +184,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         {
             self.tableView.contentInset = self.contentInset;
             self.adjustContentInset = false;
-        }    
+        }
     }
         
     _dataList = isAllArr ? dataList : @[dataList];
@@ -340,6 +340,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     
     cell.indexPath = indexPath;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    [cell layoutIfNeeded];
     data.bindSize([cell layoutSubviewsForWidth:superView.width Height:superView.height]);
     if(data.mt_automaticDimensionSize)
         data.mt_automaticDimensionSize(data.mt_itemSize);
@@ -371,6 +372,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     
     cell.indexPath = indexPath;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    [cell layoutIfNeeded];
     data.bindHeight([cell layoutSubviewsForWidth:superView.width Height:superView.height].height);
     if(data.mt_automaticDimensionSize)
         data.mt_automaticDimensionSize(CGSizeMake(0, data.mt_itemHeight));
@@ -453,7 +455,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
                 
     indexPath.mt_order = nil;
     cell.indexPath = indexPath;
-    cell.mt_delegate = self.delegate;    
+    cell.mt_delegate = self.delegate;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
     
     if(data.mt_open3dTouch)
@@ -684,7 +686,7 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    MTDelegateCollectionReusableView* view;        
+    MTDelegateCollectionReusableView* view;
     if(self.isEmpty && self.emptyData)
         return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MTEasyDefaultCollectionViewHeaderFooterReuseIdentifier forIndexPath:indexPath];
                 
@@ -707,9 +709,9 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
         
         MTDelegateCollectionReusableView* view0 = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
         if(!view0)
-            return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MTEasyDefaultCollectionViewHeaderFooterReuseIdentifier forIndexPath:indexPath];        
+            return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MTEasyDefaultCollectionViewHeaderFooterReuseIdentifier forIndexPath:indexPath];
                     
-        self.registerSectionList[identifier] = identifier;        
+        self.registerSectionList[identifier] = identifier;
         view = view0;
     }
     
@@ -1230,7 +1232,7 @@ static NSString* mt_titleForRowAtIndexPath(id self, SEL cmd, UIPickerView * pick
             if(!model)
                 return;
             
-            mt_data = [model copyBindWithObject:mt_data];            
+            mt_data = [model copyBindWithObject:mt_data];
         }
         else
         {

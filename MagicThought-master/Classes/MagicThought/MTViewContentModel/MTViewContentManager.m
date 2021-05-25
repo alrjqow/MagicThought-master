@@ -25,6 +25,11 @@
     return [self.mt_order containsString:@"isAssistCell"];
 }
 
+-(BOOL)isRealCell
+{
+    return !self.isAssistCell;
+}
+
 @end
 
 @implementation UIButton(WishViewContent) @end
@@ -38,7 +43,7 @@
 @implementation NSArray (WishViewContent)
 
 -(NSArray*)extendWithArray:(NSArray*)array
-{    
+{
     NSMutableArray* newArray = [NSMutableArray array];
     
     [newArray addObjectsFromArray:self];

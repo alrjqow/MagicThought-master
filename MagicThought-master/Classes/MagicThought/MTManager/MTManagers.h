@@ -11,3 +11,4 @@
 #import "MTPhotoManager.h"
 #import "MTDeviceManager.h"
 #import "MTLocationManager.h"
+#import "MTScaleManager.h"

@@ -51,6 +51,8 @@ TODO: Add long description of the pod here.
   s.dependency 'YTKNetwork'
   s.dependency 'SDWebImage'
   s.dependency 'SAMKeychain'
+  s.dependency 'IQKeyboardManager'
+  s.dependency 'Masonry'
   
   
 end

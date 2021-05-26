@@ -54,8 +54,8 @@
         takePhotoController.bindClick(^(id  _Nullable object) {
             if(vc.mt_click)
                 vc.mt_click(nil);
-            [vc performSelector:@selector(dismiss)];            
-        });        
+            [vc performSelector:@selector(dismiss)];
+        });
     }
 }
 
@@ -107,6 +107,7 @@
         TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:self.photoMaxAddingCount columnNumber:self.photoDisplayColumnCount_library delegate:nil pushPhotoPickerVc:YES];
         //    imagePickerVc.allowPickingImage = false;
         imagePickerVc.allowTakeVideo = false;
+        imagePickerVc.allowPickingVideo = false;
         imagePickerVc.allowTakePicture = allowCamera;
                     
         __weak typeof(imagePickerVc) weakImagePickerVc = imagePickerVc;

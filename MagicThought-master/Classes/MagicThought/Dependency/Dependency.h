@@ -11,6 +11,7 @@
 
 #import "MTConst.h"
 #import "MTContentModelPropertyConst.h"
+#import "MTNotificationConst.h"
 
 #import "MTBorderStyle.h"
 #import "MTWordStyle.h"

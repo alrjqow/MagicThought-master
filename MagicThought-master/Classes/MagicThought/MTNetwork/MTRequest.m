@@ -291,6 +291,8 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
         }
     }
     
+    self.emptyLoadingView.hidden = YES;
+    [self loadStatusBarStyle];
     [self afterSetEndRefreshStatus:endRefreshStatus Message:message];
 }
 

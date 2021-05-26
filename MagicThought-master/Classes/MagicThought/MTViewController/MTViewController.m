@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "MTCloud.h"
 #import "MJRefresh.h"
+#import "MTNotificationConst.h"
 
 #import "UIViewController+Navigation.h"
 
@@ -25,6 +26,10 @@
 - (void)whenDealloc
 {
     [super whenDealloc];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationDidUserLoginSuccess_mt object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationDidUserLoginTimeOut_mt object:nil];
+    
     NSLog(@"%@销毁", NSStringFromClass(self.class));
 }
 
@@ -42,6 +47,7 @@
     [super viewWillAppear:animated];
     
     self.isVisible = YES;
+    [self loadStatusBarStyle];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -111,6 +117,9 @@
 -(void)setupDefault
 {
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveLoginSuccess:) name:kNotificationDidUserLoginSuccess_mt object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveLoginTimeOut:) name:kNotificationDidUserLoginTimeOut_mt object:nil];
 }
 
 /**初始化tabBar的item*/
@@ -121,12 +130,20 @@
 
 - (void)setupSubview{
     
-    if(self.navigationBarHidden)
+    if([self isKindOfClass:NSClassFromString(@"MTAlertBigImageController")])
         return;
-    self.title = self.title;
     
-    if(![self isKindOfClass:NSClassFromString(@"MTAlertBigImageController")])
+    if(!self.emptyLoadingViewInitHidden && self.emptyLoadingView)
+    {        
+        self.emptyLoadingView.frame = self.view.bounds;
+        [self.view addSubview:self.emptyLoadingView];
+    }
+    
+    if(!self.navigationBarHidden)
+    {
+        self.title = self.title;
         [self.view addSubview:self.navigationBar];
+    }
 }
 
 -(void)navigationBarRightBtnClick{}
@@ -136,6 +153,46 @@
 
 /**请求数据*/
 -(void)startRequest{}
+
+/**状态栏颜色*/
+-(void)loadStatusBarStyle
+{
+    if(self.isLoadStatusBarLightContent)
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    else
+    {
+        if (@available(iOS 13.0, *))
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDarkContent animated:YES];
+        else
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    }
+}
+
+#pragma mark - 通知
+
+-(void)didReceiveLoginSuccess:(NSNotification*)notification
+{
+    [self didReceiveLogin:notification lsLogin:YES];
+}
+
+-(void)didReceiveLoginTimeOut:(NSNotification*)notification
+{
+    [self didReceiveLogin:notification lsLogin:false];
+}
+
+-(void)didReceiveLogin:(NSNotification*)notification lsLogin:(BOOL)isLogin
+{
+    if(notification.object == self)
+        return;
+            
+    [self didReceiveLogin:isLogin];
+}
+
+-(void)didReceiveLogin:(BOOL)isLogin
+{
+    [self startRequest];
+}
+
 
 #pragma mark - 点击事件
 
@@ -199,6 +256,28 @@
 {
     return @"MTNavigationBar";
 }
+
+-(UIView *)emptyLoadingView
+{
+    if(_emptyLoadingViewClassName.length <= 0)
+        return nil;
+    
+    if(!_emptyLoadingView)
+    {
+        Class c = NSClassFromString(self.emptyLoadingViewClassName);
+        
+        if(![c isSubclassOfClass:[UIView class]])
+        {
+            _emptyLoadingViewClassName = nil;
+            return nil;
+        }
+            
+        _emptyLoadingView = (UIView*)c.new;
+    }
+    
+    return _emptyLoadingView;
+}
+
 
 -(void)setTitle:(NSString *)title
 {

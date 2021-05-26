@@ -73,7 +73,7 @@
 {
     MBProgressHUD* hud = [self createHud];
     
-    if(self.mt_hudStyle == MBHudStyleDefault)
+    if(self.mt_hudStyle == MBHudStyleWhite)
     {
         hud.customView = [self createTipsView];
         hud.mode = MBProgressHUDModeCustomView;
@@ -121,22 +121,22 @@
 -(MBProgressHUD*)setHudStyle:(MBProgressHUD*)hud
 {
     switch (self.mt_hudStyle) {
-        case MBHudStyleBlack:
-        {
-            //            hud.margin = 15;
-            hud.backgroundView.color = [UIColor colorWithWhite:0.f alpha:.2f];
-            hud.bezelView.color = [UIColor blackColor];
-            hud.contentColor = [UIColor whiteColor];
-            break;
-        }
-            
-        default:
+        case MBHudStyleWhite:
         {
             //            hud.margin = 12;
             hud.bezelView.color = [UIColor colorWithR:255 G:255 B:255 A:1];
 //            hud.bezelView.blurEffectStyle = UIBlurEffectStyleLight;
             hud.backgroundColor = [UIColor colorWithR:0 G:0 B:0 A:0.3];
             hud.contentColor = [UIColor colorWithHex:0x333333];
+            break;
+        }
+            
+        default:
+        {
+            //            hud.margin = 15;
+            hud.backgroundView.color = [UIColor colorWithWhite:0.f alpha:.2f];
+            hud.bezelView.color = [UIColor blackColor];
+            hud.contentColor = [UIColor whiteColor];
             break;
         }
     }

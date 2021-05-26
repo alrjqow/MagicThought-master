@@ -11,8 +11,8 @@
 
 
 typedef NS_ENUM(NSInteger,MBHudStyle){
-    MBHudStyleDefault,//白色调
     MBHudStyleBlack,//黑色调
+    MBHudStyleWhite//白色调
 };
 
 @class MBProgressHUD;

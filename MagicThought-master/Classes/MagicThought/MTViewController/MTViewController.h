@@ -29,6 +29,18 @@
 /**给定类名，生成对应导航栏，默认为 MTNavigationBar*/
 @property (nonatomic,strong, readonly) NSString* navigationBarClassName;
 
+
+@property (nonatomic,strong) UIView* emptyLoadingView;
+@property (nonatomic,assign, readonly) BOOL emptyLoadingViewInitHidden;
+/**给定类名，生成对应加载页*/
+@property (nonatomic,strong, readonly) NSString* emptyLoadingViewClassName;
+
+//是否用白色状态栏
+@property (nonatomic,assign, readonly) BOOL isLoadStatusBarLightContent;
+//状态栏颜色
+-(void)loadStatusBarStyle;
+
+
 /**是否加入 [MTCloud shareCloud].currentViewController */
 @property (nonatomic,assign) BOOL isNotCurrentController;
 
@@ -47,5 +59,8 @@
 /**返回页面*/
 -(void)goBack;
 
+
+/**接收到登录*/
+-(void)didReceiveLogin:(BOOL)isLogin;
 
 @end

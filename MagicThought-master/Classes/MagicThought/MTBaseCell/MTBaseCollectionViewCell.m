@@ -268,6 +268,18 @@
     [self viewEventWithView:textView Data:self.indexPath];
 }
 
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if(textView.baseContentModel.wordStyle.isAttributedWord)
+           textView.attributedText = [textView.baseContentModel.wordStyle createAttributedWordName:textView.text];
+    
+    textView.bindEnum(kEndEditing);
+    textView.bindTagText(textView.text);
+    textView.width = textView.width;
+    [textView sizeToFit];
+    [self viewEventWithView:textView Data:self.indexPath.bindHeight(ceil(textView.height))];
+}
+
 #pragma mark - 懒加载
 
 -(Class)classOfResponseObject

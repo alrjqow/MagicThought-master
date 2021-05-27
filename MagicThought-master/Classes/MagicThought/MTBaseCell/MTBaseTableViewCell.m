@@ -155,6 +155,7 @@
         dataModel = baseViewContentModel;
         
         reSetModel = baseViewContentModel;
+        dataModel.viewState = dataModel.viewState;
     }
     else
     {
@@ -290,7 +291,10 @@
 -(void)buttonClick:(UIButton*)btn
 {
     if(btn.mt_tag != kSelectedForever && btn.mt_tag != kDefaultForever)
-        btn.bindEnum(btn.mt_tag == kSelected ? kDeselected : kSelected);
+    {
+        btn.baseContentModel.viewState = btn.mt_tag == kSelected ? kDeselected : kSelected;
+        btn.baseContentModel = btn.baseContentModel;
+    }
     [self viewEventWithView:btn Data:self.indexPath ? self.indexPath : mt_empty()];
 }
 
@@ -329,6 +333,9 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    if(textView.baseContentModel.wordStyle.isAttributedWord)
+        textView.attributedText = [textView.baseContentModel.wordStyle createAttributedWordName:textView.text];
+    
     textView.bindEnum(kTextValueChange);
     textView.bindTagText(textView.text);
     [self viewEventWithView:textView Data:self.indexPath];

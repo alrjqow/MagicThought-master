@@ -457,6 +457,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     cell.indexPath = indexPath;
     cell.mt_delegate = self.delegate;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    [cell setNeedsLayout];
     
     if(data.mt_open3dTouch)
         [self setup3dTouch:cell];
@@ -676,6 +677,7 @@ NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
     cell.indexPath = indexPath;
     cell.mt_delegate = self.delegate;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    [cell setNeedsLayout];
     
     if(data.mt_open3dTouch)
         [self setup3dTouch:cell];

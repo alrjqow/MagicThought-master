@@ -50,7 +50,7 @@
 {
     if(!_indexPath)
     {
-        _indexPath = NSIndexPath.new;
+        _indexPath = [NSIndexPath indexPathForRow:-1 inSection:-1];
     }
     
     return _indexPath;

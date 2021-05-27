@@ -357,13 +357,10 @@
     
     MTBaseViewContentModel* jianBianModel = [self findJianBianStyleModel:baseViewContentModel];
     
-    if(backgroundColorModel.backgroundColor)
-    {
-        if([self isKindOfClass:[UITableViewCell class]])
-            self.backgroundColor = backgroundColorModel.backgroundColor;
-        else
-            self.layer.backgroundColor = backgroundColorModel.backgroundColor.CGColor;
-    }
+    if([self isKindOfClass:[UITableViewCell class]])
+        self.backgroundColor = backgroundColorModel.backgroundColor ? backgroundColorModel.backgroundColor : nil;
+    else
+        self.layer.backgroundColor = backgroundColorModel.backgroundColor ? backgroundColorModel.backgroundColor.CGColor : nil;
          
     MTBorderStyle* borderStyle = borderStyleModel.borderStyle;
     if(borderStyle)
@@ -371,6 +368,21 @@
         if(!borderStyle.fillColor)
             borderStyle.fillColor = backgroundColorModel.backgroundColor;
         [self becomeCircleWithBorder:borderStyle];
+    }
+    else
+    {
+        self.layer.cornerRadius = self.layer.borderWidth = 0;
+        self.layer.borderColor = nil;
+        if([self isKindOfClass:[UILabel class]])
+            self.layer.mask = nil;
+        else
+        {
+            for (CALayer* layer in self.layer.sublayers)
+            {
+                if([layer isKindOfClass:[CAShapeLayer class]])
+                    [layer removeFromSuperlayer];
+            }
+        }
     }
     
     MTJianBianStyle* jianBianStyle = jianBianModel.jianBianStyle;

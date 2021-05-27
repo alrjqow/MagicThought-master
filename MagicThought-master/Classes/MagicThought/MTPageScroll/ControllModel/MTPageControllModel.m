@@ -207,6 +207,8 @@
             
     [self.pageTitleView reloadDataWithDataList:self.titleControllModel.dataSourceModel.dataList SectionList:self.titleControllModel.dataSourceModel.sectionList];
     
+    [self.pageTitleView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
     [self.pageTitleView layoutIfNeeded];
 }
 

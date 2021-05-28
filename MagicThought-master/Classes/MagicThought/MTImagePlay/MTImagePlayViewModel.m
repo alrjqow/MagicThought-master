@@ -81,9 +81,9 @@
 
 - (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath  animated:(BOOL)animated
 {    
-//    [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
+    [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
     
-    [self.collectionView setContentOffset:CGPointMake(indexPath.row * self.collectionView.width, 0) animated:animated];
+//    [self.collectionView setContentOffset:CGPointMake(indexPath.row * self.collectionView.width, 0) animated:animated];
 }
 
 -(void)resetPosition

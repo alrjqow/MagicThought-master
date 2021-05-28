@@ -357,10 +357,13 @@
     
     MTBaseViewContentModel* jianBianModel = [self findJianBianStyleModel:baseViewContentModel];
     
-    if([self isKindOfClass:[UITableViewCell class]])
-        self.backgroundColor = backgroundColorModel.backgroundColor ? backgroundColorModel.backgroundColor : nil;
-    else
-        self.layer.backgroundColor = backgroundColorModel.backgroundColor ? backgroundColorModel.backgroundColor.CGColor : nil;
+    if(backgroundColorModel)
+    {
+        if([self isKindOfClass:[UITableViewCell class]])
+            self.backgroundColor = backgroundColorModel.backgroundColor;
+        else
+            self.layer.backgroundColor = backgroundColorModel.backgroundColor.CGColor;
+    }
          
     MTBorderStyle* borderStyle = borderStyleModel.borderStyle;
     if(borderStyle)

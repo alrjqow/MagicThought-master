@@ -119,7 +119,7 @@
     attachView.mt_BackgroundView.backgroundColor = rgba(0, 0, 0, config.configBackgroundViewAlpha);
     __weak __typeof(view) weakView = view;
     __weak __typeof(config) weakConfig = config;
-    MTClick mtClick = self.mt_click;
+//    MTClick mtClick = self.mt_click;
     attachView.mt_BackgroundView.bindClick(^(UITapGestureRecognizer* tapGestureRecognizer) {
         CGPoint point = [tapGestureRecognizer locationInView:tapGestureRecognizer.view];
         point = [weakView.layer convertPoint:point fromLayer:tapGestureRecognizer.view.layer];
@@ -127,11 +127,7 @@
             return;
 
         if(weakConfig.configCanBackgroundViewTouchDismiss)
-        {
             [self hideView:weakView Config:weakConfig];
-            if(mtClick)
-                mtClick(nil);
-        }
     });
 
     
@@ -163,7 +159,6 @@
         view.layer.transform = CATransform3DMakeScale(0.6, 0.6, 0.6);
         view.alpha = 0;
     } completion:^(BOOL finished) {
-        
         if (finished)
             [view removeFromSuperview];
     }];

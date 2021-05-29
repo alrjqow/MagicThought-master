@@ -7,9 +7,13 @@
 //
 
 #import "NSObject+CommonProtocol.h"
-
+#import "MTHostServiceModel.h"
 
 @interface MTTabBarController : UITabBarController<UITabBarControllerDelegate>
+
+@property (nonatomic,strong) MTHostServiceModel* hostServiceModel;
+@property (nonatomic,assign, readonly) BOOL isAddHost;
+
 
 @property (nonatomic,strong) NSString* tabBarName;
 

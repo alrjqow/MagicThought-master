@@ -51,6 +51,9 @@
 
     
     [self setupChildController];
+    
+    if(self.isAddHost)
+       [self.hostServiceModel addHostSwitchButton];
 }
 
 -(void)setupTabBar
@@ -117,5 +120,17 @@
 }
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray{}
+
+-(MTHostServiceModel *)hostServiceModel
+{
+    if(!_hostServiceModel)
+    {
+        _hostServiceModel = MTHostServiceModel.new(self);
+    }
+    
+    return _hostServiceModel;
+}
+
+-(BOOL)isAddHost{return YES;}
 
 @end

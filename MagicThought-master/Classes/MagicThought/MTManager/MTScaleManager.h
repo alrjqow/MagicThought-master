@@ -24,4 +24,4 @@ extern CGFloat kScreenHeightNoNavigtionBarScale(CGFloat h);
 
 #define RegisterScaleManager(manager) typedef manager __MTScaleManager__;
 #define ResignScaleManager [__MTScaleManager__ clear];
-#define kScaleManager_mt __MTScaleManager__.manager
+#define kScaleManager_mt [__MTScaleManager__ manager]

@@ -10,8 +10,6 @@
 #import "MTAlert.h"
 #import "MTConst.h"
 #import "NSString+Exist.h"
-#import "NSArray+Alert.h"
-#import "MTAlertViewConfig.h"
 #import "MTCloud.h"
 #import "VKCssProtocol.h"
 
@@ -137,14 +135,6 @@ void gloablException(NSException * exception) {
 
 - (void)handleCrashException:(nonnull NSString *)exceptionMessage extraInfo:(nullable NSDictionary *)info {
                 
-    MTAlertViewConfig* config =            @[
-        appTitle_mtAlert(),
-        content_mtAlert(@"出现了一个问题，导致程序停止正常工作。请关闭该程序。"),
-        buttons_mtAlert(@"关闭程序")
-    ].alertConfig;
-    
-    config.mtContent.wordStyle.wordLineSpacing = 4;
-    config.alert_mt();    
 }
 
 - (void)doSomeThingForMe:(id)obj withOrder:(NSString *)order {

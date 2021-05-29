@@ -11,7 +11,6 @@
 @interface UIView (MTBackground)
 
 @property (nonatomic, strong, readonly ) UIView *mt_BackgroundView;
-@property (nonatomic, assign, readonly ) BOOL mt_BackgroundAnimating;
 @property (nonatomic, assign) NSTimeInterval mt_AnimationDuration;
 
 - (void) showBackground;

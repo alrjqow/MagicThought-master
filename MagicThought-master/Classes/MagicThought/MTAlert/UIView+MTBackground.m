@@ -35,16 +35,12 @@
 - (void) showBackground
 {
     ++self.mt_dimReferenceCount;
-    
     if ( self.mt_dimReferenceCount > 1 )
-    {
         return;
-    }
     
     self.mt_BackgroundView.hidden = NO;
-    self.mt_BackgroundAnimating = YES;
-    
-    if ( self == [MTWindow sharedWindow].attachView )
+
+    if (self == [MTWindow sharedWindow].attachView)
     {
         [MTWindow sharedWindow].hidden = NO;
         [[MTWindow sharedWindow] makeKeyAndVisible];
@@ -55,57 +51,34 @@
         [(UIWindow*)self makeKeyAndVisible];
     }
     else
-    {
-        [self bringSubviewToFront:self.mt_BackgroundView];
-    }
+        [self bringSubviewToFront:self.mt_BackgroundView];    
     
     [UIView animateWithDuration:self.mt_AnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut |UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                          
                          self.mt_BackgroundView.alpha = 1.0f;
                          
-                     } completion:^(BOOL finished) {
-                         
-                         if ( finished )
-                         {
-                             self.mt_BackgroundAnimating = NO;
-                         }
-                         
-                     }];
+                     } completion:nil];
 }
 
 - (void) hideBackground
 {
     --self.mt_dimReferenceCount;
-    
     if ( self.mt_dimReferenceCount > 0 )
-    {
         return;
-    }
-    
-    self.mt_BackgroundAnimating = YES;
+        
     [UIView animateWithDuration:self.mt_AnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState animations:^{
-                         
-                         self.mt_BackgroundView.alpha = 0.0f;
-                         
-                     } completion:^(BOOL finished) {
-                         
-                         if ( finished )
-                         {
-                             self.mt_BackgroundAnimating = NO;
-                             
-                             if ( self == [MTWindow sharedWindow].attachView )
-                             {
-                                 [MTWindow sharedWindow].hidden = YES;
-                                 [[[UIApplication sharedApplication].delegate window] makeKeyWindow];
-                             }
-                             else if ( self == [MTWindow sharedWindow] )
-                             {
-                                 self.hidden = YES;
-                                 [[[UIApplication sharedApplication].delegate window] makeKeyWindow];
-                             }
-                         }
-                     }];
+        self.mt_BackgroundView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        
+        if (!finished)
+            return;
+        if (self != [MTWindow sharedWindow].attachView)
+            return;
+        
+        [MTWindow sharedWindow].hidden = YES;
+        [[[UIApplication sharedApplication].delegate window] makeKeyWindow];
+    }];    
 }
 
 -(UIView *)mt_BackgroundView
@@ -122,6 +95,7 @@
         dimView.layer.zPosition = FLT_MAX;
         
         UITapGestureRecognizer* tap = [UITapGestureRecognizer new];
+        tap.delegate = [MTWindow sharedWindow];
         [tap addTarget:self action:@selector(tapClick:)];
         [dimView addGestureRecognizer:tap];
         self.mt_AnimationDuration = 0.3f;
@@ -146,17 +120,6 @@
 -(NSTimeInterval)mt_AnimationDuration
 {
     return [objc_getAssociatedObject(self, _cmd) doubleValue];
-}
-
-
--(void)setMt_BackgroundAnimating:(BOOL)mt_BackgroundAnimating
-{
-    objc_setAssociatedObject(self, @selector(mt_BackgroundAnimating), @(mt_BackgroundAnimating), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(BOOL)mt_BackgroundAnimating
-{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
 @end

@@ -41,6 +41,8 @@
 #define createArray(property, ...) \
 -(NSArray *)property{return @[__VA_ARGS__];}
 
+#define kViewContentManager_mt [__MTViewContentManager__ manager]
+
 @interface MTViewContentManager : MTManager @end
 
 

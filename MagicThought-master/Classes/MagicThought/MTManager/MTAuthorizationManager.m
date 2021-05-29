@@ -7,8 +7,6 @@
 //
 
 #import "MTAuthorizationManager.h"
-#import "MTAlertView.h"
-#import "NSArray+Alert.h"
 #import "MTConst.h"
 
 #import <AVFoundation/AVFoundation.h>

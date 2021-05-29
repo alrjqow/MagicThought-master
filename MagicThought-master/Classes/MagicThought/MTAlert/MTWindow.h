@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MTWindow : UIWindow
+@interface MTWindow : UIWindow<UIGestureRecognizerDelegate>
 
 @property (nonatomic, readonly) UIView* attachView;
 

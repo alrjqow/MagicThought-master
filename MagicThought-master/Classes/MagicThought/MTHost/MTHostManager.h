@@ -20,4 +20,4 @@
 #define ResignHostManager [__MTHostManager__ clear];
 #define kHostManager_mt [MTHostManager registerHostManager]
 
-RegisterHostManager(MTHostManager)
+//RegisterHostManager(MTHostManager)

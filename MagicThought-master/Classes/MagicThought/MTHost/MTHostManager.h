@@ -12,8 +12,12 @@
 
 @property (nonatomic,assign) NSInteger hostNum;
 
++(instancetype)registerHostManager;
+
 @end
 
 #define RegisterHostManager(manager) typedef manager __MTHostManager__;
 #define ResignHostManager [__MTHostManager__ clear];
-#define kHostManager_mt [__MTHostManager__ manager]
+#define kHostManager_mt [MTHostManager registerHostManager]
+
+RegisterHostManager(MTHostManager)

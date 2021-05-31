@@ -9,4 +9,6 @@
 
 @implementation MTHostManager
 
++(instancetype)registerHostManager{return [self manager];}
+
 @end

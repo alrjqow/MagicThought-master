@@ -9,12 +9,15 @@
 #import "MTViewContentModel+MTAlert.h"
 #import "MTBaseCollectionViewCell.h"
 #import "MTContentModelPropertyConst.h"
+#import "MTHostManager.h"
 
 @interface MTHostServiceModel ()
 
 @property (nonatomic,strong) NSMutableArray* contentModelList;
 
 @property (nonatomic,assign) CGFloat alertViewHeight;
+
+@property (nonatomic,strong) MTBaseViewContentModel* currentHostModel;
 
 @end
 
@@ -54,6 +57,9 @@
 {
     __weak __typeof(self) weakSelf = self;
     
+    
+    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", kHostManager_mt.hostNum < self.hostNameList.count ? self.hostNameList[kHostManager_mt.hostNum] : @""];
+    
     @{
         @"height" : @(self.alertViewHeight),
         kExternContent :  self.contentModelList
@@ -65,6 +71,7 @@
             return;
         
         NSLog(@"%@", weakSelf.hostNameList[index.integerValue]);
+        kHostManager_mt.hostNum = index.integerValue;
     })
     .alertView(
                mt_AlertConfigMake(-1, -1, YES, CGPointZero)
@@ -75,6 +82,7 @@
 {
     _hostNameList = hostNameList;
     
+    kHostManager_mt.hostNum = 0;
     [self.contentModelList removeAllObjects];
     self.alertViewHeight = 60 + 50;
     
@@ -83,10 +91,7 @@
     
     [self.contentModelList addObject:
      @{
-         kTitle : mt_content(
-                             mt_WordStyleMake(14, @"当前Host：asd", hex(0xdbb76c))
-                             .horizontalAlignment(NSTextAlignmentCenter)
-                             )
+         kTitle : self.currentHostModel
      }
      .bind(@"MTHostListViewCell")
      .bindHeight(60)
@@ -130,10 +135,20 @@
     return _contentModelList;
 }
 
+-(MTBaseViewContentModel *)currentHostModel
+{
+    if(!_currentHostModel)
+    {
+        _currentHostModel = mt_content(
+                                       mt_WordStyleMake(14, nil, hex(0xdbb76c))
+                                       .horizontalAlignment(NSTextAlignmentCenter)
+                                       );
+    }
+    
+    return _currentHostModel;
+}
 
 @end
-
-
 
 @interface MTHostListView : MTDelegateCollectionView<UICollectionViewDelegateFlowLayout>
 

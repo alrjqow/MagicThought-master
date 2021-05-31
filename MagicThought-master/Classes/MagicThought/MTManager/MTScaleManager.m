@@ -9,30 +9,27 @@
 #import "MTConst.h"
 @implementation MTScaleManager
 
-@end
++(instancetype)registerScaleManager{return [self manager];}
 
-MTScaleManager* kScaleManager()
-{
-    return [NSClassFromString(@"__MTScaleManager__") manager];
-}
+@end
 
 CGFloat kScreenWidthScale(CGFloat w)
 {
-    if(kScaleManager().screenWidthScaleBase > 0)
-        return w * kScreenWidth_mt() / kScaleManager().screenWidthScaleBase;
+    if(kScaleManager_mt.screenWidthScaleBase > 0)
+        return w * kScreenWidth_mt() / kScaleManager_mt.screenWidthScaleBase;
     return w;
 }
 
 CGFloat kScreenHeightScale(CGFloat h)
 {
-    if(kScaleManager().screenHeightScaleBase > 0)
-        return h * kScreenHeight_mt() / kScaleManager().screenHeightScaleBase;
+    if(kScaleManager_mt.screenHeightScaleBase > 0)
+        return h * kScreenHeight_mt() / kScaleManager_mt.screenHeightScaleBase;
     return h;
 }
 
 CGFloat kScreenHeightNoNavigtionBarScale(CGFloat h)
 {
-    CGFloat base = kScaleManager().screenHeightScaleBase - kScaleManager().navigationBarHeightScaleBase;
+    CGFloat base = kScaleManager_mt.screenHeightScaleBase - kScaleManager_mt.navigationBarHeightScaleBase;
     if(base > 0)
         return h * (kScreenHeight_mt() - kNavigationBarHeight_mt()) / base;
     

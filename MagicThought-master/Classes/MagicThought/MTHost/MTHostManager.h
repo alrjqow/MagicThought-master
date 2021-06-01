@@ -7,7 +7,6 @@
 
 #import "MTManager.h"
 
-
 @interface MTHostManager : MTManager
 
 @property (nonatomic,assign) NSInteger hostNum;
@@ -17,7 +16,9 @@
 @end
 
 #define RegisterHostManager(manager) typedef manager __MTHostManager__;
-#define ResignHostManager [__MTHostManager__ clear];
-#define kHostManager_mt [MTHostManager registerHostManager]
+#define RegisterHostManagerConfirm @implementation MTHostManager (registerHostManager)\
++(instancetype)registerHostManager{return kHostManager_mt;}\
+@end
 
-//RegisterHostManager(MTHostManager)
+#define ResignHostManager [__MTHostManager__ clear];
+#define kHostManager_mt [__MTHostManager__ manager]

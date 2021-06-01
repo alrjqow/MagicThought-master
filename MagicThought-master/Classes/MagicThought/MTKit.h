@@ -14,6 +14,7 @@
 #import "Library.h"
 #import "MTViewContentModels.h"
 #import "MTServiceModel.h"
+#import "MTHost.h"
 
 #import "MTAppDelegate.h"
 #import "MTManagers.h"

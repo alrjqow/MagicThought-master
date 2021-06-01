@@ -19,11 +19,13 @@
 
 @property (nonatomic,strong) MTBaseViewContentModel* currentHostModel;
 
+@property (nonatomic,strong) NSArray<NSString*>* hostNameList;
+
 @end
 
 @implementation MTHostServiceModel
 
--(void)addHostSwitchButton
+-(void)addHostSwitchButton:(NSArray<MTBaseViewContentModel*>*)hostNameList
 {
     UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 70, 30) byRoundingCorners:UIRectCornerBottomRight|UIRectCornerTopRight cornerRadii:CGSizeMake(15, 15)];
     CAShapeLayer * maskLayer = [[CAShapeLayer alloc]init];
@@ -41,8 +43,8 @@
     [self.viewController.view addSubview:btn];
         
     __weak __typeof(self) weakSelf = self;
-    
-    self.hostNameList = @[@"asd", @"qwe", @"vcxv", @"asdas"];
+        
+    self.hostNameList = hostNameList;
     
     btn.bindClick(^(id  _Nullable object) {
         
@@ -58,7 +60,7 @@
     __weak __typeof(self) weakSelf = self;
     
     
-    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", kHostManager_mt.hostNum < self.hostNameList.count ? self.hostNameList[kHostManager_mt.hostNum] : @""];
+    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", [MTHostManager registerHostManager].hostNum < self.hostNameList.count ? self.hostNameList[[MTHostManager registerHostManager].hostNum] : @""];
     
     @{
         @"height" : @(self.alertViewHeight),
@@ -71,7 +73,7 @@
             return;
         
         NSLog(@"%@", weakSelf.hostNameList[index.integerValue]);
-        kHostManager_mt.hostNum = index.integerValue;
+        [MTHostManager registerHostManager].hostNum = weakSelf.hostNameList[index.integerValue].mt_index ? weakSelf.hostNameList[index.integerValue].mt_index.integerValue : index.integerValue;
     })
     .alertView(
                mt_AlertConfigMake(-1, -1, YES, CGPointZero)
@@ -82,7 +84,7 @@
 {
     _hostNameList = hostNameList;
     
-    kHostManager_mt.hostNum = 0;
+    [MTHostManager registerHostManager].hostNum = 0;
     [self.contentModelList removeAllObjects];
     self.alertViewHeight = 60 + 50;
     

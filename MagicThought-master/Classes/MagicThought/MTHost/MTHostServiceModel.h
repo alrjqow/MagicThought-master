@@ -7,12 +7,9 @@
 
 #import "MTServiceModel.h"
 
-
 @interface MTHostServiceModel : MTServiceModel
 
-@property (nonatomic,strong) NSArray<NSString*>* hostNameList;
-
--(void)addHostSwitchButton;
+-(void)addHostSwitchButton:(NSArray<NSString*>*)hostNameList;
 
 @end
 

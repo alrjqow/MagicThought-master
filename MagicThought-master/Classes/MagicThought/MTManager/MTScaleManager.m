@@ -15,21 +15,21 @@
 
 CGFloat kScreenWidthScale(CGFloat w)
 {
-    if(kScaleManager_mt.screenWidthScaleBase > 0)
-        return w * kScreenWidth_mt() / kScaleManager_mt.screenWidthScaleBase;
+    if([MTScaleManager registerScaleManager].screenWidthScaleBase > 0)
+        return w * kScreenWidth_mt() / [MTScaleManager registerScaleManager].screenWidthScaleBase;
     return w;
 }
 
 CGFloat kScreenHeightScale(CGFloat h)
 {
-    if(kScaleManager_mt.screenHeightScaleBase > 0)
-        return h * kScreenHeight_mt() / kScaleManager_mt.screenHeightScaleBase;
+    if([MTScaleManager registerScaleManager].screenHeightScaleBase > 0)
+        return h * kScreenHeight_mt() / [MTScaleManager registerScaleManager].screenHeightScaleBase;
     return h;
 }
 
 CGFloat kScreenHeightNoNavigtionBarScale(CGFloat h)
 {
-    CGFloat base = kScaleManager_mt.screenHeightScaleBase - kScaleManager_mt.navigationBarHeightScaleBase;
+    CGFloat base = [MTScaleManager registerScaleManager].screenHeightScaleBase - [MTScaleManager registerScaleManager].navigationBarHeightScaleBase;
     if(base > 0)
         return h * (kScreenHeight_mt() - kNavigationBarHeight_mt()) / base;
     

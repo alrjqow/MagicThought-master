@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong) MTHostServiceModel* hostServiceModel;
 @property (nonatomic,assign, readonly) BOOL isAddHost;
-
+@property (nonatomic,assign, readonly) NSArray<NSString*>* hostNameList;
 
 @property (nonatomic,strong) NSString* tabBarName;
 

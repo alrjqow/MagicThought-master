@@ -53,7 +53,7 @@
     [self setupChildController];
     
     if(self.isAddHost)
-       [self.hostServiceModel addHostSwitchButton];
+        [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
 
 -(void)setupTabBar

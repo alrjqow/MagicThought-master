@@ -694,7 +694,7 @@
         return nil;
                 
     if([[baseViewContentModel valueForKey:key] boolValue])
-        return self.defaultBaseContentModel;
+        return self.defaultBaseContentModel ? self.defaultBaseContentModel : baseViewContentModel;
         
     if(check(baseViewContentModel))
         return baseViewContentModel;
@@ -722,9 +722,14 @@
     
     if(!baseViewContentModel.isDefaultOriginModel)
         [baseViewContentModel setValue:@(YES) forKey:key];
-    
-    check(self.defaultBaseContentModel);
-    return self.defaultBaseContentModel;
+        
+    if(self.defaultBaseContentModel)
+    {
+        check(self.defaultBaseContentModel);
+        return self.defaultBaseContentModel;
+    }
+
+    return baseViewContentModel;
 }
 
 @end
@@ -993,8 +998,6 @@
 
 -(void)setBaseContentModel:(MTBaseViewContentModel *)baseContentModel
 {
-//    if([baseContentModel.text containsString:@"售后中"])
-//        NSLog(@"asdasd");
     if([self checkBaseViewContentModel:baseContentModel])
         return;
     

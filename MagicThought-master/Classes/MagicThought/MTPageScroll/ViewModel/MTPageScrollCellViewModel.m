@@ -49,7 +49,8 @@
 -(void)setModel:(MTPageControllModel *)model
 {
     [super setModel:model];
-        
+    
+    self.titleView.pageControllModel = model;    
     [model setValue:self.titleView forKey:@"pageTitleView"];
     
     [self.pageView removeFromSuperview];

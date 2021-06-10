@@ -11,6 +11,7 @@
 #import "MTDelegateProtocol.h"
 #import "NSObject+ReuseIdentifier.h"
 #import "NSString+Exist.h"
+#import "UIColor+Image.h"
 #import "MJExtension.h"
 
 @interface MTTabBarController ()
@@ -49,6 +50,8 @@
     if(self.tabBarFont)
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName:self.tabBarFont} forState:UIControlStateNormal];
 
+    if(self.tabBarColor)
+        [self.tabBar setBackgroundImage:[self.tabBarColor changeToImageWithSize:self.tabBar.bounds.size]];        
     
     [self setupChildController];
     

@@ -309,6 +309,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     
     reusableView.section = section;
     reusableView.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    [reusableView layoutIfNeeded];
     data.bindSize([reusableView layoutSubviewsForWidth:superView.width Height:superView.height]);
     if(data.mt_automaticDimensionSize)
         data.mt_automaticDimensionSize(data.mt_itemSize);

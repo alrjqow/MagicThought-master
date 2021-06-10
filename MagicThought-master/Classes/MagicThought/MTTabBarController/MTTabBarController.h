@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) UIFont* tabBarFont;
 
+@property (nonatomic,strong) UIColor* tabBarColor;
+
 @property (nonatomic,strong,readonly) NSArray<NSDictionary*>* tabBarItemArr;
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray;

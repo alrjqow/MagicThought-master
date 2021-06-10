@@ -457,6 +457,13 @@
         
     if(shadowStyleModel.shadowStyle)
         [self becomeShadow:shadowStyleModel.shadowStyle];
+    else
+    {
+        self.layer.shadowColor = nil;
+        self.layer.shadowOpacity = 0;
+        self.layer.shadowOffset = CGSizeZero;
+        self.layer.shadowRadius = 0;
+    }
 }
 
 //纯文本颜色

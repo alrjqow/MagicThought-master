@@ -27,6 +27,8 @@ typedef enum : NSInteger {
 @optional
 -(void)pageViewDidEndScroll;
 
+- (void)pageScrollHorizontalViewBeginDragging;
+
 @end
 
 @class MTPageScrollListController;

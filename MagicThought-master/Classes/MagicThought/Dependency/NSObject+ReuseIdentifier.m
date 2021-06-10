@@ -853,6 +853,7 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
 
 -(NSInteger)bindNotification{return 0;}
 -(NSInteger)objects{return 0;}
++(NSInteger)newContent{return 0;}
 
 - (instancetype)copyObject
 {

@@ -49,6 +49,8 @@ CG_EXTERN NSReuseObject* _Nonnull mt_empty(void);
 #define mt_verifyContent(...) MTTextVerifyModel.new(__VA_ARGS__)
 #define mt_imageShowContent(...) MTImageShowViewContentModel.new(__VA_ARGS__)
 #define new(...) new.setObjects(@[__VA_ARGS__])
+#define newContent(...) new(mt_content(__VA_ARGS__))
+
 #define objects(...) setObjects(@[__VA_ARGS__])
 #define bindNotification(...) bindNotifications(@[__VA_ARGS__])
 
@@ -200,6 +202,9 @@ typedef NSObject* _Nonnull (^WhenReceiveNotification) (MTNotificationHandle _Nul
 
 /**为了编译器识别 objects 宏*/
 @property (nonatomic,assign, readonly) NSInteger objects;
+
+/**为了编译器识别 newContent 宏*/
+@property (nonatomic,assign, readonly, class) NSInteger newContent;
 
 - (instancetype _Nullable)copyObject;
 

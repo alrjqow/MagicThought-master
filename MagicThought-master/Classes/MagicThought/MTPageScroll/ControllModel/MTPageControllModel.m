@@ -297,6 +297,8 @@
     self.verticalScrollEnable = false;
     if(self.currentIndex != self.pageScrollController.currentIndex)
         self.currentIndex = self.pageScrollController.currentIndex;
+    if([self.delegate respondsToSelector:@selector(pageScrollHorizontalViewBeginDragging)])
+       [self.delegate pageScrollHorizontalViewBeginDragging];
 }
 
 - (void)pageScrollHorizontalViewEndDragging

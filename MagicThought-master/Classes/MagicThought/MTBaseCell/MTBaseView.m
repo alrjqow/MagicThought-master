@@ -83,6 +83,10 @@
         return weakSelf.button4;
     }];
        
+    [self setSubView:_textField Model:contentModel.mtTextField For:^UIView *{
+           return weakSelf.textField;
+       }];
+    
     [self setSubView:_externView Model:(MTBaseViewContentModel*)contentModel.mtExternContent For:^UIView *{
         return weakSelf.externView;
                                  }];
@@ -180,6 +184,40 @@
     
     [self layoutSubviewsForWidth:self.width Height:self.height];
 }
+
+#pragma mark - 代理
+
+-(void)didTextValueChange:(UITextField *)textField
+{
+    textField.bindEnum(kTextValueChange);
+    textField.bindTagText(textField.text);
+    [self viewEventWithView:_textField Data:mt_empty()];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.bindEnum(kBeginEditing);
+    textField.bindTagText(textField.text);
+    [self viewEventWithView:_textField Data:mt_empty()];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    textField.bindEnum(kEndEditing);
+    textField.bindTagText(textField.text);
+    [self viewEventWithView:_textField Data:mt_empty()];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self endEditing:YES];
+    textField.bindEnum(kEndEditingReturn);
+    textField.bindTagText(textField.text);
+    [self viewEventWithView:_textField Data:mt_empty()];
+    
+    return YES;
+}
+
 
 #pragma mark - 懒加载
 
@@ -344,6 +382,19 @@
     }
     
     return _button4;
+}
+
+-(MTTextField *)textField
+{
+    if(!_textField)
+    {
+        _textField = [MTTextField new];
+        _textField.mt_delegate = self;
+        _textField.bindOrder([NSString stringWithFormat:@"%@",kTextField]);
+        [self addSubview:_textField];
+    }
+    
+    return _textField;
 }
 
 -(UIView *)externView

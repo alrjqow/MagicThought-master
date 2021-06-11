@@ -10,6 +10,7 @@
 #import "MTViewContentModel.h"
 #import "UIView+MTBaseViewContentModel.h"
 #import "UIView+Frame.h"
+#import "MTTextField.h"
 
 @interface MTBaseView : MTDelegateView
 
@@ -42,7 +43,7 @@
 
 @property (nonatomic,strong) UIButton* button4;
 
-
+@property (nonatomic,strong) MTTextField* textField;
 
 @end
 

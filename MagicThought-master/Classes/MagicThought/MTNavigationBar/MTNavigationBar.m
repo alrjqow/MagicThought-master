@@ -30,6 +30,13 @@
     self.textLabel.defaultViewContent();
 }
 
+-(void)setButton2:(UIButton *)button2
+{
+    [self.button2 removeFromSuperview];
+    
+    [super setButton2:button2];
+}
+
 -(CGSize)layoutSubviewsForWidth:(CGFloat)contentWidth Height:(CGFloat)contentHeight
 {
     if(!self.button.width || !self.button.height)

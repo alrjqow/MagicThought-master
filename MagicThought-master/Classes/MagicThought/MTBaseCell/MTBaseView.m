@@ -322,6 +322,7 @@
 
 -(void)setButton2:(UIButton *)button2
 {
+    [_button2 removeFromSuperview];
     _button2 = button2;
     [self configButton:button2 WithOrder:kBtnTitle2];
 }

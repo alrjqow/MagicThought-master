@@ -44,6 +44,7 @@ NSString* kTextField = @"mtTextField";
 NSString* kTextView = @"mtTextView";
 
 NSString* kExternContent = @"mtExternContent";
+NSString* kWeakExternContent = @"mtWeakExternContent";
 
 NSString* kDataSourceModel = @"mtDataSourceModel";
 

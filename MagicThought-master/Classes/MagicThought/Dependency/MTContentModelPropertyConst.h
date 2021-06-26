@@ -42,6 +42,7 @@ CG_EXTERN NSString* kTextField;
 CG_EXTERN NSString* kTextView;
 
 CG_EXTERN NSString* kExternContent;
+CG_EXTERN NSString* kWeakExternContent;
 
 CG_EXTERN NSString* kDataSourceModel;
 

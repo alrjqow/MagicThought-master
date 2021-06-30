@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, MTBaseAlertType)
     MTBaseAlertTypeUp,
     MTBaseAlertTypeUp_NotBackgroundDismiss,
     MTBaseAlertTypeUp_DismissTwice,
+    MTBaseAlertTypeUp_Frame
 };
 
 CG_EXTERN NSString*  MTBaseAlertDismissOrder;

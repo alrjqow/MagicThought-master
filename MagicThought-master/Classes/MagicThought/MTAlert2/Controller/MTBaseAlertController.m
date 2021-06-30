@@ -23,6 +23,8 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 
 @property (nonatomic,assign) BOOL isDismiss;
 
+@property (nonatomic,assign) CGFloat alertViewY;
+
 @end
 
 @implementation MTBaseAlertController
@@ -53,7 +55,9 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
             case MTBaseAlertTypeUp:
             case MTBaseAlertTypeUp_NotBackgroundDismiss:
             case MTBaseAlertTypeUp_DismissTwice:
+            case MTBaseAlertTypeUp_Frame:
             {
+                self.alertViewY = self.alertView.y;
                 self.alertView.y = self.view.height;
                 break;
             }
@@ -79,6 +83,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     
     switch (self.type) {
         
+        case MTBaseAlertTypeUp_Frame:
         case MTBaseAlertTypeUp_NotBackgroundDismiss:
         case MTBaseAlertTypeUp_DismissTwice:
         case MTBaseAlertTypeUp:
@@ -87,7 +92,8 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
                 [vc presentViewController:self animated:false completion:^{
                     [UIView animateWithDuration:self.animateTime animations:^{
                         self.blackView.alpha = 1;
-                        self.alertView.y = self.view.height - self.alertView.height;
+
+                        self.alertView.y = self.type == MTBaseAlertTypeUp_Frame ? self.alertViewY : (self.view.height - self.alertView.height);
                     }];
                 }];            
             break;
@@ -163,6 +169,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     [self dismissIndicator];
     switch (self.type) {
         
+        case MTBaseAlertTypeUp_Frame:
         case MTBaseAlertTypeUp_NotBackgroundDismiss:
         case MTBaseAlertTypeUp_DismissTwice:
         case MTBaseAlertTypeUp:
@@ -255,28 +262,29 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     [super touchesBegan:touches withEvent:event];
     
     if(self.alertController.presentedViewController)
-           return;
-       if(!self.alertController.isVisible)
-           return;
-
-       switch (self.alertController.type) {
-           case MTBaseAlertTypeUp:
-           case MTBaseAlertTypeUp_DismissTwice:
-           {
-               self.alertController.isDismiss = YES;
-               [self.alertController dismissWithAnimate];
-               break;
-           }
-           case MTBaseAlertTypeDefault_NotBackgroundDismiss:
-           case MTBaseAlertTypeUp_NotBackgroundDismiss:
-               break;
-               
-           default:
-           {
-               [self.alertController dismissWithAnimate];
-               break;
-           }
-       }
+        return;
+    if(!self.alertController.isVisible)
+        return;
+    
+    switch (self.alertController.type) {
+        case MTBaseAlertTypeUp:
+        case MTBaseAlertTypeUp_DismissTwice:
+        case MTBaseAlertTypeUp_Frame:
+        {
+            self.alertController.isDismiss = YES;
+            [self.alertController dismissWithAnimate];
+            break;
+        }
+        case MTBaseAlertTypeDefault_NotBackgroundDismiss:
+        case MTBaseAlertTypeUp_NotBackgroundDismiss:
+            break;
+            
+        default:
+        {
+            [self.alertController dismissWithAnimate];
+            break;
+        }
+    }
 }
 
 @end

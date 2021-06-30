@@ -29,5 +29,7 @@
 -(void)popSelfToRoot;
 -(void)popSelfToRootWithAnimate;
 
+- (void)presentFullScreenViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion;
+
 @end
 

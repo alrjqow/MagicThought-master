@@ -104,4 +104,10 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)presentFullScreenViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion
+{
+    viewControllerToPresent.modalPresentationStyle = UIModalPresentationFullScreen;    
+    [self presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
 @end

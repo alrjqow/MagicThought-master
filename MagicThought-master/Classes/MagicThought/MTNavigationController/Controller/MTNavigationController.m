@@ -84,6 +84,13 @@
     if(!self.navigationBar.isHidden && self.childViewControllers.count > 0)
         [self setupNavigationItem:viewController];
     
+    if(!self.presentingViewController && self.viewControllers.count <= 0 && [viewController isKindOfClass:NSClassFromString(@"MTViewController")])
+       {
+           UIView* navigationBar = [viewController valueForKey:@"navigationBar"];
+           UIButton* button = [navigationBar valueForKey:@"button"];           
+           button.hidden = YES;
+       }
+    
     [super pushViewController:viewController animated:animated];
 }
 

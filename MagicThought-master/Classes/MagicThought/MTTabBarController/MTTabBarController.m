@@ -103,7 +103,7 @@
             if([c1 isSubclassOfClass:[UIViewController class]])
             {
                 UIViewController* rootVc = c1.new;
-                rootVc.title = item.title;
+//                rootVc.title = item.title;
                 UINavigationController* nvc = [[c alloc] initWithRootViewController:rootVc];
                 nvc.tabBarItem = item;
                 vc = nvc;

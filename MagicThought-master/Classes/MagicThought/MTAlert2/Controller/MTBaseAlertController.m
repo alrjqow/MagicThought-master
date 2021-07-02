@@ -56,6 +56,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
             case MTBaseAlertTypeUp_NotBackgroundDismiss:
             case MTBaseAlertTypeUp_DismissTwice:
             case MTBaseAlertTypeUp_Frame:
+            case MTBaseAlertTypeUp_Frame_NotBackgroundDismiss:
             {
                 self.alertViewY = self.alertView.y;
                 self.alertView.y = self.view.height;
@@ -82,18 +83,19 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
     while (vc.presentedViewController) {vc = vc.presentedViewController;}
     
     switch (self.type) {
-        
-        case MTBaseAlertTypeUp_Frame:
+                
         case MTBaseAlertTypeUp_NotBackgroundDismiss:
         case MTBaseAlertTypeUp_DismissTwice:
         case MTBaseAlertTypeUp:
+        case MTBaseAlertTypeUp_Frame:
+        case MTBaseAlertTypeUp_Frame_NotBackgroundDismiss:
         {
 //            NSLog(@"%@",self.alertView);
                 [vc presentViewController:self animated:false completion:^{
                     [UIView animateWithDuration:self.animateTime animations:^{
                         self.blackView.alpha = 1;
 
-                        self.alertView.y = self.type == MTBaseAlertTypeUp_Frame ? self.alertViewY : (self.view.height - self.alertView.height);
+                        self.alertView.y = self.type >= MTBaseAlertTypeUp_Frame ? self.alertViewY : (self.view.height - self.alertView.height);
                     }];
                 }];            
             break;
@@ -168,11 +170,12 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 {
     [self dismissIndicator];
     switch (self.type) {
-        
-        case MTBaseAlertTypeUp_Frame:
+                            
         case MTBaseAlertTypeUp_NotBackgroundDismiss:
         case MTBaseAlertTypeUp_DismissTwice:
         case MTBaseAlertTypeUp:
+        case MTBaseAlertTypeUp_Frame:
+        case MTBaseAlertTypeUp_Frame_NotBackgroundDismiss:
         {
             [self alertTypeUpDismiss:before Completion:completion];
             break;
@@ -277,6 +280,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
         }
         case MTBaseAlertTypeDefault_NotBackgroundDismiss:
         case MTBaseAlertTypeUp_NotBackgroundDismiss:
+        case MTBaseAlertTypeUp_Frame_NotBackgroundDismiss:
             break;
             
         default:

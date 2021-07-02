@@ -283,8 +283,11 @@
 {
     [super setTitle:title];
 
-    self.navigationBar.textLabel.text = title;
-    [self.navigationBar.textLabel sizeToFit];
+    if(title.length)
+    {
+        self.navigationBar.textLabel.text = title;
+        [self.navigationBar.textLabel sizeToFit];
+    }    
 }
 
 

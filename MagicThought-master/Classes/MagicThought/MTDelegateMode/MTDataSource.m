@@ -408,22 +408,16 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
 {
     if([self.delegate respondsToSelector:@selector(numberOfSectionsInTableView:)])
         return [self.delegate numberOfSectionsInTableView:tableView];
-    NSInteger sectionCount = (self.isEmpty && self.emptyData) ? 1 : self.sectionCount;
-    while (tableView.cellStateArray.count < sectionCount)
-        [tableView.cellStateArray addObject:[NSMutableArray array]];
-        
-    return sectionCount;
+    
+    return (self.isEmpty && self.emptyData) ? 1 : self.sectionCount;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if([self.delegate respondsToSelector:@selector(tableView:numberOfRowsInSection:)])
         return [self.delegate tableView:tableView numberOfRowsInSection:section];
-    NSInteger rowCount = (self.isEmpty && self.emptyData) ? 1 :  [self getSectionDataListForSection:section].count;
-    while (tableView.cellStateArray[section].count < rowCount)
-        [tableView.cellStateArray[section] addObject:@(kDeselected)];
     
-    return rowCount;
+    return (self.isEmpty && self.emptyData) ? 1 :  [self getSectionDataListForSection:section].count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -570,57 +564,20 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSObject* data = [self getDataForIndexPath:indexPath];
-    if([data.mt_order containsString:@"MTCellContradict"])
-        cell.bindEnum((tableView.currentContradictIndex == indexPath.row && tableView.currentContradictSection == indexPath.section) ? kSelected : kDeselected);
-    else if(tableView.cellStateArray.count > indexPath.section)
-    {
-        NSArray* arr = tableView.cellStateArray[indexPath.section];
-        if(arr.count > indexPath.row)
-            cell.bindEnum([arr[indexPath.row] integerValue]);
-    }
-        
-            
     if([self.delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)])
         [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
-NSString* MTCellContradictOrder = @"MTCellContradictOrder";
-NSString* MTCellKeepStateOrder = @"MTCellKeepStateOrder";
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     indexPath.mt_order = nil;
-    if(self.isEmpty && self.emptyData)
-    {
-        tableView.currentSection = indexPath.section;
-        tableView.currentIndex = indexPath.row;
-        return;
-    }
-        
-    NSObject* data = [self getDataForIndexPath:indexPath];
-    
-    if([data.mt_order containsString:@"MTCellContradict"])
-    {
-        if((indexPath.section != tableView.currentContradictSection) || (indexPath.row != tableView.currentContradictIndex))
-        {
-            UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:tableView.currentContradictIndex inSection:tableView.currentContradictSection]];
-            cell.bindEnum(kDeselected);
-            cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.bindEnum(kSelected);
-            tableView.currentContradictSection = indexPath.section;
-            tableView.currentContradictIndex = indexPath.row;
-        }
-    }
-    else
-    {
-        NSInteger state = [tableView.cellStateArray[indexPath.section][indexPath.row] integerValue];
-        tableView.cellStateArray[indexPath.section][indexPath.row] = @(state == kSelected ? kDeselected : kSelected);
-    }
-                
     tableView.currentSection = indexPath.section;
     tableView.currentIndex = indexPath.row;
+    if(self.isEmpty && self.emptyData)
+        return;
             
+    
+    NSObject* data = [self getDataForIndexPath:indexPath];
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     indexPath.bindOrder([data.mt_order isExist] ? data.mt_order : ([data.mt_reuseIdentifier isExist] ? data.mt_reuseIdentifier : NSStringFromClass(cell.class)));
     indexPath.mt_order.bindEnum(cell.mt_tag);

@@ -217,62 +217,6 @@
     return [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
--(void)setCurrentContradictIndex:(NSInteger)currentContradictIndex
-{
-    if([self isKindOfClass:[UITableView class]])
-    {
-        UITableView* tableView = (UITableView*)self;
-        UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentContradictIndex inSection:self.currentContradictSection]];
-        if(cell)
-            cell.bindEnum(kDeselected);
-        cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentContradictIndex inSection:self.currentContradictSection]];
-        if(cell)
-            cell.bindEnum(kSelected);
-    }
-    
-    objc_setAssociatedObject(self, @selector(currentContradictIndex), @(currentContradictIndex), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSInteger)currentContradictIndex
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-
--(void)setCurrentContradictSection:(NSInteger)currentContradictSection
-{
-    if([self isKindOfClass:[UITableView class]])
-     {
-         UITableView* tableView = (UITableView*)self;
-         UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentContradictIndex inSection:self.currentContradictSection]];
-         cell.selected = false;
-         cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentContradictIndex inSection:currentContradictSection]];
-         cell.selected = YES;
-     }
-    objc_setAssociatedObject(self, @selector(currentContradictSection), @(currentContradictSection), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSInteger)currentContradictSection
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-
--(void)setCellStateArray:(NSMutableArray<NSMutableArray *> *)cellStateArray
-{
-    objc_setAssociatedObject(self, @selector(cellStateArray), cellStateArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSMutableArray<NSMutableArray *> *)cellStateArray
-{
-    NSMutableArray* cellStateArray = objc_getAssociatedObject(self, _cmd);
-    if(!cellStateArray)
-    {
-        cellStateArray = [NSMutableArray array];
-        objc_setAssociatedObject(self, _cmd, cellStateArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    
-    return cellStateArray;
-}
-
 @end
 
 

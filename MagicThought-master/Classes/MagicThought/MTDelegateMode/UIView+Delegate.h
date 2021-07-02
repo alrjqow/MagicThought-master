@@ -27,12 +27,6 @@
 @property (nonatomic,assign) NSInteger currentIndex;
 @property (nonatomic,assign) NSInteger currentSection;
 
-/**单选框索引*/
-@property (nonatomic,assign) NSInteger currentContradictIndex;
-@property (nonatomic,assign) NSInteger currentContradictSection;
-
-@property (nonatomic,strong) NSMutableArray<NSMutableArray*>* cellStateArray;
-
 - (void)addTarget:(id)target;
 
 - (void)addTarget:(id)target EmptyData:(NSObject*)emptyData DataList:(NSArray*)dataList SectionList:(NSArray*)sectionList;

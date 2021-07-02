@@ -31,7 +31,7 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
     self.alertView = self.mtListView;
     self.mtListView.bounces = false;
     self.mtListView.contentInset = UIEdgeInsetsZero;
-    self.mtListView.currentContradictIndex = self.currentIndex;
+    self.mtListView.currentIndex = self.currentIndex;
 }
 
 #pragma mark - 代理
@@ -52,8 +52,8 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
 {
     if([self.mt_order containsString:MTBaseAlertDismissOrder_Close])
     {
-        self.mtListView.currentContradictIndex = self.currentIndex;
-        self.mtListView.currentContradictSection = self.currentSection;
+        self.mtListView.currentIndex = self.currentIndex;
+        self.mtListView.currentSection = self.currentSection;
     }
         
     self.mt_order = nil;
@@ -65,7 +65,7 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
         
     if(self.isViewDidLoad)
     {
-        self.mtListView.currentContradictIndex = currentIndex;
+        self.mtListView.currentIndex = currentIndex;
         [self loadData];
     }
 }
@@ -76,8 +76,8 @@ NSString*  MTBaseAlertDismissOrder_Enter = @"MTBaseAlertDismissOrder_True_Enter"
     
     if([mt_order containsString:MTBaseAlertDismissOrder_Enter] && ![mt_order containsString:MTBaseAlertDismissOrder_Close])
     {
-        self.currentIndex = self.mtListView.currentContradictIndex;
-        self.currentSection = self.mtListView.currentContradictSection;
+        self.currentIndex = self.mtListView.currentIndex;
+        self.currentSection = self.mtListView.currentSection;
         
         if(self.enterBlock)
             self.enterBlock(self.currentIndex, self.currentSection);

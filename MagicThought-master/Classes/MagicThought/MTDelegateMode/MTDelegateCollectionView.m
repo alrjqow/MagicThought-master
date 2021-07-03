@@ -15,7 +15,10 @@
     if(!layout)
         layout = [self.class layout];
     if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
-                 
+        
+        if (@available(iOS 11.0, *))
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        
         if([layout isKindOfClass:[UICollectionViewFlowLayout class]])
         {
             UICollectionViewFlowLayout* layout0 = (UICollectionViewFlowLayout*)layout;

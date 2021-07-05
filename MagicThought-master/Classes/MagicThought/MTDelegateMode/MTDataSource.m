@@ -609,7 +609,8 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     NSArray* list = [self getSectionDataListForSection:indexPath.section];
     NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
         
-    NSString* mt_reuseIdentifier = list.mt_reuseIdentifier ? list.mt_reuseIdentifier : data.mt_reuseIdentifier;
+//    NSString* mt_reuseIdentifier = list.mt_reuseIdentifier ? list.mt_reuseIdentifier : data.mt_reuseIdentifier;
+    NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
     
     NSString* identifier = MTEasyReuseIdentifier(mt_reuseIdentifier);
     

@@ -41,10 +41,10 @@
 }
 
 
--(CGRect)textRectForBounds:(CGRect)bounds
-{
-    return [self rectForBounds:bounds];
-}
+//-(CGRect)textRectForBounds:(CGRect)bounds
+//{
+//    return [self rectForBounds:bounds];
+//}
 
 //-(CGRect)editingRectForBounds:(CGRect)bounds
 //{

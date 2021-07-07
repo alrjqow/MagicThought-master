@@ -11,7 +11,7 @@
 
 @interface MTDragCollectionViewCell ()<UIGestureRecognizerDelegate>
 
-@property (nonatomic,strong) UIPanGestureRecognizer* pan;
+@property (nonatomic,strong) UIGestureRecognizer* dragGestureRecognizer;
 
 @end
 
@@ -22,12 +22,8 @@
 {
     [super setupDefault];
     
-    //给每个cell添加一个长按手势
-    UIPanGestureRecognizer * longPress =[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
-    longPress.delegate = self;
-    [self addGestureRecognizer:longPress];
-    self.pan = longPress;
-    
+    //给每个cell添加手势
+    [self addGestureRecognizer:self.dragGestureRecognizer];
     self.isDragEnable = YES;
 }
 
@@ -42,8 +38,18 @@
 {
     _isDragEnable = isDragEnable;
     
-    self.pan.enabled = isDragEnable;
+    self.dragGestureRecognizer.enabled = isDragEnable;
 }
 
+-(UIGestureRecognizer *)dragGestureRecognizer
+{
+    if(!_dragGestureRecognizer)
+    {
+        _dragGestureRecognizer = self.isLongPress ? [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)] : [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+        _dragGestureRecognizer.delegate = self;
+    }
+    
+    return _dragGestureRecognizer;
+}
 
 @end

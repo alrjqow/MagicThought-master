@@ -12,4 +12,6 @@
 
 @property (nonatomic,assign) BOOL isDragEnable;
 
+@property (nonatomic,assign, readonly) BOOL isLongPress;
+
 @end

@@ -25,11 +25,11 @@
     
     if(style.wordSize)
     {
-        if((style.bold && style.thin) || (!style.bold && !style.thin) )
+        if((style.wordBold && style.wordThin) || (!style.wordBold && !style.wordThin) )
             self.font = [UIFont systemFontOfSize:style.wordSize];
-        else if(style.bold)
+        else if(style.wordBold)
             self.font = [UIFont boldSystemFontOfSize:style.wordSize];
-        else if(style.thin)
+        else if(style.wordThin)
         {
             if (@available(iOS 8.2, *))
                 self.font = [UIFont systemFontOfSize:style.wordSize weight:UIFontWeightThin];

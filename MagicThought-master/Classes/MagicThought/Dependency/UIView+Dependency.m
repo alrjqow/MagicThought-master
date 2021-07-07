@@ -82,6 +82,16 @@
 
 @implementation MTButton
 
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    if(self = [super initWithFrame:frame])
+    {
+        [self setupDefault];
+    }
+    
+    return self;
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];

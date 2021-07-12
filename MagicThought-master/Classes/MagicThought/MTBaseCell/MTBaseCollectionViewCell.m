@@ -171,6 +171,7 @@
     [super setupDefault];
     
     self.isDragEnable = false;
+    self.contentView.layer.zPosition = 3;
 }
 
 -(CGSize)layoutSubviewsForWidth:(CGFloat)contentWidth Height:(CGFloat)contentHeight
@@ -212,7 +213,7 @@
     button.bindOrder(order);
     [button setValue:@(YES) forKey:@"autoClick"];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:button];
+    [self.contentView addSubview:button];
 }
 
 -(void)buttonClick:(UIButton*)btn
@@ -292,7 +293,7 @@
     if(!_textLabel)
     {
         _textLabel = [UILabel new];
-        [self addSubview:_textLabel];
+        [self.contentView addSubview:_textLabel];
     }
     
     return _textLabel;
@@ -303,7 +304,7 @@
     if(!_detailTextLabel)
     {
         _detailTextLabel = [UILabel new];
-        [self addSubview:_detailTextLabel];
+        [self.contentView addSubview:_detailTextLabel];
     }
     
     return _detailTextLabel;
@@ -314,7 +315,7 @@
     if(!_detailTextLabel2)
     {
         _detailTextLabel2 = [UILabel new];
-        [self addSubview:_detailTextLabel2];
+        [self.contentView addSubview:_detailTextLabel2];
     }
     
     return _detailTextLabel2;
@@ -325,7 +326,7 @@
     if(!_detailTextLabel3)
     {
         _detailTextLabel3 = [UILabel new];
-        [self addSubview:_detailTextLabel3];
+        [self.contentView addSubview:_detailTextLabel3];
     }
     
     return _detailTextLabel3;
@@ -336,7 +337,7 @@
     if(!_imageView)
     {
         _imageView = [UIImageView new];
-        [self addSubview:_imageView];
+        [self.contentView addSubview:_imageView];
     }
     
     return _imageView;
@@ -347,7 +348,7 @@
     if(!_imageView2)
     {
         _imageView2 = [UIImageView new];
-        [self addSubview:_imageView2];
+        [self.contentView addSubview:_imageView2];
     }
     
     return _imageView2;
@@ -358,7 +359,7 @@
     if(!_imageView3)
     {
         _imageView3 = [UIImageView new];
-        [self addSubview:_imageView3];
+        [self.contentView addSubview:_imageView3];
     }
     
     return _imageView3;
@@ -369,7 +370,7 @@
     if(!_imageView4)
     {
         _imageView4 = [UIImageView new];
-        [self addSubview:_imageView4];
+        [self.contentView addSubview:_imageView4];
     }
     
     return _imageView4;
@@ -442,7 +443,7 @@
 -(void)setExternView:(UIView *)externView
 {
     _externView = externView;
-    [self addSubview:externView];
+    [self.contentView addSubview:externView];
 }
 
 -(UIView *)externView
@@ -462,7 +463,7 @@
         _textField = [MTTextField new];
         _textField.mt_delegate = self;
         _textField.bindOrder([NSString stringWithFormat:@"%@",kTextField]);
-        [self addSubview:_textField];
+        [self.contentView addSubview:_textField];
     }
     
     return _textField;
@@ -475,7 +476,7 @@
         _textView = [MTTextView new];
         _textView.mt_delegate = self;
         _textView.bindOrder([NSString stringWithFormat:@"%@",kTextView]);
-        [self addSubview:_textView];
+        [self.contentView addSubview:_textView];
     }
     
     return _textView;
@@ -518,7 +519,7 @@
     if(!_detailTextLabel4)
     {
         _detailTextLabel4 = [UILabel new];
-        [self addSubview:_detailTextLabel4];
+        [self.contentView addSubview:_detailTextLabel4];
     }
     
     return _detailTextLabel4;
@@ -529,7 +530,7 @@
     if(!_imageView5)
     {
         _imageView5 = [UIImageView new];
-        [self addSubview:_imageView5];
+        [self.contentView addSubview:_imageView5];
     }
     
     return _imageView5;
@@ -587,7 +588,7 @@
     if(!_detailTextLabel5)
     {
         _detailTextLabel5 = [UILabel new];
-        [self addSubview:_detailTextLabel5];
+        [self.contentView addSubview:_detailTextLabel5];
     }
     
     return _detailTextLabel5;
@@ -598,7 +599,7 @@
     if(!_imageView6)
     {
         _imageView6 = [UIImageView new];
-        [self addSubview:_imageView6];
+        [self.contentView addSubview:_imageView6];
     }
     
     return _imageView6;
@@ -676,7 +677,7 @@
     if(!_detailTextLabel6)
     {
         _detailTextLabel6 = [UILabel new];
-        [self addSubview:_detailTextLabel6];
+        [self.contentView addSubview:_detailTextLabel6];
     }
     
     return _detailTextLabel6;
@@ -687,7 +688,7 @@
     if(!_detailTextLabel7)
     {
         _detailTextLabel7 = [UILabel new];
-        [self addSubview:_detailTextLabel7];
+        [self.contentView addSubview:_detailTextLabel7];
     }
     
     return _detailTextLabel7;
@@ -698,7 +699,7 @@
     if(!_detailTextLabel8)
     {
         _detailTextLabel8 = [UILabel new];
-        [self addSubview:_detailTextLabel8];
+        [self.contentView addSubview:_detailTextLabel8];
     }
     
     return _detailTextLabel8;
@@ -709,7 +710,7 @@
     if(!_imageView7)
     {
         _imageView7 = [UIImageView new];
-        [self addSubview:_imageView7];
+        [self.contentView addSubview:_imageView7];
     }
     
     return _imageView7;
@@ -720,7 +721,7 @@
     if(!_imageView8)
     {
         _imageView8 = [UIImageView new];
-        [self addSubview:_imageView8];
+        [self.contentView addSubview:_imageView8];
     }
     
     return _imageView8;
@@ -731,7 +732,7 @@
     if(!_imageView9)
     {
         _imageView9 = [UIImageView new];
-        [self addSubview:_imageView9];
+        [self.contentView addSubview:_imageView9];
     }
     
     return _imageView9;

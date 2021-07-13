@@ -1103,7 +1103,7 @@
 -(void)setButtonState:(UIControlState)state forModel:(MTBaseViewContentModel*)model
 {
     [self findImageModel:model For:^(UIImage *image) {
-        if(!model.image && image)
+        if(!model.image && image && !model.beDefault)        
             model.image = image;
           [self  setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:state];
     }];

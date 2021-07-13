@@ -356,6 +356,10 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
              NSArray* arr = (NSArray*)weakSelf;
              for(NSObject* obj in arr)
              {
+                 if(obj.mt_itemHeight)
+                     continue;
+                 if(!CGSizeEqualToSize(obj.mt_itemSize, CGSizeZero))
+                     continue;
                  obj.mt_automaticDimension = YES;
                  obj.mt_tag = kNew;
              }                 

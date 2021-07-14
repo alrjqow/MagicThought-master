@@ -13,15 +13,15 @@
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth_mt(), kNavigationBarHeight_mt())];        
+    self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth_mt(), kNavigationBarHeight_mt())];
+    _navigationBarCenterY = kStatusBarHeight_mt() + (self.height - kStatusBarHeight_mt()) * 0.5;
+    
     return self;
 }
 
 -(void)setupDefault
 {
     [super setupDefault];
-    
-    _navigationBarCenterY = kStatusBarHeight_mt() + (self.height - kStatusBarHeight_mt()) * 0.5;
     
     self.backgroundColor = [UIColor whiteColor];
     

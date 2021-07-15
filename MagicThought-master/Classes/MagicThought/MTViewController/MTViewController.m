@@ -47,6 +47,10 @@
     [super viewWillAppear:animated];
     
     self.isVisible = YES;
+    
+    if([self isKindOfClass:NSClassFromString(@"MTPageScrollListController")] && [self.view.superview.superview isKindOfClass:[UIScrollView class]])
+        return;
+    
     [self loadStatusBarStyle];
 }
 

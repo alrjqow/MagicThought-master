@@ -93,9 +93,13 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 //            NSLog(@"%@",self.alertView);
                 [vc presentViewController:self animated:false completion:^{
                     [UIView animateWithDuration:self.animateTime animations:^{
+                        
+                        [self alerting];
                         self.blackView.alpha = 1;
 
                         self.alertView.y = self.type >= MTBaseAlertTypeUp_Frame ? self.alertViewY : (self.view.height - self.alertView.height);
+                    } completion:^(BOOL finished) {
+                        [self alertCompletion];
                     }];
                 }];            
             break;
@@ -185,7 +189,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
         {
             if(before)
                 before();
-            [self.presentingViewController dismissViewControllerAnimated:animate completion:^{
+            [self dismissViewControllerAnimated:animate completion:^{
                 [self dismissCompletion];
                 if(completion)
                     completion();
@@ -208,7 +212,7 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
         {
             if(before)
                 before();
-            [self.presentingViewController dismissViewControllerAnimated:false completion:^{
+            [self dismissViewControllerAnimated:false completion:^{
                 [self dismissCompletion];
                 if(completion)
                     completion();

@@ -46,6 +46,7 @@
 
 /**判断视图的可见性*/
 @property(nonatomic,assign) BOOL isVisible;
+@property(nonatomic,assign) BOOL isDidAppear;
 
 /**判断视图的是否已加载*/
 @property (nonatomic,assign, readonly) BOOL isViewDidLoad;

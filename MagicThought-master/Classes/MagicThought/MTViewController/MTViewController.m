@@ -64,6 +64,7 @@
 {
     [super viewDidAppear:animated];
     self.isVisible = YES;
+    self.isDidAppear = YES;
     
     if([self.view.superview isKindOfClass:NSClassFromString(@"MTTenScrollContentCell")])
         return;
@@ -85,6 +86,7 @@
 {
     [super viewDidDisappear:animated];
     self.isVisible = false;
+    self.isDidAppear = false;
 }
 
 - (void)viewDidLoad {

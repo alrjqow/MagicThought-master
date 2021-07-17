@@ -116,6 +116,8 @@
         self.layer.cornerRadius = border.borderRadius;
         self.layer.borderColor = border.borderColor.CGColor;
         self.layer.borderWidth = border.borderWidth;
+        if(border.fillColor)
+            self.backgroundColor = border.fillColor;
     }
     else
     {

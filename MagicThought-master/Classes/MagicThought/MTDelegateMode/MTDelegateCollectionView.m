@@ -27,6 +27,7 @@
         }
         
         _layout = layout;
+        self.backgroundColor = [UIColor clearColor];
         [self setupDefault];
     }
     

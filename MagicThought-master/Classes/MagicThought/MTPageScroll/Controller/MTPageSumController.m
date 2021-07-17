@@ -89,6 +89,11 @@
     return _pageControllModel;
 }
 
+-(MTPageControllModel *)titleControllModel
+{
+    return self.pageControllModel.titleControllModel;
+}
+
 -(NSString *)pageControllModelClassName
 {
     return @"MTPageControllModel";

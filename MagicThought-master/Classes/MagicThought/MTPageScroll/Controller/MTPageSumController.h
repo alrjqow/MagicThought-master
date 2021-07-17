@@ -10,6 +10,7 @@
 #import "MTPageScrollView.h"
 
 @class MTPageControllModel;
+@class MTPageTitleControllModel;
 @protocol MTPageControllModelDelegate;
 
 @interface MTPageSumController : MTHeaderRefreshListController<MTPageControllModelDelegate>
@@ -18,6 +19,8 @@
 @property (nonatomic,strong) MTPageScrollViewX* pageScrollViewX;
 
 @property (nonatomic,strong) MTPageControllModel* pageControllModel;
+
+@property (nonatomic,strong, readonly) MTPageTitleControllModel* titleControllModel;
 
 @property (nonatomic,strong, readonly) NSString* pageControllModelClassName;
 

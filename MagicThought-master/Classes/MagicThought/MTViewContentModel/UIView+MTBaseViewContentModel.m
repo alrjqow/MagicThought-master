@@ -380,7 +380,8 @@
             self.layer.mask = nil;
         else
         {
-            for (CALayer* layer in self.layer.sublayers)
+            NSMutableArray<CALayer*>* sublayers = [self.layer.sublayers mutableCopy];
+            for (CALayer* layer in sublayers)
             {
                 if([layer isKindOfClass:[CAShapeLayer class]])
                     [layer removeFromSuperlayer];

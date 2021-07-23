@@ -33,7 +33,8 @@ typedef MTWordStyle* (^Range)(NSRange wordRange);
 typedef MTWordStyle* (^RangeMethod)(WordRangeMethod wordRangeMethod);
 typedef MTWordStyle* (^WordStyles)(NSArray<MTWordStyle*>* wordStyleList);
 typedef MTWordStyle* (^WordReplaceTags)(NSArray<NSString*>* wordTagReplaceList);
-typedef MTWordStyle* (^UnderLine)(NSInteger wordUnderLine);
+typedef MTWordStyle* (^UnderLine)(NSUnderlineStyle wordUnderLine);
+typedef MTWordStyle* (^ThroughLine)(NSUnderlineStyle wordThroughLine);
 typedef MTWordStyle* (^FontName)(NSString* wordFontName);
 
 #define wordStyles(...) styleList(@[__VA_ARGS__])
@@ -49,7 +50,8 @@ typedef MTWordStyle* (^FontName)(NSString* wordFontName);
 @property(nonatomic,strong) UIColor* wordColor;
 @property(nonatomic,strong, readonly) NSAttributedString *attributedWordName;
 
-@property(nonatomic,assign) NSInteger wordUnderLine;
+@property(nonatomic,assign) NSUnderlineStyle wordUnderLine;
+@property(nonatomic,assign) NSUnderlineStyle wordThroughLine;
 
 @property(nonatomic,assign) MTVerticalAlignment wordVerticalAlignment;
 @property(nonatomic,assign) NSTextAlignment  wordHorizontalAlignment;
@@ -94,6 +96,7 @@ typedef MTWordStyle* (^FontName)(NSString* wordFontName);
 @property (nonatomic,copy,readonly)  Thin thin;
 @property (nonatomic,copy,readonly)  SpecialTag specialTag;
 @property (nonatomic,copy,readonly)  UnderLine underLine;
+@property (nonatomic,copy,readonly)  ThroughLine throughLine;
 
 -(NSAttributedString *)createAttributedWordName:(NSString*)wordName;
 

@@ -26,19 +26,31 @@
 
 +(NSArray *)mj_ignoredPropertyNames
 {
-    return @[@"lineSpacing", @"verticalAlignment", @"horizontalAlignment", @"bold", @"thin", @"attributedWord", @"attributedWordName", @"spacing", @"numberOfLines", @"lineBreakMode", @"attributedDict", @"paragraphStyle", @"range", @"wordRangeMethod", @"rangeMethod", @"wordStyleList", @"tagReplaceList", @"specialTag", @"maximumLineHeight",@"underLine",@"fontName"];
+    return @[@"lineSpacing", @"verticalAlignment", @"horizontalAlignment", @"bold", @"thin", @"attributedWord", @"attributedWordName", @"spacing", @"numberOfLines", @"lineBreakMode", @"attributedDict", @"paragraphStyle", @"range", @"wordRangeMethod", @"rangeMethod", @"wordStyleList", @"tagReplaceList", @"specialTag", @"maximumLineHeight",@"underLine",@"fontName", @"throughLine"];
 }
 
 -(UnderLine)underLine
 {
     __weak __typeof(self) weakSelf = self;
-    UnderLine underLine = ^(NSInteger wordUnderLine){
+    UnderLine underLine = ^(NSUnderlineStyle wordUnderLine){
         
         weakSelf.wordUnderLine = wordUnderLine;
         return weakSelf;
     };
     
     return underLine;
+}
+
+-(ThroughLine)throughLine
+{
+    __weak __typeof(self) weakSelf = self;
+    ThroughLine throughLine = ^(NSUnderlineStyle wordThroughLine){
+        
+        weakSelf.wordThroughLine = wordThroughLine;
+        return weakSelf;
+    };
+    
+    return throughLine;
 }
 
 -(WordReplaceTags)tagReplaceList
@@ -282,7 +294,10 @@
         self.attributedDict[NSFontAttributeName] = font;
                 
         if(self.wordNumberOfLines == 1)
-            self.attributedDict[NSStrikethroughStyleAttributeName] = @(self.wordUnderLine);        
+        {
+            self.attributedDict[NSUnderlineStyleAttributeName] = @(self.wordUnderLine);
+            self.attributedDict[NSStrikethroughStyleAttributeName] = @(self.wordThroughLine);
+        }
     }
 }
 

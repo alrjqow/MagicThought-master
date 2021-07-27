@@ -31,3 +31,6 @@
 +(CGFloat)adjustFloatAccordingToScreen:(NSArray<NSNumber*>*)arr;
 
 @end
+
+
+CG_EXTERN BOOL kIsHairScreen(void);

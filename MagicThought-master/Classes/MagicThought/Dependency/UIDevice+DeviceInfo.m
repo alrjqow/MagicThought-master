@@ -229,6 +229,12 @@
         return false;
 }
 
+BOOL kIsHairScreen()
+{
+    return [UIDevice isHairScreen];
+}
+
+
 + (BOOL)isHairScreen2 {
     
     static NSInteger isFinish = -1;

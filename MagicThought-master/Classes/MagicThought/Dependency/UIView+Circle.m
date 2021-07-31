@@ -118,8 +118,8 @@
         self.layer.borderWidth = border.borderWidth;
         if(border.fillColor)
             self.backgroundColor = border.fillColor;
-        if([self isKindOfClass:[UILabel class]])
-            self.clipsToBounds = YES;
+        if(border.borderMasksToBounds || [self isKindOfClass:[UILabel class]])
+            self.clipsToBounds = YES;        
     }
     else
     {

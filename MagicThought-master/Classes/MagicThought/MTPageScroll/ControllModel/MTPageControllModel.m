@@ -519,6 +519,7 @@
             {
                 UIScrollView* listView = [vc valueForKey:@"mtListView"];
                 [listView setValue:self forKey:@"mt_pageControllModel"];
+                [vc setValue:self forKey:@"pageControllModel"];
             }
             [vc whenGetPageData:[obj isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)obj).data : ([obj isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)obj).data : obj)];
         }

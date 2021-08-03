@@ -48,8 +48,8 @@
     
     self.isVisible = YES;
     
-    if([self isKindOfClass:NSClassFromString(@"MTPageScrollListController")] && [self.view.superview.superview isKindOfClass:[UIScrollView class]])
-        return;
+    if([self isKindOfClass:NSClassFromString(@"MTPageScrollListController")] && [self valueForKey:@"pageControllModel"])
+        return;    
     
     [self loadStatusBarStyle];
 }

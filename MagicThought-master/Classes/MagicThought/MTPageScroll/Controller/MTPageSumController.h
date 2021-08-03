@@ -33,6 +33,8 @@
 @property (nonatomic,strong) MTPageScrollListView* pageScrollListView;
 @property (nonatomic,strong) MTPageScrollListViewX* pageScrollListViewX;
 
+@property (nonatomic,weak) MTPageControllModel* pageControllModel;
+
 - (void)layoutScrollListView;
 
 @end

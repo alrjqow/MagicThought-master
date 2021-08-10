@@ -213,7 +213,7 @@
     {
         baseViewContentModel.viewState = kDefault;
         self.baseContentModel = baseViewContentModel;
-    }    
+    }
 }
 
 -(BOOL)checkBaseViewContentModel:(MTBaseViewContentModel*)baseContentModel
@@ -368,9 +368,12 @@
     MTBorderStyle* borderStyle = borderStyleModel.borderStyle;
     if(borderStyle)
     {
-        if(!borderStyle.fillColor)
+        UIColor* fillColor = borderStyle.fillColor;
+        if(backgroundColorModel.backgroundColor)
             borderStyle.fillColor = backgroundColorModel.backgroundColor;
         [self becomeCircleWithBorder:borderStyle];
+        if(fillColor)
+            borderStyle.fillColor = fillColor;
     }
     else
     {
@@ -753,7 +756,7 @@
     else
     {
         [view clickWithNotClearData:data];
-        [self clickWithClearData:data];        
+        [self clickWithClearData:data];
     }
 }
 
@@ -1104,7 +1107,7 @@
 -(void)setButtonState:(UIControlState)state forModel:(MTBaseViewContentModel*)model
 {
     [self findImageModel:model For:^(UIImage *image) {
-        if(!model.image && image && !model.beDefault)        
+        if(!model.image && image && !model.beDefault)
             model.image = image;
           [self  setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:state];
     }];

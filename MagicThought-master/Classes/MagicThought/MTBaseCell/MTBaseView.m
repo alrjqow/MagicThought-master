@@ -410,6 +410,12 @@
 
 @end
 
+@interface MTBaseSubView()
+{
+    UIButton* _button5;
+}
+@end
+
 @implementation MTBaseSubView
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
@@ -468,6 +474,19 @@
     return _button5;
 }
 
+-(void)setButton5:(UIButton *)button5
+{
+    [_button5 removeFromSuperview];
+    _button5 = button5;
+    [self configButton:button5 WithOrder:kBtnTitle5];
+}
+
+@end
+
+@interface MTBaseSubView2()
+{
+    UIButton* _button6;
+}
 @end
 
 @implementation MTBaseSubView2
@@ -526,6 +545,13 @@
     }
     
     return _button6;
+}
+
+-(void)setButton6:(UIButton *)button6
+{
+    [_button6 removeFromSuperview];
+    _button6 = button6;
+    [self configButton:button6 WithOrder:kBtnTitle6];
 }
 
 @end

@@ -320,7 +320,7 @@
 {
     MTBaseViewContentModel* hiddenModel =
     [self findBaseViewContentModel:baseViewContentModel Key:@"isNoMatchHidden" For:^BOOL(MTBaseViewContentModel *model) {
-        if(!baseViewContentModel.isHidden && model.isHidden)
+        if(!baseViewContentModel.isHidden && model.isHidden && !baseViewContentModel.beDefault)
             baseViewContentModel.isHidden = model.isHidden;
         return model.isHidden != nil;
     }];

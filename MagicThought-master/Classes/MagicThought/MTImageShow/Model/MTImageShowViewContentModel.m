@@ -48,6 +48,8 @@
         preImage = [[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] ? imageView.baseContentModel.imageURL : imageView.baseContentModel.image;
     else if([imageView.baseContentModel.imageURL isExist])
         preImage = imageView.baseContentModel.imageURL;
+    else if(imageView.baseContentModel.asset)
+        preImage = imageView.baseContentModel.asset;
     
     NSObject* newImage;
     if(self.image)
@@ -57,6 +59,8 @@
         newImage = self.imageURL;
         self.isImageURLImage = YES;
     }
+    else if(self.asset)
+        newImage = self.asset;
                 
     if(!isAssistCell && newImage && preImage)
     {

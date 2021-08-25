@@ -108,6 +108,8 @@
         dict = @{@"viewState" : obj};
     else if([obj isKindOfClass:[NSValue class]])
         self.margin = (NSValue*)obj;
+    else if([obj isKindOfClass:[PHAsset class]])
+        self.asset = (PHAsset*)obj;
     else if([obj isKindOfClass:[MTBaseViewContentModel class]])
         dict = obj.mj_keyValues;
             

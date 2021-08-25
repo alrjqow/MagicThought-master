@@ -462,6 +462,8 @@
           image = imageView.baseContentModel.image;
       else if([imageView.baseContentModel.imageURL isExist])
           image = imageView.baseContentModel.imageURL;
+      else if(imageView.baseContentModel.asset)
+          image = imageView.baseContentModel.asset;
     
     NSUInteger index = [self.imageArray indexOfObject:(UIImage*)image];
     if(index < 0 || index >= self.imageArray.count)
@@ -629,6 +631,8 @@
     if(!_beginImageView)
     {
         _beginImageView = [UIImageView new];
+        _beginImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _beginImageView.clipsToBounds = YES;
     }
     
     return _beginImageView;

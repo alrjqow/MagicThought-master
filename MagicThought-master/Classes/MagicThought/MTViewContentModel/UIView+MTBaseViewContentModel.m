@@ -561,7 +561,7 @@
 {
     MTBaseViewContentModel* imageModel =
        [self findBaseViewContentModel:baseViewContentModel Key:@"isNoMatchImage" For:^BOOL(MTBaseViewContentModel *model) {
-           return model.image || [model.imageURL isExist] || ([model.placeholderImage isKindOfClass:[NSString class]] && [model.placeholderImage isExist]) || [model.placeholderImage isKindOfClass:[UIImage class]];
+           return model.asset || model.image || [model.imageURL isExist] || ([model.placeholderImage isKindOfClass:[NSString class]] && [model.placeholderImage isExist]) || [model.placeholderImage isKindOfClass:[UIImage class]];
        }];
     
         
@@ -616,6 +616,42 @@
               }];
           }
       }
+    else if(imageModel.asset && !CGSizeEqualToSize(self.mt_itemSize, CGSizeZero) && completion)
+    {
+        UIView* superView = self.superview;
+        while (superView) {
+            
+            if([superView isKindOfClass:NSClassFromString(@"MTDelegateCollectionViewCell")] && [superView.mt_order containsString:@"isAssistCell"])
+                return;
+                        
+            superView = superView.superview;
+        }
+        
+        CGSize size = self.mt_itemSize;
+        if(!size.width)
+        {
+            size.height *= [UIScreen mainScreen].scale;
+            size.width = size.height * imageModel.asset.pixelWidth / imageModel.asset.pixelHeight;
+        }
+        else if(!size.height)
+        {
+            size.width *= [UIScreen mainScreen].scale;
+            size.height = size.width * imageModel.asset.pixelHeight / imageModel.asset.pixelWidth;
+        }
+        else
+        {
+            size.width *= [UIScreen mainScreen].scale;
+            size.height *= [UIScreen mainScreen].scale;
+        }
+        
+        PHImageRequestOptions* options = [[PHImageRequestOptions alloc] init];
+        options.synchronous = YES;
+        options.resizeMode = PHImageRequestOptionsResizeModeExact;
+        
+        [[PHCachingImageManager defaultManager] requestImageForAsset:imageModel.asset targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            completion(result);
+        }];
+    }
     else if([imageModel.placeholderImage isKindOfClass:[NSString class]] && [imageModel.placeholderImage isExist] && completion)
         completion([UIImage imageNamed:imageModel.placeholderImage]);
     else if([imageModel.placeholderImage isKindOfClass:[UIImage class]] && completion)
@@ -922,6 +958,7 @@
 -(MTBaseViewContentModel*)viewStateContent{return self.baseContentModel;}
 -(MTBaseViewContentModel*)cellContent{return self.baseContentModel;}
 -(MTBaseViewContentModel *)viewVerifyContent{return self.baseContentModel;}
+-(MTBaseViewContentModel *)imageShowContent{return self.baseContentModel;}
 
 -(MTBaseViewContentModel*)defaultViewContent{return self.defaultBaseContentModel;}
 -(MTBaseViewContentModel*)defaultViewStateContent{return self.defaultBaseContentModel;}

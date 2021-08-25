@@ -52,6 +52,10 @@
 /**为了编译器识别 defaultViewVerifyContent 宏*/
 @property (nonatomic,strong, readonly) MTBaseViewContentModel* defaultViewVerifyContent;
 
+/**为了编译器识别 imageShowContent 宏*/
+@property (nonatomic,strong, readonly) MTBaseViewContentModel* imageShowContent;
+
+
 /**IsClearOrder = Yes*/
 -(void)clickWithClearData:(NSObject*)data;
 

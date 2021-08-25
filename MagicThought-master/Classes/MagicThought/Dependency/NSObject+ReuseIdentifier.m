@@ -736,6 +736,8 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
         self.bind(obj.mt_reuseIdentifier);
     if(obj.mt_click)
         self.bindClick(obj.mt_click);    
+    if(!CGSizeEqualToSize(obj.mt_itemSize, CGSizeZero))
+        self.bindSize(obj.mt_itemSize);
     if(![self.mt_order isExist])
         self.bindOrder(obj.mt_order);
     if(![self.mt_tagIdentifier isExist])

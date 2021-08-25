@@ -6,6 +6,7 @@
 //  Copyright © 2019 monda. All rights reserved.
 //
 
+#import <Photos/Photos.h>
 #import "NSObject+CommonProtocol.h"
 #import "NSObject+ReuseIdentifier.h"
 #import "MTWordStyle.h"
@@ -58,6 +59,9 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 
 /**图片*/
 @property (nonatomic,strong) UIImage* image;
+
+/**图片*/
+@property (nonatomic,strong) PHAsset* asset;
 
 /**图片名*/
 @property (nonatomic,strong) NSString* imageURL;

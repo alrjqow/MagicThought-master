@@ -26,6 +26,8 @@
     
     self.backgroundColor = [UIColor clearColor];
     
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
     self.imageView.userInteractionEnabled = YES;
     [self.imageView addGestureRecognizer:self.singleTap];
     [self.imageView addGestureRecognizer:self.doubleTap];
@@ -139,9 +141,16 @@
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
 {
+    if([contentModel isKindOfClass:[MTBigimageCellContentModel class]])
+    {
+        MTImageShowControllModel* imageShowControllModel = ((MTBigimageCellContentModel*)contentModel).imageShowControllModel;
+        CGFloat width = contentModel.mt_itemSize.width -  imageShowControllModel.bigimageCellModel.bigImageCellSpacing;
+        self.imageView.bindSize(CGSizeMake(width, 0));
+    }
+    
     [super setContentModel:contentModel];
            
-    [contentModel setValue:self forKey:@"bigCell"];
+//    [contentModel setValue:self forKey:@"bigCell"];
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
     self.scrollView.maximumZoomScale = self.imageShowControllModel.bigimageCellModel.maximumZoomScale;
     self.scrollView.panGestureRecognizer.maximumNumberOfTouches = 1;

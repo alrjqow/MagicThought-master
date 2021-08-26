@@ -24,5 +24,7 @@
 
 @property (nonatomic,strong) id placeholderImage;
 
+
+
 @end
 

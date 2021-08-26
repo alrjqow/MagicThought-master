@@ -15,6 +15,7 @@
 #import "SDWebImageManager.h"
 #import <MJExtension/MJExtension.h>
 #import <Photos/Photos.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MTImageShowControllModel ()
 {
@@ -24,9 +25,103 @@
 
 @property (nonatomic,strong) UIImageView* beginImageView;
 
+@property (nonatomic,strong) AVPlayerLayer* playerLayer;
+
+@property (nonatomic,weak) PHAsset* currentAsset;
+
 @end
 
 @implementation MTImageShowControllModel
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.bindNotification(UIApplicationWillResignActiveNotification, UIApplicationDidBecomeActiveNotification).whenReceiveNotification(^(NSNotification * _Nonnull notification) {
+            
+            if([notification.name isEqualToString:UIApplicationWillResignActiveNotification])
+               [weakSelf.playerLayer.player pause];
+            else
+                [weakSelf.playerLayer.player play];
+        });
+    }
+    return self;
+}
+
+-(void)whenDealloc
+{
+    [super whenDealloc];
+    
+    [self stopPlayer];
+    _playerLayer.player = nil;
+    _playerLayer = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)stopPlayer
+{
+    [_playerLayer.player pause];
+    [_playerLayer removeFromSuperlayer];
+}
+
+#pragma mark - 播放视频
+
+-(void)checkVideoWithIndex:(NSInteger)index
+{
+    PHAsset* asset = (id) self.imageArray[index];
+    if(![asset isKindOfClass:[PHAsset class]] || asset.duration <= 0)
+    {
+        self.currentAsset = nil;
+        [self stopPlayer];
+        return;
+    }
+        
+    if(asset == self.currentAsset)
+        return;
+    
+    [self stopPlayer];
+    self.currentAsset = asset;
+        
+    PHVideoRequestOptions* option = PHVideoRequestOptions.new;
+    option.networkAccessAllowed = YES;
+    [[PHCachingImageManager defaultManager] requestPlayerItemForVideo:asset options:option resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+               
+        [self playVideoWithItem:playerItem Index:index];
+    }];
+}
+
+-(void)playVideoWithItem:(AVPlayerItem*)playerItem Index:(NSInteger)index
+{
+    UICollectionViewCell* cell = [self.bigImageController.imagePlayView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+        
+    if(![cell isKindOfClass:NSClassFromString(@"MTImageShowCell_Big")])
+        return;
+    
+    UIImageView* imageView = [cell valueForKey:@"imageView"];
+    if(!imageView)
+        return;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+
+    self.playerLayer.player = [AVPlayer playerWithPlayerItem:playerItem];
+    [self.playerLayer.player play];
+    
+    self.playerLayer.frame = imageView.bounds;
+    [imageView.layer addSublayer:self.playerLayer];
+}
+
+#pragma mark - 监听播放
+
+- (void)videoPlayDidEnd:(NSNotification*)notification{
+    
+    AVPlayerItem*item = [notification object];
+    
+    [item seekToTime:kCMTimeZero];
+    
+    [self.playerLayer.player play];
+}
 
 #pragma mark - 大图单击
 
@@ -110,6 +205,7 @@
                 imageView.layer.anchorPoint = anchorPoint;
                 touchBegan = YES;
                 scrollView.bindOrder(@"isPanDoing");
+                [_playerLayer.player pause];
             }
                         
             imageView.layer.position = [pan locationInView:scrollView];
@@ -183,7 +279,9 @@
         return;
     }
 
-    if(decelerate && [scrollView.panGestureRecognizer velocityInView:scrollView].y > 0)
+    CGFloat velocityX = [scrollView.panGestureRecognizer velocityInView:scrollView].x;
+    CGFloat velocityY = [scrollView.panGestureRecognizer velocityInView:scrollView].y;
+    if(decelerate && velocityY > 0 && fabs(velocityX) < fabs(velocityY))
     {
         if(scrollView.offsetY <= 0)
             [self bigImageDismissView:imageView];
@@ -210,6 +308,9 @@
      if(![scrollView isKindOfClass:[UIScrollView class]])
          return;
         
+    self.currentAsset = nil;
+    [self stopPlayer];
+    
     UIView* smallImageView = self.imageViewMap[view.baseContentModel.mt_index];
 
       if(!smallImageView)
@@ -256,7 +357,11 @@
         imageView.layer.position = CGPointMake(centerX, centerY);
         imageView.transform = CGAffineTransformMakeScale(zoomScale, zoomScale);
         
-    } completion:nil];
+    } completion:^(BOOL finish){
+        
+        if(self.playerLayer.superlayer)
+           [self.playerLayer.player play];
+    }];
 }
 
 #pragma mark - 大图双击
@@ -636,6 +741,17 @@
     }
     
     return _beginImageView;
+}
+
+-(AVPlayerLayer *)playerLayer
+{
+    if(!_playerLayer)
+    {
+        _playerLayer = [AVPlayerLayer new];
+        _playerLayer.speed = MAXFLOAT;
+    }
+    
+    return _playerLayer;
 }
 
 @end

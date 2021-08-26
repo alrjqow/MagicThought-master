@@ -162,6 +162,12 @@
 #pragma clang diagnostic pop
     
     [self layoutSubviews];
+    
+    if([self.imageShowControllModel.bigimageCellModel.mt_order containsString:@"alertCompletion"] && self.imageShowControllModel.bigimageCellModel.bigImageShowIndex == self.indexPath.row)
+    {
+        self.imageShowControllModel.bigimageCellModel.mt_order = nil;
+        [self.imageShowControllModel checkVideoWithIndex:self.indexPath.row];
+    }
 }
 
 -(Class)classOfResponseObject

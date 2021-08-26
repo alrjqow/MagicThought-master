@@ -15,7 +15,7 @@
 
 #import "MJExtension.h"
 
-@interface MTAlertBigImageController ()
+@interface MTAlertBigImageController ()<UIScrollViewDelegate>
 
 @property (nonatomic,strong,readonly) MTBigimageCellModel* bigimageCellModel;
 
@@ -53,7 +53,8 @@
 }
 
 -(void)alertCompletion
-{    
+{
+    self.bigimageCellModel.bindOrder(@"alertCompletion");
     self.imagePlayView.scrollEnabled = !self.bigimageCellModel.bigImageSingleShow;
     [self.imagePlayView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.bigimageCellModel.bigImageShowIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
 }
@@ -64,6 +65,15 @@
      self.blackView.backgroundColor = [UIColor blackColor];
 }
 
+
+#pragma mark - 代理
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.offsetX / scrollView.width;
+    
+    [self.imageShowControllModel checkVideoWithIndex:index];    
+}
 
 #pragma mark - Getter、Setter
 

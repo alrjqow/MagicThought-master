@@ -82,5 +82,8 @@ typedef enum : NSInteger {
 /**保存所有图片*/
 -(void)saveAllImage;
 
+/**播放视频*/
+-(void)checkVideoWithIndex:(NSInteger)index;
+
 @end
 

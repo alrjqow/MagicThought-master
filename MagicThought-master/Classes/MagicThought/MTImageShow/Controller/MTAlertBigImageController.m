@@ -53,8 +53,7 @@
 }
 
 -(void)alertCompletion
-{
-    self.bigimageCellModel.bindOrder(@"alertCompletion");
+{    
     self.imagePlayView.scrollEnabled = !self.bigimageCellModel.bigImageSingleShow;
     [self.imagePlayView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.bigimageCellModel.bigImageShowIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
 }

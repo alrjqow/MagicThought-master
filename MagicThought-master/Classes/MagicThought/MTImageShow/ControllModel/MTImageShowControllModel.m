@@ -620,6 +620,7 @@
     UIViewController* vc = mt_rootViewController();
     while (vc.presentedViewController) {vc = vc.presentedViewController;}
     
+    self.bigimageCellModel.bindOrder(@"alertStart");
     [vc presentViewController:self.bigImageController animated:false completion:^{
         
         [self.bigImageController alertCompletion];

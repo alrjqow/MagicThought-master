@@ -67,6 +67,7 @@ CG_EXTERN NSReuseObject* _Nonnull mt_empty(void);
 
 
 typedef void (^MTClick)(id _Nullable object);
+typedef BOOL (^MTBoolClick)(id _Nullable object);
 typedef void (^MTAutomaticDimensionSize)(CGSize size);
 typedef void (^MTNotificationHandle)(NSNotification * _Nonnull notification);
 
@@ -102,6 +103,7 @@ typedef void (^MTNotificationHandle)(NSNotification * _Nonnull notification);
 @property (nonatomic,assign) BOOL mt_headerEmptyShow;
 
 @property (nonatomic,copy) MTClick _Nullable mt_click;
+@property (nonatomic,copy) MTBoolClick _Nullable mt_BoolClick;
 @property (nonatomic,copy) MTAutomaticDimensionSize _Nullable mt_automaticDimensionSize;
 @property (nonatomic,copy) MTNotificationHandle _Nullable mt_notificationHandle;
 
@@ -133,11 +135,13 @@ typedef NSObject* _Nonnull (^BindNotifications) (NSArray<NSString*>* _Nonnull no
 typedef NSObject* _Nonnull (^Bind3dTouch) (void);
 typedef NSObject* _Nonnull (^BindHeaderEmptyShow) (void);
 typedef NSObject* _Nonnull (^BindClick) (MTClick _Nullable);
+typedef NSObject* _Nonnull (^BindBoolClick) (MTBoolClick _Nullable);
 typedef NSObject* _Nonnull (^WhenReceiveNotification) (MTNotificationHandle _Nullable);
 
 @interface NSObject (BindReuseIdentifier)
 
 @property (nonatomic,copy,readonly) BindClick _Nonnull bindClick;
+@property (nonatomic,copy,readonly) BindBoolClick _Nonnull bindBoolClick;
 
 @property (nonatomic,copy,readonly) BindOrder _Nonnull bindOrder;
 @property (nonatomic,copy,readonly) BindOrder _Nonnull bindArrayOrder;

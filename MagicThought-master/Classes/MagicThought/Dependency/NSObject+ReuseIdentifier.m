@@ -95,6 +95,16 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return objc_getAssociatedObject(self, _cmd);
 }
 
+-(void)setMt_BoolClick:(MTBoolClick)mt_BoolClick
+{
+    objc_setAssociatedObject(self, @selector(mt_BoolClick), mt_BoolClick, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+-(MTBoolClick)mt_BoolClick
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
 -(void)setMt_automaticDimensionSize:(MTAutomaticDimensionSize)mt_automaticDimensionSize
 {
      objc_setAssociatedObject(self, @selector(mt_automaticDimensionSize), mt_automaticDimensionSize, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -257,6 +267,31 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     };
     
     return bindClick;
+}
+
+-(BindBoolClick)bindBoolClick
+{
+    __weak __typeof(self) weakSelf = self;
+    BindBoolClick bindBoolClick  = ^(MTBoolClick boolClick){
+        
+        if(!boolClick)
+            return weakSelf;
+        
+        if([weakSelf isKindOfClass:[NSArray class]])
+        {
+            NSArray* arr = (NSArray*)weakSelf;
+            for(NSObject* obj in arr)
+            {
+                if(!obj.mt_BoolClick)
+                    obj.mt_BoolClick = boolClick;
+            }
+        }
+        
+        weakSelf.mt_BoolClick = boolClick;
+        return weakSelf;
+    };
+    
+    return bindBoolClick;
 }
 
 -(BindCount)bindCount

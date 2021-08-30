@@ -90,25 +90,37 @@
 
 -(void)resetMtclickWithObject:(NSObject*)obj View:(UIView*)view Config:(MTAlertConfig*)config
 {
-    MTClick mtClick = obj.mt_click;
-    __weak __typeof(view) weakView = view;
-    obj.bindClick(^(NSObject* data) {
-        
-        [self hideView:weakView Config:config];
-        if(mtClick)
-            mtClick(data);
-    });
+    [self setBind:obj BindObject:obj View:view Config:config];
 }
 
 -(void)bindMtclickWithObject:(NSObject*)obj View:(UIView*)view Config:(MTAlertConfig*)config
 {
+    [self setBind:obj BindObject:view View:view Config:config];
+}
+
+-(void)setBind:(NSObject*)obj BindObject:(NSObject*)bindObject View:(UIView*)view Config:(MTAlertConfig*)config
+{
     MTClick mtClick = obj.mt_click;
+    MTBoolClick mtBoolClick = obj.mt_BoolClick;
     __weak __typeof(view) weakView = view;
-    view.bindClick(^(NSObject* data) {
-    
-        [self hideView:weakView Config:config];
+    bindObject.bindClick(^(NSObject* data) {
+            
         if(mtClick)
+        {
+            [self hideView:weakView Config:config];
             mtClick(data);
+            return;
+        }
+            
+        if(mtBoolClick)
+        {
+            BOOL result = mtBoolClick(data);
+            if(result)
+                [self hideView:weakView Config:config];
+            return;
+        }
+        
+        [self hideView:weakView Config:config];
     });
 }
 

@@ -438,6 +438,8 @@
     
     [currentCell.textLabel sizeToFit];
     [nextCell.textLabel sizeToFit];
+    currentCell.textLabel.center = currentCell.contentView.center;
+    nextCell.textLabel.center = nextCell.contentView.center;
 }
 
 -(void)resetModelData

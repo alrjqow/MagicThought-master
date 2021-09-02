@@ -14,3 +14,4 @@
 #import "UIImage+MTCircleImage.h"
 #import "UIImage+Base64.h"
 #import "UIImage+Draw.h"
+#import "UIImage+ImageEffects.h"

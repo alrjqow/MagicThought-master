@@ -15,6 +15,14 @@ NSString*  MTDragGestureBeganOrder = @"MTDragGestureBeganOrder";
 NSString*  MTDragGestureEndOrder = @"MTDragGestureEndOrder";
 NSString*  MTDragDeleteOrder = @"MTDragDeleteOrder";
 
+typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
+    MTDragCollectionViewScrollDirectionNone = 0,
+    MTDragCollectionViewScrollDirectionLeft,
+    MTDragCollectionViewScrollDirectionRight,
+    MTDragCollectionViewScrollDirectionUp,
+    MTDragCollectionViewScrollDirectionDown
+};
+
 @interface MTDragCollectionView ()<MTDelegateProtocol>
 
 @property (nonatomic,strong) UIView * snapshotView; //截屏得到的view
@@ -23,24 +31,25 @@ NSString*  MTDragDeleteOrder = @"MTDragDeleteOrder";
 @property (nonatomic,strong) NSIndexPath * indexPath;
 @property (nonatomic,strong) NSIndexPath * nextIndexPath;
 
+@property (nonatomic, strong) CADisplayLink *edgeDisplayLink;
+
+@property (nonatomic,assign) CGPoint startPoint; //记录上一次手势的位置
 
 @end
 
 @implementation MTDragCollectionView
 
 
-
 -(void)doSomeThingForMe:(id)obj withOrder:(NSString *)order withItem:(id)item
 {
     if([order isEqualToString:MTDragGestureOrder])
     {
-        //记录上一次手势的位置
-        static CGPoint startPoint;
+        
         UIGestureRecognizer* gestureRecognizer = (UIGestureRecognizer *)item;
         //触发长按手势的cell
         MTDragCollectionViewCell * cell = (MTDragCollectionViewCell *)obj;//gestureRecognizer.view;
         
-        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {            
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
             //开始长按
             if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
                 
@@ -55,18 +64,20 @@ NSString*  MTDragDeleteOrder = @"MTDragDeleteOrder";
             _indexPath = [self indexPathForCell:cell];
             _originalCell = cell;
             _originalCell.hidden = YES;
-            startPoint = [gestureRecognizer locationInView:self];
+            self.startPoint = [gestureRecognizer locationInView:self];
+            
+            [self setupDisplayLink];
             
             if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
                 [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureBeganOrder];
             //移动
         }else if (gestureRecognizer.state == UIGestureRecognizerStateChanged){
-            CGFloat tranX = [gestureRecognizer locationOfTouch:0 inView:self].x - startPoint.x;
-            CGFloat tranY = [gestureRecognizer locationOfTouch:0 inView:self].y - startPoint.y;
+            CGFloat tranX = [gestureRecognizer locationOfTouch:0 inView:self].x - self.startPoint.x;
+            CGFloat tranY = [gestureRecognizer locationOfTouch:0 inView:self].y - self.startPoint.y;
             
             //设置截图视图位置
             _snapshotView.center = CGPointApplyAffineTransform(_snapshotView.center, CGAffineTransformMakeTranslation(tranX, tranY));
-            startPoint = [gestureRecognizer locationOfTouch:0 inView:self];
+            self.startPoint = [gestureRecognizer locationOfTouch:0 inView:self];
             //计算截图视图和哪个cell相交
             for (MTDragCollectionViewCell *cell in [self visibleCells]) {
                 //跳过隐藏的cell
@@ -101,6 +112,8 @@ NSString*  MTDragDeleteOrder = @"MTDragDeleteOrder";
             }
             //停止
         }else if(gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            
+            [self stopDisplayLink];
             self.scrollEnabled = YES;
             [_snapshotView removeFromSuperview];
             _originalCell.hidden = NO;
@@ -117,10 +130,72 @@ NSString*  MTDragDeleteOrder = @"MTDragDeleteOrder";
         MTDragCollectionViewCell * cell = (MTDragCollectionViewCell *)obj;
         
         if (self.dragItems)
-            [self.dragItems removeObjectAtIndex:cell.indexPath.item];        
+            [self.dragItems removeObjectAtIndex:cell.indexPath.item];
         [self deleteItemsAtIndexPaths:@[cell.indexPath]];
     }
 }
 
+
+-(void)edgeScroll
+{
+    MTDragCollectionViewScrollDirection scrollDirection = MTDragCollectionViewScrollDirectionNone;
+    if (self.bounds.size.height + self.contentOffset.y - _snapshotView.center.y < _snapshotView.bounds.size.height / 2 && self.bounds.size.height + self.contentOffset.y < self.contentSize.height) {
+        scrollDirection = MTDragCollectionViewScrollDirectionDown;
+    }
+    if (_snapshotView.center.y - self.contentOffset.y < _snapshotView.bounds.size.height / 2 && self.contentOffset.y > 0) {
+        scrollDirection = MTDragCollectionViewScrollDirectionUp;
+    }
+    if (self.bounds.size.width + self.contentOffset.x - _snapshotView.center.x < _snapshotView.bounds.size.width / 2 && self.bounds.size.width + self.contentOffset.x < self.contentSize.width) {
+        scrollDirection = MTDragCollectionViewScrollDirectionRight;
+    }
+    
+    if (_snapshotView.center.x - self.contentOffset.x < _snapshotView.bounds.size.width / 2 && self.contentOffset.x > 0) {
+        scrollDirection = MTDragCollectionViewScrollDirectionLeft;
+    }
+    
+    switch (scrollDirection) {
+        case MTDragCollectionViewScrollDirectionLeft:{
+            //这里的动画必须设为NO
+            [self setContentOffset:CGPointMake(self.contentOffset.x - 4, self.contentOffset.y) animated:NO];
+            _snapshotView.center = CGPointMake(_snapshotView.center.x - 4, _snapshotView.center.y);
+            
+            _startPoint.x -= 4;
+        }
+            break;
+        case MTDragCollectionViewScrollDirectionRight:{
+            [self setContentOffset:CGPointMake(self.contentOffset.x + 4, self.contentOffset.y) animated:NO];
+            _snapshotView.center = CGPointMake(_snapshotView.center.x + 4, _snapshotView.center.y);
+            _startPoint.x += 4;
+            
+        }
+            break;
+        case MTDragCollectionViewScrollDirectionUp:{
+            [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - 4) animated:NO];
+            _snapshotView.center = CGPointMake(_snapshotView.center.x, _snapshotView.center.y - 4);
+            _startPoint.y -= 4;
+        }
+            break;
+        case MTDragCollectionViewScrollDirectionDown:{
+            [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + 4) animated:NO];
+            _snapshotView.center = CGPointMake(_snapshotView.center.x, _snapshotView.center.y + 4);
+            _startPoint.y += 4;
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setupDisplayLink
+{
+    self.edgeDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(edgeScroll)];
+    [self.edgeDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopDisplayLink
+{
+    [self.edgeDisplayLink invalidate];
+    self.edgeDisplayLink = nil;
+}
 
 @end

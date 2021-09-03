@@ -44,7 +44,6 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
 {
     if([order isEqualToString:MTDragGestureOrder])
     {
-        
         UIGestureRecognizer* gestureRecognizer = (UIGestureRecognizer *)item;
         //触发长按手势的cell
         MTDragCollectionViewCell * cell = (MTDragCollectionViewCell *)obj;//gestureRecognizer.view;

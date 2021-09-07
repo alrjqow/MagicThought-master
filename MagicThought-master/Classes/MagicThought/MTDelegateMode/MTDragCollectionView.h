@@ -13,7 +13,17 @@ extern NSString*  MTDragGestureBeganOrder;
 extern NSString*  MTDragGestureEndOrder;
 extern NSString*  MTDragDeleteOrder;
 
+@protocol MTDragCollectionViewDragDelegate<NSObject>
+
+@optional
+
+-(BOOL)shouldChangeItemWithIndexPath:(NSIndexPath*)indexPath;
+
+@end
+
 @interface MTDragCollectionView : MTDelegateCollectionView
+
+@property (nonatomic,weak) id<MTDragCollectionViewDragDelegate> mtDragDelegate;
 
 @property(nonatomic,weak) NSMutableArray* dragItems;
 

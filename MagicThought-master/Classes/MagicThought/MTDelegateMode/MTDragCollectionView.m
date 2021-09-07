@@ -71,6 +71,9 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                 [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureBeganOrder];
             //移动
         }else if (gestureRecognizer.state == UIGestureRecognizerStateChanged){
+            
+            BOOL canChange = YES;
+                        
             CGFloat tranX = [gestureRecognizer locationOfTouch:0 inView:self].x - self.startPoint.x;
             CGFloat tranY = [gestureRecognizer locationOfTouch:0 inView:self].y - self.startPoint.y;
             
@@ -88,22 +91,48 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                 //如果相交一半且两个视图Y的绝对值小于高度的一半就移动
                 if ((space <= _snapshotView.frame.size.width * 0.5) && (fabs(_snapshotView.center.y - cell.center.y) <= _snapshotView.bounds.size.height * 0.5)) {
                     _nextIndexPath = [self indexPathForCell:cell];
+                                        
+                    if([self.mtDragDelegate respondsToSelector:@selector(shouldChangeItemWithIndexPath:)])
+                        canChange = [self.mtDragDelegate shouldChangeItemWithIndexPath:_nextIndexPath];
                     
-                    if (self.dragItems)
+                    if(!canChange)
+                        continue;
+                    
+                    BOOL isTop = _indexPath.row > _nextIndexPath.row;
+                    
+                    if(self.dragItems)
                     {
-                        if( _nextIndexPath.item > _indexPath.item) {
-                            for (NSUInteger i = _indexPath.item; i < _nextIndexPath.item ; i ++) {
-                                [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
-                            }
-                        }else{
-                            for (NSUInteger i = _indexPath.item; i > _nextIndexPath.item ; i --) {
+                        if(isTop)
+                            for (NSUInteger i = _indexPath.item; i > _nextIndexPath.item ; i --)
                                 [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
-                            }
-                        }
+                        else
+                            for (NSUInteger i = _indexPath.item; i < _nextIndexPath.item ; i ++)
+                                [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
                     }
                     
                     //移动
                     [self moveItemAtIndexPath:_indexPath toIndexPath:_nextIndexPath];
+                    if(labs(_nextIndexPath.row - _indexPath.row) > 1)
+                    {
+                        NSInteger row = _nextIndexPath.row + (isTop ? 1 : -1);
+                        
+                        if(row < [self numberOfItemsInSection:0])
+                        {
+                            NSIndexPath* startIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+                            if(self.dragItems)
+                            {
+                                isTop = startIndexPath.row > _indexPath.row;
+                                if(isTop)
+                                    for (NSUInteger i = startIndexPath.item; i > _indexPath.item ; i --)
+                                        [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                                else
+                                    for (NSUInteger i = startIndexPath.item; i < _indexPath.item ; i ++)
+                                        [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                            }
+                            
+                            [self moveItemAtIndexPath:startIndexPath toIndexPath:_indexPath];
+                        }
+                    }
                     //设置移动后的起始indexPath
                     _indexPath = _nextIndexPath;
                     break;
@@ -195,6 +224,13 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
 {
     [self.edgeDisplayLink invalidate];
     self.edgeDisplayLink = nil;
+}
+
+-(void)setMt_delegate:(id<MTDelegateProtocol>)mt_delegate
+{
+    [super setMt_delegate:mt_delegate];
+    
+    self.mtDragDelegate = (id) mt_delegate;
 }
 
 @end

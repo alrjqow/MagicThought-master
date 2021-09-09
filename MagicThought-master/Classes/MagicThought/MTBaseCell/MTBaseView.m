@@ -185,6 +185,16 @@
     [self layoutSubviewsForWidth:self.width Height:self.height];
 }
 
+-(AutomaticDimension)automaticDimension
+{
+    AutomaticDimension automaticDimension = [super automaticDimension];
+    
+    CGSize size = [self layoutSubviewsForWidth:0 Height:0];
+    self.bounds = CGRectMake(0, 0, size.width, size.height);
+    
+    return automaticDimension;
+}
+
 #pragma mark - 代理
 
 -(void)didTextValueChange:(UITextField *)textField

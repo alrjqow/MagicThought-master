@@ -14,6 +14,9 @@
 /**是否为下载的图片*/
 @property (nonatomic,assign) BOOL isImageURLImage;
 
+/**是否为资源图片*/
+@property (nonatomic,assign) BOOL isAssetImage;
+
 @end
 
 @implementation MTImageShowViewContentModel
@@ -45,7 +48,7 @@
     
     NSObject* preImage;
     if(imageView.baseContentModel.image)
-        preImage = [[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] ? imageView.baseContentModel.imageURL : imageView.baseContentModel.image;
+        preImage = [[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] ? imageView.baseContentModel.imageURL : ([[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue] ? imageView.baseContentModel.asset :  imageView.baseContentModel.image);
     else if([imageView.baseContentModel.imageURL isExist])
         preImage = imageView.baseContentModel.imageURL;
     else if(imageView.baseContentModel.asset)
@@ -53,15 +56,18 @@
     
     NSObject* newImage;
     if(self.image)
-        newImage = self.isImageURLImage ? self.imageURL : self.image;
+        newImage = self.isImageURLImage ? self.imageURL : (self.isAssetImage ? self.asset : self.image);
     else if([self.imageURL isExist])
     {
         newImage = self.imageURL;
         self.isImageURLImage = YES;
     }
     else if(self.asset)
+    {
         newImage = self.asset;
-                
+        self.isAssetImage = YES;
+    }
+                        
     if(!isAssistCell && newImage && preImage)
     {
         imageView.userInteractionEnabled = false;

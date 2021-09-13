@@ -1019,8 +1019,8 @@
        
        //图片
         [self findImageModel:baseContentModel For:^(UIImage *image) {
-//            if(!baseContentModel.image && image)
-//                baseContentModel.image = image;
+            if(!baseContentModel.image && image && !baseContentModel.beDefault)
+                baseContentModel.image = image;
             self.image = image;
         }];
 }

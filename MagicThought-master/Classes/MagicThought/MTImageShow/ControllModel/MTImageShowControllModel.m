@@ -563,7 +563,7 @@
         return;
             
     NSObject* image;
-      if(imageView.baseContentModel.image && ![[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue])
+      if(imageView.baseContentModel.image && ![[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] && ![[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue])
           image = imageView.baseContentModel.image;
       else if([imageView.baseContentModel.imageURL isExist])
           image = imageView.baseContentModel.imageURL;

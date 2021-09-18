@@ -19,6 +19,8 @@ extern NSString*  MTDragDeleteOrder;
 
 -(BOOL)shouldChangeItemWithIndexPath:(NSIndexPath*)indexPath;
 
+- (void)exchangeItemAtIndex:(NSUInteger)idx1 withItemAtIndex:(NSUInteger)idx2;
+
 @end
 
 @interface MTDragCollectionView : MTDelegateCollectionView

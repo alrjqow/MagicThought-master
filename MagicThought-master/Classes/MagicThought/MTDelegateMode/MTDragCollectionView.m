@@ -104,10 +104,18 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                     {
                         if(isTop)
                             for (NSUInteger i = _indexPath.item; i > _nextIndexPath.item ; i --)
+                            {
                                 [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
+                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1];
+                            }
                         else
                             for (NSUInteger i = _indexPath.item; i < _nextIndexPath.item ; i ++)
+                            {
                                 [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
+                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1];
+                            }
                     }
                     
                     //移动
@@ -124,10 +132,18 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                                 isTop = startIndexPath.row > _indexPath.row;
                                 if(isTop)
                                     for (NSUInteger i = startIndexPath.item; i > _indexPath.item ; i --)
+                                    {
                                         [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
+                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1];
+                                    }
                                 else
                                     for (NSUInteger i = startIndexPath.item; i < _indexPath.item ; i ++)
+                                    {
                                         [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
+                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1];
+                                    }                                        
                             }
                             
                             [self moveItemAtIndexPath:startIndexPath toIndexPath:_indexPath];

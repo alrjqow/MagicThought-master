@@ -30,6 +30,8 @@
 
 @property (nonatomic,assign, readonly) BOOL isUseSelfHud;
 
+@property (nonatomic,assign, readonly) MTPageSumController* pageSumController;
+
 @property (nonatomic,strong) MTPageScrollListView* pageScrollListView;
 @property (nonatomic,strong) MTPageScrollListViewX* pageScrollListViewX;
 

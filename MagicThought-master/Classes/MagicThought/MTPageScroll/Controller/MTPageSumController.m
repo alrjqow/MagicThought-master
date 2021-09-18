@@ -89,7 +89,7 @@
     return _pageControllModel;
 }
 
--(MTPageControllModel *)titleControllModel
+-(MTPageTitleControllModel *)titleControllModel
 {
     return self.pageControllModel.titleControllModel;
 }
@@ -309,6 +309,13 @@
     return [MTCloud shareCloud].currentViewController.view.mt_hudStyle;
 }
 
+-(MTPageSumController *)pageSumController
+{
+    if([self.pageControllModel.delegate isKindOfClass:[MTPageSumController class]])
+        return (id) self.pageControllModel.delegate;
+    
+    return nil;
+}
 
 @end
 

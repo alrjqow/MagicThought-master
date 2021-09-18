@@ -24,6 +24,8 @@
 
 @property (nonatomic,weak, readonly) MTPageSumController* pageSumController;
 
+@property (nonatomic,weak, readonly) MTPageScrollListController* pageScrollListController;
+
 @property (nonatomic,weak, readonly) MTBaseAlertController* alertController;
 
 @property (nonatomic,weak, readonly) UIView* view;

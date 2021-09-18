@@ -31,6 +31,9 @@
     if([obj isKindOfClass:[MTPageSumController class]])
         _pageSumController = (MTPageSumController*)obj;
     
+    if([obj isKindOfClass:[MTPageScrollListController class]])
+        _pageScrollListController = (MTPageScrollListController*)obj;    
+    
     if([obj isKindOfClass:[MTBaseAlertController class]])
         _alertController = (MTBaseAlertController*)obj;
     

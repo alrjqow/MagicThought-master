@@ -52,4 +52,7 @@
     return _dragGestureRecognizer;
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer
+{return YES;}
+
 @end

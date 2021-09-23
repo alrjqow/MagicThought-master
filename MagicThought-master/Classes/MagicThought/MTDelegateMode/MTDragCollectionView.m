@@ -82,8 +82,12 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
             self.startPoint = [gestureRecognizer locationOfTouch:0 inView:self];
             //计算截图视图和哪个cell相交
             for (MTDragCollectionViewCell *cell in [self visibleCells]) {
+                
+                NSIndexPath* indexPath = [self indexPathForCell:cell];
                 //跳过隐藏的cell
-                if ([self indexPathForCell:cell] == _indexPath) continue;
+                if (indexPath == _indexPath) continue;
+                if(indexPath.section != _indexPath.section) continue;
+                
                 
                 //计算中心距
                 CGFloat space = sqrtf(powf(_snapshotView.center.x - cell.center.x, 2) + powf(_snapshotView.center.y - cell.center.y, 2));
@@ -100,21 +104,25 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                     
                     BOOL isTop = _indexPath.row > _nextIndexPath.row;
                     
-                    if(self.dragItems)
+                    NSMutableArray* dragItems;
+                    if(indexPath.section < self.dragItems.count && indexPath.section >= 0 && [self.dragItems[indexPath.section] isKindOfClass:[NSMutableArray class]])
+                        dragItems = self.dragItems[indexPath.section];
+                        
+                    if(dragItems)
                     {
                         if(isTop)
                             for (NSUInteger i = _indexPath.item; i > _nextIndexPath.item ; i --)
                             {
-                                [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
-                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
-                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1];
+                                [dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:Section:)])
+                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1 Section:_indexPath.section];
                             }
                         else
                             for (NSUInteger i = _indexPath.item; i < _nextIndexPath.item ; i ++)
                             {
-                                [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
-                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
-                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1];
+                                [dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                                if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:Section:)])
+                                    [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1 Section:_indexPath.section];
                             }
                     }
                     
@@ -127,22 +135,22 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                         if(row < [self numberOfItemsInSection:0])
                         {
                             NSIndexPath* startIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
-                            if(self.dragItems)
+                            if(dragItems)
                             {
                                 isTop = startIndexPath.row > _indexPath.row;
                                 if(isTop)
                                     for (NSUInteger i = startIndexPath.item; i > _indexPath.item ; i --)
                                     {
-                                        [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
-                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
-                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1];
+                                        [dragItems exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:Section:)])
+                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i - 1 Section:_indexPath.section];
                                     }
                                 else
                                     for (NSUInteger i = startIndexPath.item; i < _indexPath.item ; i ++)
                                     {
-                                        [self.dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
-                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:)])
-                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1];
+                                        [dragItems exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                                        if([self.mtDragDelegate respondsToSelector:@selector(exchangeItemAtIndex:withItemAtIndex:Section:)])
+                                            [self.mtDragDelegate exchangeItemAtIndex:i withItemAtIndex:i + 1 Section: _indexPath.section];
                                     }                                        
                             }
                             
@@ -172,9 +180,10 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
     if([order isEqualToString:MTDragDeleteOrder])
     {
         MTDragCollectionViewCell * cell = (MTDragCollectionViewCell *)obj;
+                
+        if (cell.indexPath.section < self.dragItems.count && cell.indexPath.section >= 0 && [self.dragItems[cell.indexPath.section] isKindOfClass:[NSMutableArray class]])
+            [self.dragItems[cell.indexPath.section] removeObjectAtIndex:cell.indexPath.item];
         
-        if (self.dragItems)
-            [self.dragItems removeObjectAtIndex:cell.indexPath.item];
         [self deleteItemsAtIndexPaths:@[cell.indexPath]];
     }
 }

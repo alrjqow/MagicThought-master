@@ -152,12 +152,19 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
 -(void)setDataList:(NSArray *)dataList
 {
     BOOL isAllArr = YES;
+    BOOL isAllMutableArr = YES;
+    
     for(NSObject* obj in dataList)
     {
         if([obj isKindOfClass:[NSArray class]])
+        {
+            if(![obj isKindOfClass:[NSMutableArray class]])
+                isAllMutableArr = false;
             continue;
-        
-        isAllArr = false;
+        }
+                    
+        isAllArr = false;        
+        isAllMutableArr = [dataList isKindOfClass:[NSMutableArray class]];
         break;
     }
     
@@ -189,8 +196,8 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         
     _dataList = isAllArr ? dataList : @[dataList];
     
-    if(!isAllArr && [dataList isKindOfClass:[NSMutableArray class]] && [self.collectionView isKindOfClass:[MTDragCollectionView class]])
-        ((MTDragCollectionView*)self.collectionView).dragItems = (NSMutableArray*)dataList;
+    if(isAllMutableArr && [self.collectionView isKindOfClass:[MTDragCollectionView class]])
+        ((MTDragCollectionView*)self.collectionView).dragItems = (id) _dataList;
     
     if([self.collectionView.viewModel respondsToSelector:@selector(didSetDataList:)])
         [self.collectionView.viewModel didSetDataList:dataList];

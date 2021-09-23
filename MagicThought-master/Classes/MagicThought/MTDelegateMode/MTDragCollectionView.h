@@ -19,7 +19,7 @@ extern NSString*  MTDragDeleteOrder;
 
 -(BOOL)shouldChangeItemWithIndexPath:(NSIndexPath*)indexPath;
 
-- (void)exchangeItemAtIndex:(NSUInteger)idx1 withItemAtIndex:(NSUInteger)idx2;
+- (void)exchangeItemAtIndex:(NSUInteger)idx1 withItemAtIndex:(NSUInteger)idx2 Section:(NSInteger)section;
 
 @end
 
@@ -27,6 +27,6 @@ extern NSString*  MTDragDeleteOrder;
 
 @property (nonatomic,weak) id<MTDragCollectionViewDragDelegate> mtDragDelegate;
 
-@property(nonatomic,weak) NSMutableArray* dragItems;
+@property(nonatomic,weak) NSArray<NSMutableArray*>* dragItems;
 
 @end

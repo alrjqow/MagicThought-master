@@ -7,14 +7,14 @@
 //
 
 #import "MTDelegateTableView.h"
-#import "MTDelegateCollectionView.h"
+#import "MTDragCollectionView.h"
 
 @interface MTPageScrollView : MTDelegateTableView @end
 @interface MTPageScrollListView : MTDelegateTableView @end
 
 
 @interface MTPageScrollViewX : MTDelegateCollectionView @end
-@interface MTPageScrollListViewX : MTDelegateCollectionView @end
+@interface MTPageScrollListViewX : MTDragCollectionView @end
 
 
 

@@ -17,7 +17,10 @@
         _viewController = (UIViewController*)obj;
     
     if([obj isKindOfClass:[MTViewController class]])
+    {
         _controller = (MTViewController*)obj;
+        _transitionController = _controller;
+    }
     
     if([obj isKindOfClass:[MTBaseListController class]])
         _listController = (MTBaseListController*)obj;
@@ -32,8 +35,11 @@
         _pageSumController = (MTPageSumController*)obj;
     
     if([obj isKindOfClass:[MTPageScrollListController class]])
-        _pageScrollListController = (MTPageScrollListController*)obj;    
-    
+    {
+        _pageScrollListController = (MTPageScrollListController*)obj;
+        _transitionController = _pageScrollListController.pageSumController;
+    }
+                
     if([obj isKindOfClass:[MTBaseAlertController class]])
         _alertController = (MTBaseAlertController*)obj;
     

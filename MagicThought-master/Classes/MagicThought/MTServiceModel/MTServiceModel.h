@@ -28,6 +28,8 @@
 
 @property (nonatomic,weak, readonly) MTBaseAlertController* alertController;
 
+@property (nonatomic,weak) MTViewController* transitionController;
+
 @property (nonatomic,weak, readonly) UIView* view;
 
 @end

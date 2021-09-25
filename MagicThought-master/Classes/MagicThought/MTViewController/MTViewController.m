@@ -229,6 +229,11 @@
         [scriptDelegate userContentController:userContentController didReceiveScriptMessage:message];
 }
 
+-(void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [viewControllerToPresent setValue:self forKey:@"previousController"];
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
 
 #pragma mark - 懒加载
 

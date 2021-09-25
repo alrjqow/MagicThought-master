@@ -110,4 +110,10 @@
     [self presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
+- (void)presentCanAlphaViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion
+{
+    viewControllerToPresent.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
 @end

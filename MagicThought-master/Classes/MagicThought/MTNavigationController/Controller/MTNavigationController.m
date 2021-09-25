@@ -199,6 +199,11 @@
     return self.interactivePopGestureRecognizer.enabled;
 }
 
+-(void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [viewControllerToPresent setValue:self forKey:@"previousController"];
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
 
 @end
 

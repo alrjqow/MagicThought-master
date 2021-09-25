@@ -124,6 +124,12 @@
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray{}
 
+-(void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
+{
+    [viewControllerToPresent setValue:self forKey:@"previousController"];
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
 -(MTHostServiceModel *)hostServiceModel
 {
     if(!_hostServiceModel)

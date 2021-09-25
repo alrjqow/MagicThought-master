@@ -128,6 +128,9 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                     
                     //移动
                     [self moveItemAtIndexPath:_indexPath toIndexPath:_nextIndexPath];
+                    cell.indexPath = _indexPath;
+                    _originalCell.indexPath = _nextIndexPath;
+                    
                     if(labs(_nextIndexPath.row - _indexPath.row) > 1)
                     {
                         NSInteger row = _nextIndexPath.row + (isTop ? 1 : -1);
@@ -155,6 +158,8 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
                             }
                             
                             [self moveItemAtIndexPath:startIndexPath toIndexPath:_indexPath];
+                            cell.indexPath = _indexPath;
+                            _originalCell.indexPath = _nextIndexPath;
                         }
                     }
                     //设置移动后的起始indexPath

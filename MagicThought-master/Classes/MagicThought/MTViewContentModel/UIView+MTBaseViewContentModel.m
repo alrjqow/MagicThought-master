@@ -255,7 +255,7 @@
             [self setViewStateForModel:baseContentModel];
             return YES;
         }
-        else if([baseContentModel valueForKey:@"associatedDefaultModel"] == self.defaultBaseContentModel && self.defaultBaseContentModel.viewState !=kDefault)
+        else if([baseContentModel valueForKey:@"associatedDefaultModel"] == self.defaultBaseContentModel && self.defaultBaseContentModel.viewState != kDefault)
         {
             [self associatedDefaultModel:baseContentModel];
             return YES;

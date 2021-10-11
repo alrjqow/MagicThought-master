@@ -25,6 +25,8 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 
 @property (nonatomic,assign) CGFloat alertViewY;
 
+@property (nonatomic,assign) CGFloat alertViewHeight;
+
 @end
 
 @implementation MTBaseAlertController
@@ -63,6 +65,13 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
                 break;
             }
 
+            case MTBaseAlertTypePullDown:
+            {
+                self.alertViewHeight = self.alertView.height;
+                self.alertView.height = 0;
+                break;
+            }
+                
             default:
                 break;
         }
@@ -90,7 +99,6 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
         case MTBaseAlertTypeUp_Frame:
         case MTBaseAlertTypeUp_Frame_NotBackgroundDismiss:
         {
-//            NSLog(@"%@",self.alertView);
                 [vc presentViewController:self animated:false completion:^{
                     [UIView animateWithDuration:self.animateTime animations:^{
                         
@@ -102,6 +110,21 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
                         [self alertCompletion];
                     }];
                 }];            
+            break;
+        }
+            
+        case MTBaseAlertTypePullDown:
+        {
+            [vc presentViewController:self animated:false completion:^{
+                [UIView animateWithDuration:self.animateTime animations:^{
+                    
+                    [self alerting];
+                    self.blackView.alpha = 1;
+                    self.alertView.height = self.alertViewHeight;
+                } completion:^(BOOL finished) {
+                    [self alertCompletion];
+                }];
+            }];
             break;
         }
             
@@ -185,6 +208,12 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
             break;
         }
             
+        case MTBaseAlertTypePullDown:
+        {
+            [self alertTypePullDownDismiss:before Completion:completion];
+            break;
+        }
+            
         default:
         {
             if(before)
@@ -221,6 +250,23 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
         else
             [self dismissCompletion];
         self.isDismiss = YES;
+    }];
+}
+
+-(void)alertTypePullDownDismiss:(MTBlock)before Completion:(MTBlock)completion
+{
+    [UIView animateWithDuration:self.animateTime animations:^{
+        self.blackView.alpha = 0;
+        self.alertView.height = 0;
+    } completion:^(BOOL finished) {
+                 
+            if(before)
+                before();
+            [self dismissViewControllerAnimated:false completion:^{
+                [self dismissCompletion];
+                if(completion)
+                    completion();
+            }];
     }];
 }
 

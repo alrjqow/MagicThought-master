@@ -50,7 +50,11 @@
 {
     NSDateFormatter* formater = [NSDateFormatter new];
     [formater setDateFormat:format ? format : @"YYYY-MM-dd HH:mm:ss"];
-    return  [formater dateFromString:time];
+    
+    NSDate* date = [formater dateFromString:time];
+    NSTimeZone* zone = [NSTimeZone systemTimeZone];
+
+    return [date dateByAddingTimeInterval:[zone secondsFromGMTForDate:date]];
 }
 
 +(NSTimeInterval)getCurrentZoneTimeStamp

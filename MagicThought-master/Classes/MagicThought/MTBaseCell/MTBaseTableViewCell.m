@@ -302,7 +302,7 @@
 
 -(void)didTextValueChange:(UITextField *)textField
 {
-    textField.bindEnum(kTextValueChange);
+    textField.bindEnum(kTextFieldValueChange);
     textField.bindTagText(textField.text);
     [self viewEventWithView:_textField Data:self.indexPath];
 }
@@ -335,8 +335,8 @@
 {
     if(textView.baseContentModel.wordStyle.isAttributedWord)
         textView.attributedText = [textView.baseContentModel.wordStyle createAttributedWordName:textView.text];
-    
-    textView.bindEnum(kTextValueChange);
+        
+    textView.bindEnum(kTextViewValueChange);
     textView.bindTagText(textView.text);
     [self viewEventWithView:textView Data:self.indexPath];
 }

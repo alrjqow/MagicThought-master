@@ -134,15 +134,15 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
             MTResponseModel* responseModel = [self.responseModelCls mj_objectWithKeyValues:self.responseJSONObject];
             _responeMessage = responseModel.responeMessage;
             _success = responseModel.success;
-            
-            if (self.cls && responseModel.keyData) {
-                //如果返回的result是个数组
-                if ([responseModel.keyData isKindOfClass:[NSArray class]])
-                    self.responseJSONModel = [self.cls mj_objectArrayWithKeyValuesArray:responseModel.keyData];
-                else
-                    self.responseJSONModel = [self.cls mj_objectWithKeyValues:responseModel.keyData] ;
-            }
-            
+                        
+            //如果返回的result是个数组
+            if ([responseModel.keyData isKindOfClass:[NSArray class]] && self.cls)
+                self.responseJSONModel = [self.cls mj_objectArrayWithKeyValuesArray:responseModel.keyData];
+            else if ([responseModel.keyData isKindOfClass:[NSDictionary class]] && self.cls)
+                self.responseJSONModel = [self.cls mj_objectWithKeyValues:responseModel.keyData] ;
+            else
+                self.responseJSONModel = responseModel.keyData;                
+                
             [responseModel convertComplete:self];
         }
     } else if ([self.responseJSONObject isKindOfClass:[NSArray class]] && self.cls)

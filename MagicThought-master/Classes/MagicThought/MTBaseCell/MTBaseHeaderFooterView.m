@@ -215,7 +215,7 @@
 
 -(void)didTextValueChange:(UITextField *)textField
 {
-    textField.bindEnum(kTextValueChange);
+    textField.bindEnum(kTextFieldValueChange);
     textField.bindTagText(textField.text);
     [self viewEventWithView:_textField Data:@(self.section)];
 }
@@ -245,8 +245,8 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView
-{
-    textView.bindEnum(kTextValueChange);
+{    
+    textView.bindEnum(kTextViewValueChange);
     textView.bindTagText(textView.text);
     [self viewEventWithView:textView Data:@(self.section)];
 }

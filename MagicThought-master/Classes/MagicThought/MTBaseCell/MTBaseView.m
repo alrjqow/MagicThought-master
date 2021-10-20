@@ -199,7 +199,7 @@
 
 -(void)didTextValueChange:(UITextField *)textField
 {
-    textField.bindEnum(kTextValueChange);
+    textField.bindEnum(kTextFieldValueChange);
     textField.bindTagText(textField.text);
     [self viewEventWithView:_textField Data:mt_empty()];
 }

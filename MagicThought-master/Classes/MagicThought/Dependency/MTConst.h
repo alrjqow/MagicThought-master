@@ -20,6 +20,13 @@
 #define half(a) ((a) / 2)
 #define doubles(a) ((a) * 2)
 
+#define emptyString(propertyName) \
+-(NSString *)propertyName\
+{\
+if(!_##propertyName){_##propertyName = @"";}\
+    return _##propertyName;\
+}
+
 
 #define MT_iPhone4s CGSizeMake(320, 480)
 #define MT_iPhone5s CGSizeMake(320, 568)

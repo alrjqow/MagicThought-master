@@ -10,6 +10,8 @@
 #import "MTWordStyle.h"
 #import "MTBorderStyle.h"
 
+@interface NSIndexPath(MJExtension) @end
+
 @interface UIColor(MJExtension) @end
 
 @interface UIImage(MJExtension) @end

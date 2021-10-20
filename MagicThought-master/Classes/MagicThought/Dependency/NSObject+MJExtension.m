@@ -10,6 +10,20 @@
 #import "MJExtension.h"
 #import "NSString+Exist.h"
 
+@implementation NSIndexPath(MJExtension)
+
++ (instancetype)mj_objectWithKeyValues:(id)keyValues context:(NSManagedObjectContext *)context
+{
+    if(![keyValues isKindOfClass:[NSIndexPath class]])
+        return nil;
+    
+    return keyValues;
+}
+
+-(NSMutableDictionary *)mj_keyValues{return nil;}
+
+@end
+
 @implementation UIColor(MJExtension)
 
 + (instancetype)mj_objectWithKeyValues:(id)keyValues context:(NSManagedObjectContext *)context

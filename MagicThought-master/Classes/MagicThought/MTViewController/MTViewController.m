@@ -163,6 +163,8 @@
 /**状态栏颜色*/
 -(void)loadStatusBarStyle
 {
+    if(!self.isVisible)
+        return;
     if(self.isLoadStatusBarLightContent)
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     else

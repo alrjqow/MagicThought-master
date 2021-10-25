@@ -18,6 +18,8 @@
 
 @interface MTViewController : UIViewController<MTDelegateProtocol, WKScriptMessageHandler>
 
+@property (nonatomic,assign) BOOL isLoadResult;
+
 @property (nonatomic,copy) void (^block)(id object);
 @property (nonatomic,copy) void (^initBlock)(id object);
 

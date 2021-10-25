@@ -35,19 +35,6 @@ typedef void (^MTStartRequestCallbackHandler)(MTRequestCallbackHandler* handler)
 typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssage, BOOL success, MTRequest* request);
 
 
-
-@interface MTResponseModel : NSObject
-
-@property (nonatomic,strong, readonly) NSDictionary* keyData;
-
-@property (nonatomic, assign, readonly) BOOL success;
-
-@property (nonatomic, copy, readonly) NSString *responeMessage;
-
--(void)convertComplete:(MTRequest*)request;
-
-@end
-
 @interface MTRequest : YTKRequest
 
 @property (nonatomic, strong) NSString *urlString;
@@ -76,6 +63,20 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 
 @end
 
+
+@interface MTResponseModel : NSObject
+
+@property (nonatomic,weak) MTRequest* request;
+
+@property (nonatomic,strong, readonly) NSDictionary* keyData;
+
+@property (nonatomic, assign, readonly) BOOL success;
+
+@property (nonatomic, copy, readonly) NSString *responeMessage;
+
+-(void)convertComplete:(MTRequest*)request;
+
+@end
 
 
 CG_EXTERN NSObject* _Nonnull cls_mtRequest(Class cls);

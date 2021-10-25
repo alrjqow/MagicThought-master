@@ -20,12 +20,14 @@
 #define half(a) ((a) / 2)
 #define doubles(a) ((a) * 2)
 
-#define emptyString(propertyName) \
+#define emptyStringWithDefault(propertyName, defaulValue) \
 -(NSString *)propertyName\
 {\
-if(!_##propertyName){_##propertyName = @"";}\
+if(!_##propertyName){_##propertyName = defaulValue;}\
     return _##propertyName;\
 }
+
+#define emptyString(propertyName) emptyStringWithDefault(propertyName, @"")
 
 
 #define MT_iPhone4s CGSizeMake(320, 480)

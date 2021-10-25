@@ -30,7 +30,12 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
     MTRequestCallbackHandlerCallback callBack  = ^(id obj, NSString *message, BOOL success, MTRequest* request){
                 
         if(weakSelf.endRefreshStatusCallback)
+        {
+            MTViewController* viewController = (id) weakSelf.object;
+            if([viewController isKindOfClass:MTViewController.class])
+                viewController.isLoadResult = YES;
             [weakSelf.object setEndRefreshStatus:weakSelf.endRefreshStatusCallback(obj, &message, success, request) Message:message];
+        }
     };
     
     return callBack;
@@ -132,6 +137,7 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
         if([self.responseModelCls isSubclassOfClass:[MTResponseModel class]])
         {            
             MTResponseModel* responseModel = [self.responseModelCls mj_objectWithKeyValues:self.responseJSONObject];
+            responseModel.request = self;
             _responeMessage = responseModel.responeMessage;
             _success = responseModel.success;
                         
@@ -140,13 +146,13 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 self.responseJSONModel = [self.cls mj_objectArrayWithKeyValuesArray:responseModel.keyData];
             else if ([responseModel.keyData isKindOfClass:[NSDictionary class]] && self.cls)
                 self.responseJSONModel = [self.cls mj_objectWithKeyValues:responseModel.keyData] ;
-            else
-                self.responseJSONModel = responseModel.keyData;                
                 
             [responseModel convertComplete:self];
         }
     } else if ([self.responseJSONObject isKindOfClass:[NSArray class]] && self.cls)
         self.responseJSONModel = [self.cls mj_objectArrayWithKeyValuesArray:self.responseJSONObject];
+    else if ([self.responseJSONObject isKindOfClass:[NSDictionary class]] && self.cls)
+        self.responseJSONModel = [self.cls mj_objectWithKeyValues:self.responseJSONObject];
 }
 
 
@@ -290,7 +296,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
             break;
         }
     }
-    
+        
     self.emptyLoadingView.hidden = YES;
     [self loadStatusBarStyle];
     [self afterSetEndRefreshStatus:endRefreshStatus Message:message];

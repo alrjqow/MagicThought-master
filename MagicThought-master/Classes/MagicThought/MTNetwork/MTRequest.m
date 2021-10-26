@@ -93,7 +93,7 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
 }
 
 - (NSTimeInterval)requestTimeoutInterval{
-    return 15;
+    return 8;
 }
 
 - (YTKRequestSerializerType)requestSerializerType {

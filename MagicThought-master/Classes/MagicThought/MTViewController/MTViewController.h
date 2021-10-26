@@ -25,6 +25,7 @@
 
 /**缺省加载圈*/
 -(instancetype)showNoMsg;
+-(instancetype)showNoMsgResult;
 
 @property (nonatomic,strong, readonly) MTNavigationBar* navigationBar;
 @property (nonatomic,assign, readonly) BOOL navigationBarHidden;

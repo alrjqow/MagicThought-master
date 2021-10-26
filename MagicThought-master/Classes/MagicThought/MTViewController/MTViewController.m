@@ -115,6 +115,11 @@
     return [self showMsg:nil];
 }
 
+-(instancetype)showNoMsgResult
+{
+    return self.isLoadResult ? self : self.showNoMsg;
+}
+
 #pragma mark - 重载方法
 
 -(void)initProperty{}

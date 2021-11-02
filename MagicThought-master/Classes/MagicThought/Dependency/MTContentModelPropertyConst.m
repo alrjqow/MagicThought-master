@@ -43,6 +43,8 @@ NSString* kBtnTitle9 = @"mtBtnTitle9";
 NSString* kTextField = @"mtTextField";
 NSString* kTextView = @"mtTextView";
 
+NSString* kBackground = @"mtBackground";
+
 NSString* kExternContent = @"mtExternContent";
 NSString* kWeakExternContent = @"mtWeakExternContent";
 

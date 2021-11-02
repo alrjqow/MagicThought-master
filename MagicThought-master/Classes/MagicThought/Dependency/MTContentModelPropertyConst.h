@@ -41,6 +41,8 @@ CG_EXTERN NSString* kBtnTitle9;
 CG_EXTERN NSString* kTextField;
 CG_EXTERN NSString* kTextView;
 
+CG_EXTERN NSString* kBackground;
+
 CG_EXTERN NSString* kExternContent;
 CG_EXTERN NSString* kWeakExternContent;
 

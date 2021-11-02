@@ -874,14 +874,14 @@
 
 -(void)countdown
 {
-    self.percent = (self.percent + 1) % 10;
     [self addSecond:self.timeInterval];
-    self.isBegin = YES;
+    self.percent = (self.percent + 1) % 10;
 }
 
 -(void)start
 {
     [self stop];
+    self.isBegin = YES;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(countdown) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }

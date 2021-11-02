@@ -16,6 +16,12 @@
 
 #import "MJExtension.h"
 
+@interface MTAlertConfig ()
+
+@property (nonatomic,weak) NSObject* bindObject;
+
+@end
+
 @implementation NSObject (MTAlert)
 
 -(void (^)(id))alertViewWithObject
@@ -122,6 +128,8 @@
         
         [self hideView:weakView Config:config];
     });
+    
+    config.bindObject = bindObject;
 }
 
 -(void)showView:(UIView*)view Config:(MTAlertConfig*)config
@@ -137,9 +145,14 @@
         point = [weakView.layer convertPoint:point fromLayer:tapGestureRecognizer.view.layer];
         if([weakView.layer containsPoint:point])
             return;
-
+    
         if(weakConfig.configCanBackgroundViewTouchDismiss)
-            [self hideView:weakView Config:weakConfig];
+        {            
+            if(config.bindObject.mt_click)
+                config.bindObject.mt_click(mt_empty().bindOrder(@"mtBackground"));
+            else
+                [self hideView:weakView Config:weakConfig];
+        }
     });
 
     

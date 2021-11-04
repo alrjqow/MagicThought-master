@@ -30,6 +30,7 @@
 
 /**获取给定字符串的时间戳*/
 +(NSTimeInterval)getTimeStampWithString:(NSString*)timeString;
++(NSTimeInterval)getTimeStampWithString:(NSString*)timeString Format:(NSString*)format;
 
 /**获取当日凌晨0点的时间戳*/
 +(NSTimeInterval)getTodayBeginTimeStamp;

@@ -34,13 +34,18 @@
 
 +(NSTimeInterval)getTimeStampWithString:(NSString*)timeString
 {
+    return [self getTimeStampWithString:timeString Format:nil];
+}
+
++(NSTimeInterval)getTimeStampWithString:(NSString*)timeString Format:(NSString*)format
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat: format ? format : @"YYYY-MM-dd HH:mm:ss"];
     return [[formatter dateFromString:timeString] timeIntervalSince1970];
 }
 
 +(NSString*)getTimeWithDate:(NSDate*)date Format:(NSString*)format
-{
+{        
     NSDateFormatter* formater = [NSDateFormatter new];
     [formater setDateFormat:format ? format : @"YYYY-MM-dd HH:mm:ss"];
     return  [formater stringFromDate:date];
@@ -52,9 +57,10 @@
     [formater setDateFormat:format ? format : @"YYYY-MM-dd HH:mm:ss"];
     
     NSDate* date = [formater dateFromString:time];
-    NSTimeZone* zone = [NSTimeZone systemTimeZone];
-
-    return [date dateByAddingTimeInterval:[zone secondsFromGMTForDate:date]];
+    return date;
+//    NSTimeZone* zone = [NSTimeZone systemTimeZone];
+//
+//    return [date dateByAddingTimeInterval:[zone secondsFromGMTForDate:date]];
 }
 
 +(NSTimeInterval)getCurrentZoneTimeStamp

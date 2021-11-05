@@ -97,9 +97,9 @@
     return [dateFromDateComponentsForDate timeIntervalSince1970];
 }
 
-+(BOOL)dValueBetweenCurrentZoneTimeStampAndLastStamp:(NSInteger)lastStamp IsOver:(NSInteger)time
++(NSTimeInterval)didValueBetweenCurrentZoneTimeStampAndLastStamp:(NSInteger)lastStamp IsOver:(NSInteger)time
 {
-    return  ((NSInteger)[MTTimer getCurrentZoneTimeStamp]) - lastStamp > time;
+    return  ((NSInteger)[MTTimer getCurrentZoneTimeStamp]) - lastStamp - time;
 }
 
 +(NSString*)getStartTimeAccrodingToCurrentDateWithDays:(NSInteger)days

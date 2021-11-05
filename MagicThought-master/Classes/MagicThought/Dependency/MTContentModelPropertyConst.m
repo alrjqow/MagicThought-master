@@ -65,6 +65,8 @@ NSString* kExternData = @"externData";
 NSString* kTimer = @"timer";
 NSString* kTimeRecord = @"timeRecord";
 
+NSString* kVfCodeString = @"kVfCodeString";
+
 NSString* kViewState = @"viewState";
 
 NSString* kNotification = @"notification";

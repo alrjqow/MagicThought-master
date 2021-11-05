@@ -38,8 +38,8 @@
 /**获取当前时区时间的时间戳*/
 //+(NSTimeInterval)getCurrentZoneTimeStamp;
 
-/**算时间差值是否超过给定值*/
-+(BOOL)dValueBetweenCurrentZoneTimeStampAndLastStamp:(NSInteger)lastStamp IsOver:(NSInteger)time;
+/**算时间差值是否超过给定值，大于0则超过*/
++(NSTimeInterval)didValueBetweenCurrentZoneTimeStampAndLastStamp:(NSInteger)lastStamp IsOver:(NSInteger)time;
 
 
 /**计算当前时间前几天的日期*/

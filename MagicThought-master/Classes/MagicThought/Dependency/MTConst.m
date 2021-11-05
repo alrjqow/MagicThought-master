@@ -9,6 +9,12 @@
 #import "MTConst.h"
 #import "UIDevice+DeviceInfo.h"
 
+//获取验证码标识
+NSString* getVfCodeIdentifier_mt(NSString* identifier)
+{
+    return [NSString stringWithFormat:@"mtVfcode_%@", identifier ? identifier : @""];
+}
+
 //判断是几位整数
 NSInteger numberCount(NSInteger number)
 {
@@ -58,6 +64,11 @@ BOOL UserLoginStatus_mt()
 void setLoginStatus_mt(BOOL status)
 {
     [[NSUserDefaults standardUserDefaults] setBool:(status) forKey:@"UserLoginStatus"];
+}
+
+NSUserDefaults* kUserDefaults_mt()
+{
+    return [NSUserDefaults standardUserDefaults];
 }
 
 CGFloat kStatusBarHeight_mt()

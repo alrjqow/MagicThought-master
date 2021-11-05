@@ -45,4 +45,7 @@
 /**计算当前时间前几天的日期*/
 +(NSString*)getStartTimeAccrodingToCurrentDateWithDays:(NSInteger)days;
 
+/**设置验证码开始的时间戳*/
++(void)setCurrentVfCodeTimeStamp:(NSString*)Identifier;
+
 @end

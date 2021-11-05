@@ -62,6 +62,7 @@ CG_EXTERN NSString* kExternData;
 
 CG_EXTERN NSString* kTimer;
 CG_EXTERN NSString* kTimeRecord;
+
 CG_EXTERN NSString* kVfCodeString;
 
 

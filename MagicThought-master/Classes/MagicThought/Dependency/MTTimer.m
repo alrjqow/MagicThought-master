@@ -111,4 +111,9 @@
     return [self getTimeWithDate:[NSDate dateWithTimeIntervalSince1970:startStamp] Format:@"YYYY-MM-dd"];
 }
 
++(void)setCurrentVfCodeTimeStamp:(NSString*)Identifier
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:[self getCurrentTimeStamp] forKey:Identifier];
+}
+
 @end

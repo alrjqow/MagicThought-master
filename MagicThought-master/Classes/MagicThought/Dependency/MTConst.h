@@ -53,6 +53,10 @@ typedef CGFloat (^MTFloatBlockWithObject) (id);
 typedef id (^MTObjectBlock) (void);
 typedef id (^MTObjectBlockWithObject) (id);
 
+//获取验证码标识
+MT_EXTERN NSString* getVfCodeIdentifier_mt(NSString* identifier);
+
+
 //判断是几位整数
 MT_EXTERN NSInteger numberCount(NSInteger number);
 
@@ -70,6 +74,8 @@ MT_EXTERN void setLoginStatus_mt(BOOL status);
 
 //四舍五入
 MT_EXTERN CGFloat mt_roundFloat(CGFloat floatValue);
+
+MT_EXTERN NSUserDefaults* kUserDefaults_mt(void);
 
 MT_EXTERN CGFloat kStatusBarHeight_mt(void);
 

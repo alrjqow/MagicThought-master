@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class MTTimeRecordModel;
+@class MTTimerModel;
 typedef MTTimeRecordModel* (^MTTimeRecord) (NSTimeInterval time);
+typedef MTTimeRecordModel* (^MTTimerAdd) (MTTimerModel* timerModel, void (^completion)(MTTimeRecordModel* timeRecordModel));
 
 @interface MTTimeRecordModel : NSObject
 
@@ -38,6 +40,9 @@ typedef MTTimeRecordModel* (^MTTimeRecord) (NSTimeInterval time);
 @property (nonatomic,copy,readonly) MTTimeRecord addYear;
 @property (nonatomic,copy,readonly) MTTimeRecord addCentury;
 
+@property (nonatomic,copy,readonly) MTTimerAdd addTimer;
+
+
 @property (nonatomic,copy,readonly) MTTimeRecord reduceMilliSecond;
 @property (nonatomic,copy,readonly) MTTimeRecord reduceSecond;
 @property (nonatomic,copy,readonly) MTTimeRecord reduceMinute;
@@ -49,6 +54,7 @@ typedef MTTimeRecordModel* (^MTTimeRecord) (NSTimeInterval time);
 @property (nonatomic,copy,readonly) MTTimeRecord reduceCentury;
 
 -(void)clearTimeRecord;
+-(void)clearTimeRecordWithTimer;
 
 /**计算后会记录在 reduceTImeModel 中，并不会影响原来的值*/
 -(void)reduceTImeWithModel:(MTTimeRecordModel*)timeRecordModel;
@@ -62,6 +68,8 @@ typedef MTTimeRecordModel* (^MTTimeRecord) (NSTimeInterval time);
 -(NSTimeInterval)getTotalMinute;
 -(NSTimeInterval)getTotalSecond;
 -(NSTimeInterval)getTotalMilliSecond;
+
+-(NSString*)getHourToSecondRecordString;
 
 @end
 

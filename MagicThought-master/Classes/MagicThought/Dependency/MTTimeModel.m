@@ -18,10 +18,47 @@
 
 @property (nonatomic,strong) MTTimeRecordModel* timeRecordModel;
 
+@property (nonatomic,strong) MTTimerModel* timerModel;
+
+@property (nonatomic,strong) void (^timeCountCompletion)(MTTimeRecordModel* timeRecordModel);
 
 @end
 
 @implementation MTTimeRecordModel
+
+#pragma mark - 添加定时器
+
+-(MTTimerAdd)addTimer
+{
+    __weak __typeof(self) weakSelf = self;
+    MTTimerAdd timerAdd  = ^(MTTimerModel* timerModel, void (^completion)(MTTimeRecordModel* timeRecordModel)){
+        
+        if([weakSelf isKindOfClass:[MTTimerModel class]])
+            return weakSelf;
+        
+        weakSelf.timeCountCompletion = completion;
+        
+        if(weakSelf.timerModel != timerModel)
+        {
+            [weakSelf.timerModel removeObserver:weakSelf];
+            
+            weakSelf.timerModel = timerModel;
+            
+            [weakSelf.timerModel addObserver:weakSelf];
+        }
+                        
+        return weakSelf;
+    };
+    
+    return timerAdd;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    self.addSecond(self.timerModel.timeInterval);
+    if(self.timeCountCompletion)
+        self.timeCountCompletion(self);
+}
 
 #pragma mark - 时间相对某个计量单位的整数转化
 
@@ -62,6 +99,13 @@
 -(NSTimeInterval)getTotalMilliSecond
 {
     return self.century * 100 * 12 * 30 * 24 * 60 * 60 * 1000 + self.year * 12 * 30 * 24 * 60 * 60 * 1000 + self.month * 30 * 24 * 60 * 60 * 1000 + self.day * 24 * 60 * 60 * 1000 + self.hour * 60 * 60 * 1000 + self.minute * 60 * 1000 + self.second * 1000 + self.milliSecond;
+}
+
+-(NSString*)getHourToSecondRecordString
+{
+    NSString* hourText = self.hour ? [NSString stringWithFormat:@"%@%.0lf:", self.hour < 10 ? @"0" : @"", self.hour] : @"";
+        
+    return [hourText stringByAppendingString:[NSString stringWithFormat:@"%@%.0lf:%@%.0lf", self.minute < 10 ? @"0" : @"", self.minute, self.second < 10 ? @"0" : @"", self.second]];
 }
 
 #pragma mark - 时间增加 block
@@ -775,6 +819,13 @@
     [self reduceTIme];
 }
 
+-(void)clearTimeRecordWithTimer
+{
+    [_timerModel removeObserver:self];
+    _timerModel = nil;
+    [self clearTimeRecord];
+}
+
 -(void)clearTimeRecord
 {
     _century = _year = _month = _day = _hour = _minute = _second = _milliSecond = _milliSecondDecimal = 0;
@@ -858,6 +909,11 @@
     self.second == 0 &&
     self.milliSecond == 0 &&
     self.milliSecondDecimal == 0;
+}
+
+-(void)dealloc
+{
+    [self.timerModel removeObserver:self];
 }
 
 @end

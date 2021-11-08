@@ -162,6 +162,8 @@ typedef NSObject* _Nonnull (^WhenReceiveNotification) (MTNotificationHandle _Nul
 
 @property (nonatomic,copy,readonly) BindReuseIdentifier _Nonnull bind;
 
+@property (nonatomic,copy,readonly) BindReuseIdentifier _Nonnull bindAutomaticDimension;
+
 @property (nonatomic,copy,readonly) BindArrayReuseIdentifier _Nonnull arrBind;
 
 @property (nonatomic,copy,readonly) BindRowHeight _Nonnull bindHeight;

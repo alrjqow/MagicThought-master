@@ -336,6 +336,42 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return bind;
 }
 
+-(BindReuseIdentifier)bindAutomaticDimension
+{
+    __weak __typeof(self) weakSelf = self;
+    BindReuseIdentifier bindAutomaticDimension  = ^(NSString* reuseIdentifier){
+        
+        if(reuseIdentifier.length <= 0)
+            return weakSelf;
+        
+        if([weakSelf isKindOfClass:[NSArray class]])
+        {
+            NSArray* arr = (NSArray*)weakSelf;
+            for(NSObject* obj in arr)
+            {
+                if(![obj.mt_reuseIdentifier isExist])
+                    obj.mt_reuseIdentifier = reuseIdentifier;
+                
+                if(obj.mt_itemHeight)
+                    continue;
+                if(!CGSizeEqualToSize(obj.mt_itemSize, CGSizeZero))
+                    continue;
+                obj.mt_automaticDimension = YES;
+                obj.mt_tag = kNew;
+            }            
+        }
+        
+        weakSelf.mt_reuseIdentifier = reuseIdentifier;
+        weakSelf.mt_automaticDimension = YES;
+        weakSelf.mt_tag = kNew;
+        
+        return weakSelf;
+    };
+    
+    return bindAutomaticDimension;
+}
+
+
 -(BindOrder)bindOrder
 {
     __weak __typeof(self) weakSelf = self;

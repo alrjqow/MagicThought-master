@@ -10,6 +10,11 @@
 
 @implementation NSString (Exist)
 
+-(Class)classFromString
+{
+    return NSClassFromString(self);
+}
+
 +(BOOL) isEmpty:(NSString*)str
 {
     if ([str isEqual:[NSNull null]]) {

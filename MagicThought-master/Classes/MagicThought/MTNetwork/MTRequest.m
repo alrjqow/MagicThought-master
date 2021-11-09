@@ -225,7 +225,6 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 {return mt_reuse(@(responseContentType)).bindKey(@"responseContentType");}
 
 
-
 @implementation UIViewController (EndRefresh)
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{}
@@ -244,6 +243,58 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
       };
       
       return callBack;
+}
+
+@end
+
+
+@implementation MTViewController (EndRefresh)
+
+-(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{
+    
+    switch (endRefreshStatus) {
+            
+        case MTEndRefreshStatusDefaultFooterNoMoreData:
+        {
+            [self dismissIndicator];
+            break;
+        }
+        
+        case MTEndRefreshStatusDefaultWithSuccessMsg:
+        {
+            if([message isExist])
+                [self showSuccess:message];
+            break;
+        }
+            
+        case MTEndRefreshStatusDefaultWithCenterToastMsg:
+        {
+            if([message isExist])
+                [self showCenterToast:message];
+            break;
+        }
+                        
+        case MTEndRefreshStatusDefaultWithErrorMsg:
+        {
+            if([message isExist])
+                [self showError:message];
+            break;
+        }
+                
+        case MTEndRefreshStatusNone:
+        case MTEndRefreshStatusNotStop:
+            break;
+            
+        default:
+        {
+            [self dismissIndicator];
+            break;
+        }
+    }
+        
+    self.emptyLoadingView.hidden = YES;
+    [self loadStatusBarStyle];
+    [self afterSetEndRefreshStatus:endRefreshStatus Message:message];
 }
 
 @end

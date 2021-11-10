@@ -72,8 +72,8 @@
 {
     switch (self.verifyModel.verifyType.integerValue) {
         case MTTextFieldVerifyTypePhone:
-        {
-            if(self.text.length < 1 && ![string isEqualToString:@"1"])
+        {            
+            if(self.text.length < 1 && ![string isEqualToString:@"1"] && ![string testPhoneNumber])
                 return false;
         }
         case MTTextFieldVerifyTypeVFCode:

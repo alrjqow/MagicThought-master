@@ -84,7 +84,7 @@
 {
     _hostNameList = hostNameList;
     
-    [MTHostManager registerHostManager].hostNum = 0;
+    [MTHostManager registerHostManager].hostNum = hostNameList[0].mt_index ? hostNameList[0].mt_index.integerValue : 0;
     [self.contentModelList removeAllObjects];
     self.alertViewHeight = 60 + 50;
     

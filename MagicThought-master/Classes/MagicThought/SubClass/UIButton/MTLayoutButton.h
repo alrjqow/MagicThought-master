@@ -33,3 +33,20 @@ typedef enum : NSUInteger {
 @interface MTLayoutImageInTopButton : MTLayoutButton @end
 
 @interface MTLayoutImageInBottomButton : MTLayoutButton @end
+
+
+@interface MTCompressResistButton : MTButton
+
+@property (nonatomic,assign) MTLayoutButtonLayoutType layoutType;
+
+@property (nonatomic,assign) CGFloat xImageSpacing;
+@property (nonatomic,assign) CGFloat yImageSpacing;
+
+@end
+
+
+@interface MTCompressResistInRightButton : MTCompressResistButton @end
+
+@interface MTCompressResistInTopButton : MTCompressResistButton @end
+
+@interface MTCompressResistInBottomButton : MTCompressResistButton @end

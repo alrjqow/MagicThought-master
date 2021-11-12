@@ -259,3 +259,146 @@
 }
 
 @end
+
+
+@interface MTCompressResistButton ()
+
+@property (nonatomic,assign) BOOL isSizeToFit;
+
+@end
+
+@implementation MTCompressResistButton
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    [self layoutIfNeeded];
+}
+
+-(void)sizeToFit
+{
+    self.isSizeToFit = YES;
+    CGSize size = [self layoutSubviewsForWidth:0 Height:0];
+    self.bounds = CGRectMake(0, 0, size.width, size.height);
+    self.isSizeToFit = false;
+}
+
+-(CGSize)layoutSubviewsForWidth:(CGFloat)contentWidth Height:(CGFloat)contentHeight
+{
+    [self.titleLabel sizeToFit];
+    [self.imageView sizeToFit];
+    
+    if(self.isSizeToFit)
+        switch (self.layoutType) {
+            case MTLayoutButtonLayoutImageInLeft:
+            case MTLayoutButtonLayoutImageInRight:
+            {
+                contentWidth = self.imageView.width + self.titleLabel.height + self.xImageSpacing;
+                contentHeight = self.imageView.height > self.titleLabel.height ? self.imageView.height : self.titleLabel.height;
+                break;
+            }
+                
+            case MTLayoutButtonLayoutImageInTop:
+            case MTLayoutButtonLayoutImageInBottom:
+            {
+                contentWidth = self.imageView.width > self.titleLabel.width ? self.imageView.width : self.titleLabel.width;
+                contentHeight = self.imageView.height + self.titleLabel.height + self.yImageSpacing;
+                break;
+            }
+                
+            default:
+                break;
+        }
+    
+    
+    switch (self.layoutType) {
+        case MTLayoutButtonLayoutImageInLeft:
+        case MTLayoutButtonLayoutImageInRight:
+        {
+            self.titleLabel.width = contentWidth - self.imageView.width - self.xImageSpacing;
+            self.imageView.centerY = self.titleLabel.centerY = half(contentHeight);
+            break;
+        }
+            
+        case MTLayoutButtonLayoutImageInTop:
+        case MTLayoutButtonLayoutImageInBottom:
+        {
+            self.imageView.centerX = self.titleLabel.centerX = half(contentWidth);
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    
+    switch (self.layoutType) {
+        case MTLayoutButtonLayoutImageInLeft:
+        {
+            self.titleLabel.textAlignment = NSTextAlignmentRight;
+            
+            self.imageView.x = 0;
+            self.titleLabel.x = self.imageView.maxX + self.xImageSpacing;
+            break;
+        }
+            
+        case MTLayoutButtonLayoutImageInRight:
+        {
+            self.titleLabel.x = 0;
+            self.imageView.x = self.titleLabel.maxX + self.xImageSpacing;
+            break;
+        }
+            
+        case MTLayoutButtonLayoutImageInTop:
+        {
+            self.imageView.y = 0;
+            self.titleLabel.y = self.imageView.maxY + self.yImageSpacing;
+            break;
+        }
+            
+        case MTLayoutButtonLayoutImageInBottom:
+        {
+            self.titleLabel.y = 0;
+            self.imageView.y = self.titleLabel.maxY + self.yImageSpacing;
+            break;
+        }
+            
+        default:
+            break;
+    }
+
+    return CGSizeMake(contentWidth, contentHeight);
+}
+
+
+@end
+
+@implementation MTCompressResistInRightButton
+
+-(MTLayoutButtonLayoutType)layoutType
+{
+    return MTLayoutButtonLayoutImageInRight;
+}
+
+@end
+
+
+@implementation MTCompressResistInTopButton
+
+-(MTLayoutButtonLayoutType)layoutType
+{
+    return MTLayoutButtonLayoutImageInTop;
+}
+
+@end
+
+@implementation MTCompressResistInBottomButton
+
+-(MTLayoutButtonLayoutType)layoutType
+{
+    return MTLayoutButtonLayoutImageInBottom;
+}
+
+@end
+

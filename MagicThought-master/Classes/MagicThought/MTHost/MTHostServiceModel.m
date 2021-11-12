@@ -11,6 +11,10 @@
 #import "MTContentModelPropertyConst.h"
 #import "MTHostManager.h"
 
+NSString* MTHostNum = @"MTHostNum";
+NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
+
+
 @interface MTHostServiceModel ()
 
 @property (nonatomic,strong) NSMutableArray* contentModelList;
@@ -59,8 +63,8 @@
 {
     __weak __typeof(self) weakSelf = self;
     
-    
-    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", [MTHostManager registerHostManager].hostNum < self.hostNameList.count ? self.hostNameList[[MTHostManager registerHostManager].hostNum] : @""];
+    NSNumber* mtHostNum = [[NSUserDefaults standardUserDefaults] objectForKey:MTHostNumViewIndex];
+    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", mtHostNum && mtHostNum.integerValue < self.hostNameList.count ? self.hostNameList[mtHostNum.integerValue] : ([MTHostManager registerHostManager].hostNum < self.hostNameList.count ? self.hostNameList[[MTHostManager registerHostManager].hostNum] : @"")];
     
     @{
         @"height" : @(self.alertViewHeight),
@@ -72,8 +76,12 @@
         if(index.integerValue >= weakSelf.hostNameList.count)
             return;
         
-        NSLog(@"%@", weakSelf.hostNameList[index.integerValue]);
+        [[NSUserDefaults standardUserDefaults] setObject:index forKey:MTHostNumViewIndex];
+    
+//        NSLog(@"%@ === %zd", weakSelf.hostNameList[index.integerValue], index.integerValue);
         [MTHostManager registerHostManager].hostNum = weakSelf.hostNameList[index.integerValue].mt_index ? weakSelf.hostNameList[index.integerValue].mt_index.integerValue : index.integerValue;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@([MTHostManager registerHostManager].hostNum) forKey:MTHostNum];
     })
     .alertView(
                mt_AlertConfigMake(-1, -1, YES, CGPointZero)
@@ -84,7 +92,8 @@
 {
     _hostNameList = hostNameList;
     
-    [MTHostManager registerHostManager].hostNum = hostNameList[0].mt_index ? hostNameList[0].mt_index.integerValue : 0;
+    NSNumber* mtHostNum = [[NSUserDefaults standardUserDefaults] objectForKey:MTHostNum];
+    [MTHostManager registerHostManager].hostNum = mtHostNum ? mtHostNum.integerValue : (hostNameList[0].mt_index ? hostNameList[0].mt_index.integerValue : 0);
     [self.contentModelList removeAllObjects];
     self.alertViewHeight = 60 + 50;
     

@@ -262,22 +262,19 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
         
         case MTEndRefreshStatusDefaultWithSuccessMsg:
         {
-            if([message isExist])
-                [self showSuccess:message];
+            [message isExist] ? [self showSuccess:message] : [self dismissIndicator];            
             break;
         }
             
         case MTEndRefreshStatusDefaultWithCenterToastMsg:
         {
-            if([message isExist])
-                [self showCenterToast:message];
+            [message isExist] ? [self showCenterToast:message] : [self dismissIndicator];
             break;
         }
                         
         case MTEndRefreshStatusDefaultWithErrorMsg:
         {
-            if([message isExist])
-                [self showError:message];
+            [message isExist] ? [self showError:message] : [self dismissIndicator];
             break;
         }
                 
@@ -315,8 +312,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
         
         case MTEndRefreshStatusDefaultWithSuccessMsg:
         {
-            if([message isExist])
-                [self showSuccess:message];
+            [message isExist] ? [self showSuccess:message] : [self dismissIndicator];
             [self.mtListView.mj_header endRefreshing];
             [self.mtListView.mj_footer endRefreshing];
             break;
@@ -324,8 +320,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
             
         case MTEndRefreshStatusDefaultWithCenterToastMsg:
         {
-            if([message isExist])
-                [self showCenterToast:message];
+            [message isExist] ? [self showCenterToast:message] : [self dismissIndicator];
             [self.mtListView.mj_header endRefreshing];
             [self.mtListView.mj_footer endRefreshing];
             break;
@@ -333,8 +328,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
                         
         case MTEndRefreshStatusDefaultWithErrorMsg:
         {
-            if([message isExist])
-                [self showError:message];
+            [message isExist] ? [self showError:message] : [self dismissIndicator];
             [self.mtListView.mj_header endRefreshing];
             [self.mtListView.mj_footer endRefreshing];
             break;

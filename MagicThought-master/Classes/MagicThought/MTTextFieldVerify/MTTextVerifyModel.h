@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, MTTextFieldVerifyType)
     MTTextFieldVerifyTypePassword,
     MTTextFieldVerifyTypeNumberPassword,
     MTTextFieldVerifyTypeMoney,
+    MTTextFieldVerifyTypeDecimal,
     MTTextFieldVerifyTypeCustom,
 };
 

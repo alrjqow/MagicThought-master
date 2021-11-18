@@ -63,8 +63,9 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
 {
     __weak __typeof(self) weakSelf = self;
     
-    NSNumber* mtHostNum = [[NSUserDefaults standardUserDefaults] objectForKey:MTHostNumViewIndex];
-    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", mtHostNum && mtHostNum.integerValue < self.hostNameList.count ? self.hostNameList[mtHostNum.integerValue] : ([MTHostManager registerHostManager].hostNum < self.hostNameList.count ? self.hostNameList[[MTHostManager registerHostManager].hostNum] : @"")];
+    NSNumber* mtHostNumIndex = [[NSUserDefaults standardUserDefaults] objectForKey:MTHostNumViewIndex];
+    
+    self.currentHostModel.text = [NSString stringWithFormat:@"当前Host：%@", mtHostNumIndex && mtHostNumIndex.integerValue < self.hostNameList.count ? self.hostNameList[mtHostNumIndex.integerValue] : (self.hostNameList.firstObject ? self.hostNameList.firstObject : @"")];
     
     @{
         @"height" : @(self.alertViewHeight),

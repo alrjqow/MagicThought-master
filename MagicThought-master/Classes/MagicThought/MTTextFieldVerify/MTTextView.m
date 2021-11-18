@@ -74,13 +74,16 @@
                 return (self.text.length + text.length) <= self.verifyModel.maxChar.integerValue;
             return YES;
             
-                        
+        case MTTextFieldVerifyTypeDecimal:
         case MTTextFieldVerifyTypeMoney:
         {
             //如果输入的是“.”  判断之前已经有"."或者字符串为空
             if ([text isEqualToString:@"."] && ([self.text rangeOfString:@"."].location != NSNotFound || [self.text isEqualToString:@""])) {
                 return NO;
             }
+            
+            if(self.verifyModel.verifyType.integerValue == MTTextFieldVerifyTypeDecimal)
+                return YES;
             
             //拼出输入完成的str,判断str的长度大于等于“.”的位置＋4,则返回false,此次插入string失败 （"379132.424",长度10,"."的位置6, 10>=6+4）
             NSMutableString *str = [[NSMutableString alloc] initWithString:self.text];

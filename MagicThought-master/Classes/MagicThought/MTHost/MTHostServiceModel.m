@@ -74,6 +74,9 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
     .bind(@"MTHostListView")
     .bindClick(^(NSNumber* index) {
         
+        if(![index isKindOfClass:NSNumber.class])
+            return;
+        
         if(index.integerValue >= weakSelf.hostNameList.count)
             return;
         

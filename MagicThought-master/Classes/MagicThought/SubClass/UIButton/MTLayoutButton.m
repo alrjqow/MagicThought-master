@@ -40,6 +40,16 @@
     
     [self.imageView sizeToFit];
     [self.titleLabel sizeToFit];
+        
+    CGFloat xImageSpacing;
+    CGFloat yImageSpacing;
+    if(!self.imageView.image || !self.titleLabel.text.length)
+        xImageSpacing = yImageSpacing = 0;
+    else
+    {
+        xImageSpacing = self.xImageSpacing;
+        yImageSpacing = self.yImageSpacing;
+    }
     
     CGFloat closeValue;
     CGFloat parallelValue;
@@ -56,28 +66,28 @@
             {
                 self.imageView.x = 0;
                 self.titleLabel.maxX = closeValue;
-                self.titleLabel.maxX += self.xImageSpacing;
+                self.titleLabel.maxX += xImageSpacing;
                 break;
             }
             case MTLayoutButtonLayoutImageInRight:
             {
                 self.titleLabel.x = 0;
                 self.imageView.maxX = closeValue;
-                self.imageView.maxX += self.xImageSpacing;
+                self.imageView.maxX += xImageSpacing;
                 break;
             }
             case MTLayoutButtonLayoutImageInTop:
             {
                 self.imageView.y = 0;
                 self.titleLabel.maxY = closeValue;
-                self.titleLabel.maxY += self.yImageSpacing;
+                self.titleLabel.maxY += yImageSpacing;
                 break;
             }
             case MTLayoutButtonLayoutImageInBottom:
             {
                 self.titleLabel.y = 0;
                 self.imageView.maxY = closeValue;
-                self.imageView.maxY += self.yImageSpacing;
+                self.imageView.maxY += yImageSpacing;
                 break;
             }
                 
@@ -132,7 +142,7 @@
             parallelValue = self.imageView.height > self.titleLabel.height ? self.imageView.height : self.titleLabel.height;
             
             self.titleLabel.centerY = self.imageView.centerY = half(parallelValue);
-            self.imageView.centerY += self.yImageSpacing;
+            self.imageView.centerY += yImageSpacing;
             
             parallelValue =
             (self.imageView.maxY > self.titleLabel.maxY ? self.imageView.maxY : self.titleLabel.maxY) -
@@ -148,11 +158,11 @@
             if(realParallelValue == self.imageView.height || realParallelValue == self.titleLabel.height)
             {
                 self.titleLabel.centerY = self.imageView.centerY = half(parallelValue);
-                self.imageView.centerY += self.yImageSpacing;
+                self.imageView.centerY += yImageSpacing;
             }
             else
             {
-                if(self.yImageSpacing > 0)
+                if(yImageSpacing > 0)
                 {
                     self.imageView.maxY = parallelValue - self.padding.bottom;
                     self.titleLabel.y = self.padding.top;
@@ -169,7 +179,7 @@
             parallelValue = self.imageView.width > self.titleLabel.width ? self.imageView.width : self.titleLabel.width;
             
             self.titleLabel.centerX = self.imageView.centerX = half(parallelValue);
-            self.imageView.centerX += self.xImageSpacing;
+            self.imageView.centerX += xImageSpacing;
             
             parallelValue =
             (self.imageView.maxX > self.titleLabel.maxX ? self.imageView.maxX : self.titleLabel.maxX) -
@@ -184,11 +194,11 @@
             if(realParallelValue == self.imageView.width || realParallelValue == self.titleLabel.width)
             {
                 self.titleLabel.centerX = self.imageView.centerX = half(parallelValue);
-                self.imageView.centerX += self.xImageSpacing;
+                self.imageView.centerX += xImageSpacing;
             }
             else
             {
-                if(self.xImageSpacing > 0)
+                if(xImageSpacing > 0)
                 {
                     self.imageView.maxX = parallelValue - self.padding.right;
                     self.titleLabel.x = self.padding.left;

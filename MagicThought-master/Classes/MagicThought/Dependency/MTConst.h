@@ -32,6 +32,7 @@ if(!_##propertyName){_##propertyName = defaulValue;}\
 
 #define propertyBool(propertyName) @property (nonatomic,assign) BOOL propertyName;
 #define propertyFloat(propertyName) @property (nonatomic,assign) CGFloat propertyName;
+#define propertyInteger(propertyName) @property (nonatomic,assign) NSInteger propertyName;
 
 #define MT_iPhone4s CGSizeMake(320, 480)
 #define MT_iPhone5s CGSizeMake(320, 568)

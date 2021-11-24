@@ -49,6 +49,8 @@ typedef enum : NSInteger {
 /**大图结束拖拽*/
 -(void)bigImage:(UIImageView*)imageView EndDraggingWithDecelerate:(BOOL)decelerate;
 
+-(AVPlayerItem*)getAVPlayerItem;
+
 @end
 
 @interface MTImageShowControllModel : NSObject<MTImageShowControllModelProtocol>

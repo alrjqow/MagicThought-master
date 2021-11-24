@@ -39,6 +39,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,assign) MTLayoutButtonLayoutType layoutType;
 
+@property (nonatomic,assign) UIEdgeInsets padding;
+
 @property (nonatomic,assign) CGFloat xImageSpacing;
 @property (nonatomic,assign) CGFloat yImageSpacing;
 

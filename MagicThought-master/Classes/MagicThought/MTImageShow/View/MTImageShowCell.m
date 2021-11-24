@@ -7,6 +7,7 @@
 //
 
 #import "MTImageShowCell.h"
+#import "MTViewContentManager.h"
 
 @interface MTImageShowCell_Big ()<UIScrollViewDelegate>
 

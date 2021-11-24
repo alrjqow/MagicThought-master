@@ -110,6 +110,8 @@
         self.margin = (NSValue*)obj;
     else if([obj isKindOfClass:[PHAsset class]])
         self.asset = (PHAsset*)obj;
+    else if([obj isKindOfClass:[AVURLAsset class]])
+        self.videoAsset = (AVURLAsset*)obj;    
     else if([obj isKindOfClass:[MTBaseViewContentModel class]])
         dict = obj.mj_keyValues;
             

@@ -29,9 +29,16 @@
 
 @property (nonatomic,weak) PHAsset* currentAsset;
 
+@property (nonatomic,weak) AVURLAsset* currentVideoAsset;
+
+@property (nonatomic,strong) NSDictionary* playVideoItemInfo;
+
+
 @end
 
 @implementation MTImageShowControllModel
+
+
 
 - (instancetype)init
 {
@@ -62,6 +69,8 @@
 
 -(void)stopPlayer
 {
+    _currentAsset = nil;
+    _currentVideoAsset = nil;
     [_playerLayer.player pause];
     [_playerLayer removeFromSuperlayer];
 }
@@ -70,10 +79,45 @@
 
 -(void)checkVideoWithIndex:(NSInteger)index
 {
-    PHAsset* asset = (id) self.imageArray[index];
-    if(![asset isKindOfClass:[PHAsset class]] || asset.duration <= 0)
+    id asset = self.imageArray[index];
+    
+    if([asset isKindOfClass:PHAsset.class])
     {
-        self.currentAsset = nil;
+        [self checkPHAssetVideo:asset Index:index];
+        return;
+    }
+    
+    if([asset isKindOfClass:AVURLAsset.class])
+    {
+        [self checkAVURLAssetVideo:asset Index:index];
+        return;
+    }
+}
+
+-(void)checkAVURLAssetVideo:(AVURLAsset*)asset Index:(NSInteger)index
+{
+    if(asset == self.currentVideoAsset)
+        return;
+    
+    if(CMTimeGetSeconds(asset.duration) <= 0)
+    {
+        [self stopPlayer];
+        return;
+    }
+    
+    [self stopPlayer];
+    self.currentVideoAsset = asset;
+        
+    self.playVideoItemInfo = @{
+        @"playerItem" : [AVPlayerItem playerItemWithAsset:asset],
+        @"index" : @(index)
+    };
+}
+
+-(void)checkPHAssetVideo:(PHAsset*)asset Index:(NSInteger)index
+{
+    if(asset.duration <= 0)
+    {
         [self stopPlayer];
         return;
     }
@@ -88,12 +132,22 @@
     option.networkAccessAllowed = YES;
     [[PHCachingImageManager defaultManager] requestPlayerItemForVideo:asset options:option resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
                
-        [self playVideoWithItem:playerItem Index:index];
+        self.playVideoItemInfo = @{
+            @"playerItem" : playerItem,
+            @"index" : @(index)
+        };
     }];
 }
 
--(void)playVideoWithItem:(AVPlayerItem*)playerItem Index:(NSInteger)index
+-(void)playVideoWithItemInfo
 {
+    if(!self.playVideoItemInfo)
+        return;
+        
+    AVPlayerItem* playerItem = [self.delegate respondsToSelector:@selector(getAVPlayerItem)] ? [self.delegate getAVPlayerItem] : self.playVideoItemInfo[@"playerItem"];
+    NSInteger index = [self.playVideoItemInfo[@"index"] integerValue];
+    self.playVideoItemInfo = nil;
+    
     UICollectionViewCell* cell = [self.bigImageController.imagePlayView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
     if(![cell isKindOfClass:NSClassFromString(@"MTImageShowCell_Big")])
@@ -105,12 +159,21 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
 
+    
     self.playerLayer.player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    [self.playerLayer.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            
+//        NSTimeInterval second = CMTimeGetSeconds(time);
+//        NSLog(@"=== %lf", second);
+    }];
+    
     [self.playerLayer.player play];
     
     self.playerLayer.frame = imageView.bounds;
     [imageView.layer addSublayer:self.playerLayer];
 }
+
 
 #pragma mark - 监听播放
 
@@ -308,7 +371,6 @@
      if(![scrollView isKindOfClass:[UIScrollView class]])
          return;
         
-    self.currentAsset = nil;
     [self stopPlayer];
     
     UIView* smallImageView = self.imageViewMap[view.baseContentModel.mt_index];
@@ -438,8 +500,53 @@
     UIImageView* imageView = (UIImageView*)longPress.view;
     if(![imageView isKindOfClass:[UIImageView class]])
         return;
+        
+    BOOL isVideo = false;
+    for (CALayer* subLayer in imageView.layer.sublayers)
+        if(subLayer == self.playerLayer)
+        {
+            isVideo = YES;
+            break;
+        }
+        
+    isVideo ? [self saveVideo] : [self saveBigImage:imageView.image];
+}
+
+-(void)saveVideo
+{
+    BOOL videoCompatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(self.currentVideoAsset.URL.absoluteString);
+    //检查视频能否保存至相册
+    if (!videoCompatible) {
+        NSLog(@"该视频无法保存至相册");
+        return;
+    }
+            
+    UIViewController* vc = mt_rootViewController();
+    while (vc.presentedViewController) {vc = vc.presentedViewController;}
     
-    [self saveBigImage:imageView.image];
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+    [alertController addAction:
+     [UIAlertAction actionWithTitle:@"保存视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSString* filePath = [self.currentVideoAsset.URL.absoluteString stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    
+        NSLog(@"%@", filePath);
+        [self showMsg:nil];
+        UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    }]];
+    
+    [alertController addAction:
+     [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    [vc presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+        
+    error ? [self showError:@"保存失败"] : [self showSuccess:@"保存成功"];
 }
 
 -(void)saveBigImage:(UIImage*)image
@@ -563,12 +670,14 @@
         return;
             
     NSObject* image;
-      if(imageView.baseContentModel.image && ![[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] && ![[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue])
+      if(imageView.baseContentModel.image && ![[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] && ![[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue] && ![[imageView.baseContentModel valueForKey:@"isVideoImage"] boolValue])
           image = imageView.baseContentModel.image;
       else if([imageView.baseContentModel.imageURL isExist])
           image = imageView.baseContentModel.imageURL;
       else if(imageView.baseContentModel.asset)
           image = imageView.baseContentModel.asset;
+      else if(imageView.baseContentModel.videoAsset)
+          image = imageView.baseContentModel.videoAsset;
     
     NSUInteger index = [self.imageArray indexOfObject:(UIImage*)image];
     if(index < 0 || index >= self.imageArray.count)
@@ -641,6 +750,7 @@
               self.bigImageController.alertView.hidden = false;
               self.beginImageView.hidden = YES;
               [self.bigImageController alertCompletion];
+              [self playVideoWithItemInfo];
           }];
     }];
 }

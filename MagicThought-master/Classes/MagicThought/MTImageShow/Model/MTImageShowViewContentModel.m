@@ -17,6 +17,9 @@
 /**是否为资源图片*/
 @property (nonatomic,assign) BOOL isAssetImage;
 
+/**是否为视频资源*/
+@property (nonatomic,assign) BOOL isVideoImage;
+
 @end
 
 @implementation MTImageShowViewContentModel
@@ -48,11 +51,13 @@
     
     NSObject* preImage;
     if(imageView.baseContentModel.image)
-        preImage = [[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] ? imageView.baseContentModel.imageURL : ([[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue] ? imageView.baseContentModel.asset :  imageView.baseContentModel.image);
+        preImage = [[imageView.baseContentModel valueForKey:@"isImageURLImage"] boolValue] ? imageView.baseContentModel.imageURL : ([[imageView.baseContentModel valueForKey:@"isAssetImage"] boolValue] ? imageView.baseContentModel.asset : ([imageView.baseContentModel valueForKey:@"isVideoImage"] ? imageView.baseContentModel.videoAsset : imageView.baseContentModel.image));
     else if([imageView.baseContentModel.imageURL isExist])
         preImage = imageView.baseContentModel.imageURL;
     else if(imageView.baseContentModel.asset)
         preImage = imageView.baseContentModel.asset;
+    else if(imageView.baseContentModel.videoAsset)
+        preImage = imageView.baseContentModel.videoAsset;
     
     NSObject* newImage;
     if(self.image)
@@ -67,7 +72,13 @@
         newImage = self.asset;
         self.isAssetImage = YES;
     }
-                        
+    else if(self.videoAsset)
+    {
+        newImage = self.videoAsset;
+        self.isVideoImage = YES;
+    }
+    
+    
     if(!isAssistCell && newImage && preImage)
     {
         imageView.userInteractionEnabled = false;

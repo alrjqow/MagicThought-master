@@ -60,11 +60,14 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 /**图片*/
 @property (nonatomic,strong) UIImage* image;
 
-/**图片*/
-@property (nonatomic,strong) PHAsset* asset;
-
 /**图片名*/
 @property (nonatomic,strong) NSString* imageURL;
+
+/**图片或视频*/
+@property (nonatomic,strong) PHAsset* asset;
+
+/**视频*/
+@property (nonatomic,strong) AVURLAsset* videoAsset;
 
 /**图片*/
 @property (nonatomic,strong) id placeholderImage;

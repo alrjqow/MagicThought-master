@@ -557,49 +557,57 @@
 }
 
 //图片
--(void)findImageModel:(MTBaseViewContentModel*)baseViewContentModel For:(void(^)(UIImage* image))completion
+-(void)findImageModel:(MTBaseViewContentModel*)baseViewContentModel For:(void(^)(UIImage* image, BOOL isPlaceholder))completion
 {
     MTBaseViewContentModel* imageModel =
        [self findBaseViewContentModel:baseViewContentModel Key:@"isNoMatchImage" For:^BOOL(MTBaseViewContentModel *model) {
-           return model.asset || model.image || [model.imageURL isExist] || ([model.placeholderImage isKindOfClass:[NSString class]] && [model.placeholderImage isExist]) || [model.placeholderImage isKindOfClass:[UIImage class]];
+           return model.videoAsset || model.asset || model.image || [model.imageURL isExist] || ([model.placeholderImage isKindOfClass:[NSString class]] && [model.placeholderImage isExist]) || [model.placeholderImage isKindOfClass:[UIImage class]];
        }];
     
         
       if(imageModel.image && completion)
-          completion(imageModel.image);
+          completion(imageModel.image, false);
       else if([imageModel.imageURL isExist])
       {
           UIImage* image;
           if([imageModel.imageURL isExist])
               image = [UIImage imageNamed:imageModel.imageURL];
           if(image && completion)
-              completion(image);
+              completion(image, false);
           else if([imageModel.imageURL testStartWith:@"http"])
           {
+              MTBaseViewContentModel* placeholderImageModel =
+              [self findPlaceholderImageModel:baseViewContentModel];
+              UIImage* placeholderImage;
+              if(placeholderImageModel.image)
+                  placeholderImage = placeholderImageModel.image;
+              else
+              {
+                  if([placeholderImageModel.placeholderImage isKindOfClass:[UIImage class]])
+                      placeholderImage = placeholderImageModel.placeholderImage;
+                  else if([placeholderImageModel.placeholderImage isKindOfClass:[NSString class]] && [(NSString*)placeholderImageModel.placeholderImage isExist])
+                      placeholderImage = [UIImage imageNamed:placeholderImageModel.placeholderImage];
+                  
+                  placeholderImageModel.image = placeholderImage;
+              }
+              if(placeholderImage && completion)
+                  completion(placeholderImage, YES);
+              
               [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:imageModel.imageURL] options:SDWebImageRetryFailed progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                                                        
+                  MTBaseViewContentModel* myImageModel =
+                     [self findBaseViewContentModel:self.baseContentModel Key:@"isNoMatchImage" For:^BOOL(MTBaseViewContentModel *model) {
+                         return model.videoAsset || model.asset || model.image || [model.imageURL isExist] || ([model.placeholderImage isKindOfClass:[NSString class]] && [model.placeholderImage isExist]) || [model.placeholderImage isKindOfClass:[UIImage class]];
+                     }];
+                  
+                  if(![myImageModel.imageURL isEqualToString:imageURL.absoluteString])
+                      return;
                                     
-                  if(!image)
-                  {
-                      MTBaseViewContentModel* placeholderImageModel =
-                      [self findPlaceholderImageModel:baseViewContentModel];
-                      if(placeholderImageModel.image)
-                          image = placeholderImageModel.image;
-                      else
-                      {
-                          if([placeholderImageModel.placeholderImage isKindOfClass:[UIImage class]])
-                              image = placeholderImageModel.placeholderImage;
-                          else if([placeholderImageModel.placeholderImage isKindOfClass:[NSString class]] && [(NSString*)placeholderImageModel.placeholderImage isExist])
-                              image = [UIImage imageNamed:placeholderImageModel.placeholderImage];
-                          
-                          placeholderImageModel.image = image;
-                      }
-                  }
-                                        
                   if(!image)
                       return;
                   
                   if(completion)
-                      completion(image);
+                      completion(image, false);
                   
                   if([imageModel.mt_order isEqualToString:@"MTBigimageCellOrder"])
                   {
@@ -649,13 +657,44 @@
         options.resizeMode = PHImageRequestOptionsResizeModeExact;
         
         [[PHCachingImageManager defaultManager] requestImageForAsset:imageModel.asset targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            completion(result);
+            completion(result, false);
         }];
     }
+    else if(imageModel.videoAsset && !CGSizeEqualToSize(self.mt_itemSize, CGSizeZero) && completion)
+    {
+        UIView* superView = self.superview;
+        while (superView) {
+            
+            if([superView isKindOfClass:NSClassFromString(@"MTDelegateCollectionViewCell")] && [superView.mt_order containsString:@"isAssistCell"])
+                return;
+                        
+            superView = superView.superview;
+        }
+        
+        AVAssetImageGenerator *imageGenerator=[AVAssetImageGenerator assetImageGeneratorWithAsset: imageModel.videoAsset];
+        
+        imageGenerator.appliesPreferredTrackTransform = YES;
+        NSError *error=nil;
+        
+        CMTime time=CMTimeMakeWithSeconds(0, 1);
+        
+        CMTime actualTime;
+        CGImageRef cgImage= [imageGenerator copyCGImageAtTime:time actualTime:&actualTime error:&error];
+        
+        if(error)
+        {
+            NSLog(@"截取视频缩略图时发生错误，错误信息：%@",error.localizedDescription);
+            return;
+        }
+        
+        CMTimeShow(actualTime);
+                        
+        completion([UIImage imageWithCGImage:cgImage], false); //转化为UIImage;
+    }
     else if([imageModel.placeholderImage isKindOfClass:[NSString class]] && [imageModel.placeholderImage isExist] && completion)
-        completion([UIImage imageNamed:imageModel.placeholderImage]);
+        completion([UIImage imageNamed:imageModel.placeholderImage], YES);
     else if([imageModel.placeholderImage isKindOfClass:[UIImage class]] && completion)
-        completion(imageModel.placeholderImage);
+        completion(imageModel.placeholderImage, YES);
 }
 
 -(MTBaseViewContentModel*)findPlaceholderImageModel:(MTBaseViewContentModel*)baseViewContentModel
@@ -1018,8 +1057,8 @@
        [self setBaseStyleWithBaseViewContentModel:baseContentModel];
        
        //图片
-        [self findImageModel:baseContentModel For:^(UIImage *image) {
-            if(!baseContentModel.image && image && !baseContentModel.beDefault)
+        [self findImageModel:baseContentModel For:^(UIImage *image, BOOL isPlaceholder) {
+            if(!baseContentModel.image && image && !baseContentModel.beDefault && !isPlaceholder)
                 baseContentModel.image = image;
             self.image = image;
         }];
@@ -1143,8 +1182,8 @@
 
 -(void)setButtonState:(UIControlState)state forModel:(MTBaseViewContentModel*)model
 {
-    [self findImageModel:model For:^(UIImage *image) {
-        if(!model.image && image && !model.beDefault)
+    [self findImageModel:model For:^(UIImage *image, BOOL isPlaceholder) {
+        if(!model.image && image && !model.beDefault && !isPlaceholder)
             model.image = image;
           [self  setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:state];
     }];

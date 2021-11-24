@@ -299,21 +299,36 @@
     [self.titleLabel sizeToFit];
     [self.imageView sizeToFit];
     
+    CGFloat xImageSpacing;
+    CGFloat yImageSpacing;
+    CGFloat paddingTop = self.padding.top;;
+    CGFloat paddingBottom = self.padding.bottom;
+    CGFloat paddingLeft = self.padding.left;
+    CGFloat paddingRight = self.padding.right;
+        
+    if(!self.imageView.image || !self.titleLabel.text.length)
+        xImageSpacing = yImageSpacing = 0;
+    else
+    {
+        xImageSpacing = self.xImageSpacing;
+        yImageSpacing = self.yImageSpacing;
+    }
+    
     if(self.isSizeToFit)
         switch (self.layoutType) {
             case MTLayoutButtonLayoutImageInLeft:
             case MTLayoutButtonLayoutImageInRight:
             {
-                contentWidth = self.imageView.width + self.titleLabel.height + self.xImageSpacing;
-                contentHeight = self.imageView.height > self.titleLabel.height ? self.imageView.height : self.titleLabel.height;
+                contentWidth = self.imageView.width + self.titleLabel.height + paddingLeft + paddingRight;
+                contentHeight = (self.imageView.height > self.titleLabel.height ? self.imageView.height : self.titleLabel.height) + paddingTop + paddingBottom;
                 break;
             }
                 
             case MTLayoutButtonLayoutImageInTop:
             case MTLayoutButtonLayoutImageInBottom:
             {
-                contentWidth = self.imageView.width > self.titleLabel.width ? self.imageView.width : self.titleLabel.width;
-                contentHeight = self.imageView.height + self.titleLabel.height + self.yImageSpacing;
+                contentWidth = (self.imageView.width > self.titleLabel.width ? self.imageView.width : self.titleLabel.width) + paddingLeft + paddingRight;
+                contentHeight = self.imageView.height + self.titleLabel.height + yImageSpacing + paddingTop + paddingBottom;
                 break;
             }
                 
@@ -326,7 +341,7 @@
         case MTLayoutButtonLayoutImageInLeft:
         case MTLayoutButtonLayoutImageInRight:
         {
-            self.titleLabel.width = contentWidth - self.imageView.width - self.xImageSpacing;
+            self.titleLabel.width = contentWidth - self.imageView.width - xImageSpacing;
             self.imageView.centerY = self.titleLabel.centerY = half(contentHeight);
             break;
         }
@@ -348,29 +363,29 @@
         {
             self.titleLabel.textAlignment = NSTextAlignmentRight;
             
-            self.imageView.x = 0;
-            self.titleLabel.x = self.imageView.maxX + self.xImageSpacing;
+            self.imageView.x = paddingLeft;
+            self.titleLabel.x = self.imageView.maxX + xImageSpacing;
             break;
         }
             
         case MTLayoutButtonLayoutImageInRight:
         {
-            self.titleLabel.x = 0;
-            self.imageView.x = self.titleLabel.maxX + self.xImageSpacing;
+            self.titleLabel.x = paddingLeft;
+            self.imageView.x = self.titleLabel.maxX + xImageSpacing;
             break;
         }
             
         case MTLayoutButtonLayoutImageInTop:
         {
-            self.imageView.y = 0;
-            self.titleLabel.y = self.imageView.maxY + self.yImageSpacing;
+            self.imageView.y = paddingTop;
+            self.titleLabel.y = self.imageView.maxY + yImageSpacing;
             break;
         }
             
         case MTLayoutButtonLayoutImageInBottom:
         {
-            self.titleLabel.y = 0;
-            self.imageView.y = self.titleLabel.maxY + self.yImageSpacing;
+            self.titleLabel.y = paddingTop;
+            self.imageView.y = self.titleLabel.maxY + yImageSpacing;
             break;
         }
             

@@ -88,6 +88,42 @@
         [[MTCloud shareCloud].currentViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
+-(void)popToRoot:(NSString*)controllerClass
+{
+    UINavigationController* navigationController = [self isKindOfClass:[UINavigationController class]] ? (id)self : [MTCloud shareCloud].currentViewController.navigationController;
+    
+    UIViewController* controller;
+    for (UIViewController* viewController in navigationController.viewControllers)
+        if([viewController isKindOfClass: NSClassFromString(controllerClass)])
+        {
+            controller = viewController;
+            break;
+        }
+        
+    if(controller)
+        [navigationController popToViewController:controller animated:false];
+    else
+        [self popToRoot];
+}
+
+-(void)popToRootWithAnimate:(NSString*)controllerClass
+{
+    UINavigationController* navigationController = [self isKindOfClass:[UINavigationController class]] ? (id)self : [MTCloud shareCloud].currentViewController.navigationController;
+    
+    UIViewController* controller;
+    for (UIViewController* viewController in navigationController.viewControllers)
+        if([viewController isKindOfClass: NSClassFromString(controllerClass)])
+        {
+            controller = viewController;
+            break;
+        }
+        
+    if(controller)
+        [navigationController popToViewController:controller animated:YES];
+    else
+        [self popToRootWithAnimate];
+}
+
 -(void)popSelfToRoot
 {
     if([self isKindOfClass:[UINavigationController class]])

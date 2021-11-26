@@ -14,11 +14,15 @@
 -(void)push:(UIViewController*)controller RemoveControllersClass:(NSArray<NSString*>*)viewControllersClass;
 -(void)pushWithAnimate:(UIViewController*)controller RemoveControllersClass:(NSArray<NSString*>*)viewControllersClass;
 
+
 -(void)push;
 -(void)pushWithAnimate;
 
 -(void)pop;
 -(void)popWithAnimate;
+
+-(void)popToRoot:(NSString*)controllerClass;
+-(void)popToRootWithAnimate:(NSString*)controllerClass;
 
 -(void)popSelf;
 -(void)popSelfWithAnimate;

@@ -227,7 +227,7 @@
     if(self.isUseSelfHud)
         return [super showSuccess:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showSuccess:msg];
+    [self.pageSumController showSuccess:msg];
     return self;
 }
 
@@ -237,7 +237,7 @@
     if(self.isUseSelfHud)
         return [super showError:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showError:msg];
+    [self.pageSumController showError:msg];
     return self;
 }
 
@@ -247,7 +247,7 @@
     if(self.isUseSelfHud)
         return [super showTips:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showTips:msg];
+    [self.pageSumController showTips:msg];
     return self;
 }
 
@@ -257,7 +257,7 @@
     if(self.isUseSelfHud)
         return [super showToast:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showToast:msg];
+    [self.pageSumController showToast:msg];
     return self;
 }
 
@@ -266,7 +266,7 @@
     if(self.isUseSelfHud)
         return [super showCenterToast:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showCenterToast:msg];
+    [self.pageSumController showCenterToast:msg];
     return self;
 }
 
@@ -276,7 +276,7 @@
     if(self.isUseSelfHud)
         return [super showMsg:msg];
     
-    [[MTCloud shareCloud].currentViewController.view showMsg:msg];
+    [self.pageSumController showMsg:msg];
     return self;
 }
 
@@ -286,8 +286,19 @@
     if(self.isUseSelfHud)
         return [super dismissIndicator];
     
-    [[MTCloud shareCloud].currentViewController.view dismissIndicator];
+    [self.pageSumController dismissIndicator];    
     return self;
+}
+
+/**缺省加载圈*/
+-(instancetype)showNoMsg
+{
+    return [self showMsg:nil];
+}
+
+-(instancetype)showNoMsgResult
+{
+    return self.isLoadResult ? self : self.showNoMsg;
 }
 
 #pragma mark - 懒加载

@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+CommonProtocol.h"
+#import "MTHostServiceModel.h"
 
 @interface UINavigationController (Extern)
 
@@ -16,6 +17,9 @@
 @end
 
 @interface MTNavigationController : UINavigationController<UINavigationControllerDelegate>
+
+@property (nonatomic,strong) MTHostServiceModel* hostServiceModel;
+@property (nonatomic,assign, readonly) NSArray<NSString*>* hostNameList;
 
 /**返回按钮图片名*/
 @property (nonatomic,strong) NSString* leftBtnImageName;

@@ -30,6 +30,18 @@
     [self setupDefault];
 }
 
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if(self.view.tag)
+        return;
+    
+    self.view.tag = 1;
+    if(self.hostNameList.count)
+        [self.hostServiceModel addHostSwitchButton:self.hostNameList];
+}
+
 -(void)setupDefault
 {
     [super setupDefault];
@@ -184,6 +196,15 @@
         self.interactivePopGestureRecognizer.delegate = self.interactivePopGestureRecognizerDelegate;
 }
 
+-(MTHostServiceModel *)hostServiceModel
+{
+    if(!_hostServiceModel)
+    {
+        _hostServiceModel = MTHostServiceModel.new(self);
+    }
+    
+    return _hostServiceModel;
+}
 
 @end
 

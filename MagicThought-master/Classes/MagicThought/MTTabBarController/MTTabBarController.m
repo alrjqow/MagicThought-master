@@ -55,7 +55,7 @@
     
     [self setupChildController];
     
-    if(self.isAddHost)
+    if(self.hostNameList.count)
         [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
 
@@ -139,7 +139,5 @@
     
     return _hostServiceModel;
 }
-
--(BOOL)isAddHost{return YES;}
 
 @end

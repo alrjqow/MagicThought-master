@@ -7,7 +7,7 @@
 //
 
 #import "MTImagePlayView.h"
-
+#import "MTImagePlayViewModel.h"
 
 @implementation MTBaseImagePlayView
 
@@ -50,6 +50,15 @@
 -(NSString *)viewModelClass
 {
     return @"MTImagePlayViewModel";
+}
+
+-(void)reloadDataWithDataList:(NSArray *)dataList SectionList:(NSArray *)sectionList EmptyData:(NSObject *)emptyData
+{
+    MTImagePlayViewModel* imagePlayViewModel = (id) self.viewModel;
+    if(imagePlayViewModel.pageChange)
+        imagePlayViewModel.pageChange(0);
+    
+    [super reloadDataWithDataList:dataList SectionList:sectionList EmptyData:emptyData];
 }
 
 @end

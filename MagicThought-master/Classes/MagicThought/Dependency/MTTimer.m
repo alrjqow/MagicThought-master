@@ -29,7 +29,11 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return [self getTimeWithDate:[formatter dateFromString:dateString] Format:format];
+    NSString* time = [self getTimeWithDate:[formatter dateFromString:dateString] Format:format];
+    if(!time)
+        time = @"";
+    
+    return time;
 }
 
 +(NSTimeInterval)getTimeStampWithString:(NSString*)timeString

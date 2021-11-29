@@ -106,7 +106,8 @@
 
 -(void)imageViewTouchesEnded:(UIImageView*)imageView
 {
-    [self.imageShowControllModel showBigImageWithSmallImageView: imageView];
+    if(!self.userInteractionEnabled || self.userInteractionEnabled.boolValue)
+        [self.imageShowControllModel showBigImageWithSmallImageView: imageView];
 }
 
 @end

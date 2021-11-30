@@ -347,6 +347,9 @@ MTBaseViewContentModel* _Nonnull mt_footer(MTBaseViewContentModel* _Nullable mod
 NSObject* _Nonnull mt_beDefault(void)
 {return mt_empty().bindKey(@"beDefault");}
 
+NSObject* _Nonnull mt_postDownloadFinishNotification(void)
+{return mt_empty().bindKey(@"postDownloadFinishNotification");}
+
 NSObject* _Nonnull mt_userInteractionEnabled(BOOL userInteractionEnabled)
 {return mt_reuse(@(userInteractionEnabled)).bindKey(@"userInteractionEnabled");}
 

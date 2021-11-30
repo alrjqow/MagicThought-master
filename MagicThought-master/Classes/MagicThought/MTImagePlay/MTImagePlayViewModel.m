@@ -80,7 +80,13 @@
 #pragma mark - 滚动完重置位置
 
 - (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath  animated:(BOOL)animated
-{    
+{
+    if(![self.collectionView numberOfSections])
+        return;
+        
+    if(indexPath.row >= [self.collectionView numberOfItemsInSection:0])
+        return;
+    
     [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
     
 //    [self.collectionView setContentOffset:CGPointMake(indexPath.row * self.collectionView.width, 0) animated:animated];

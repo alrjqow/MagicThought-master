@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+//下载图片后
+extern NSString* const kNotificationDidDownloadImageFinish_mt;
 
 //登录超时
 extern NSString* const kNotificationDidUserLoginTimeOut_mt;

@@ -105,6 +105,9 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 /**是否作为默认model*/
 @property (nonatomic,strong) NSObject* beDefault;
 
+/**是否发送图片下载通知l*/
+@property (nonatomic,strong) NSObject* postDownloadFinishNotification;
+
 /**最大宽度*/
 @property (nonatomic,strong) NSNumber* maxWidth;
 
@@ -149,6 +152,8 @@ CG_EXTERN MTBaseViewContentModel* _Nonnull mt_header(MTBaseViewContentModel* _Nu
 CG_EXTERN MTBaseViewContentModel* _Nonnull mt_footer(MTBaseViewContentModel* _Nullable model);
 
 CG_EXTERN NSObject* _Nonnull mt_beDefault(void);
+CG_EXTERN NSObject* _Nonnull mt_postDownloadFinishNotification(void);
+
 CG_EXTERN NSObject* _Nonnull mt_userInteractionEnabled(BOOL userInteractionEnabled);
 
 CG_EXTERN NSObject* _Nonnull mt_verticalAlignment(MTViewContentVerticalAlignment verticalAlignment);

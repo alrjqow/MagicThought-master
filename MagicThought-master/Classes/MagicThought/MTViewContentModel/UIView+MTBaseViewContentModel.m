@@ -606,24 +606,24 @@
                   if(!image)
                       return;
                   
-//                  if(self.baseContentModel.postDownloadFinishNotification)
-//                  {
-//                      UIView* superView = self.superview;
-//                      BOOL isRealCell = false;
-//                      while (superView) {
-//                          
-//                          if([superView isKindOfClass:NSClassFromString(@"MTDelegateCollectionViewCell")] && [superView.mt_order containsString:@"isAssistCell"])
-//                          {
-//                              isRealCell = YES;
-//                              break;
-//                          }
-//                                                                
-//                          superView = superView.superview;
-//                      }
-//                                            
-//                      if(isRealCell && self.baseContentModel.postDownloadFinishNotification)
-//                          [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationDidDownloadImageFinish_mt" object:nil userInfo:@{@"url" : imageModel.imageURL}];
-//                  }
+                  if(self.baseContentModel.postDownloadFinishNotification)
+                  {
+                      UIView* superView = self.superview;
+                      BOOL isRealCell = false;
+                      while (superView) {
+                          
+                          if([superView isKindOfClass:NSClassFromString(@"MTDelegateCollectionViewCell")] && [superView.mt_order containsString:@"isAssistCell"])
+                          {
+                              isRealCell = YES;
+                              break;
+                          }
+                                                                
+                          superView = superView.superview;
+                      }
+                                            
+                      if(isRealCell && self.baseContentModel.postDownloadFinishNotification)
+                          [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationDidDownloadImageFinish_mt" object:nil userInfo:@{@"url" : imageModel.imageURL}];
+                  }
                                                    
                   if(completion)
                       completion(image, false);

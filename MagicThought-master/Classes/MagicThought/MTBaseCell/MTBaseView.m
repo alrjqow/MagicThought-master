@@ -192,6 +192,8 @@
     CGSize size = [self layoutSubviewsForWidth:0 Height:0];
     self.bounds = CGRectMake(0, 0, size.width, size.height);
     
+    [self layoutSubviews];
+    
     return automaticDimension;
 }
 

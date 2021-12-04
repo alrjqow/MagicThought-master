@@ -13,7 +13,9 @@
 
 @interface MTHeaderFooterRefreshListController : MTHeaderRefreshListController
 
-@property (nonatomic,assign) NSInteger page;
+@property (nonatomic,assign) NSInteger currentPage;
+
+@property (nonatomic,assign) NSInteger startPage;
 
 @property (nonatomic,strong) MJRefreshFooter<MJRefreshFooterProtocol>* mj_footer;
 
@@ -22,8 +24,6 @@
 @property (nonatomic,strong) MTPageInfoModel* infoModel;
 
 @property (nonatomic,assign, readonly) BOOL isRemoveMJFooter;
-
-@property (nonatomic,strong) NSMutableArray* itemArr;
 
 @property (nonatomic,strong, readonly) Class footerClass;
 

@@ -24,14 +24,13 @@
     if(!self.isRemoveMJFooter)
         self.mtListView.mj_footer = self.mj_footer;
     
-    self.page = 1;
+    self.currentPage = self.startPage;
     
     __weak __typeof(self) weakSelf = self;
     if(!self.mj_Block)
         self.mj_Block = ^{
-            
-            [weakSelf.itemArr removeAllObjects];
-            weakSelf.page = 1;
+                        
+            weakSelf.currentPage = weakSelf.startPage;
             [weakSelf.mtListView.mj_footer resetNoMoreData];
             [weakSelf startRequest];
         };
@@ -168,16 +167,6 @@
 
 #pragma mark - 懒加载
 
--(NSArray *)dataList
-{
-    NSMutableArray* arr = [NSMutableArray arrayWithArray:self.itemArr];
-    
-//    if(self.itemArr.count)
-//        [arr addObject:@"DYNoSepLineBaseCell".bindHeight([self getTableViewFillCellHeight])];
-    
-    return [arr copy];
-}
-
 -(MJRefreshFooter<MJRefreshFooterProtocol> *)mj_footer
 {
     if(!_mj_footer)
@@ -186,10 +175,13 @@
         
         Class footerClass = self.footerClass;
         if(![footerClass isSubclassOfClass:[MJRefreshFooter class]])
-            footerClass = [MTRefreshBackNormalFooter class];
+            footerClass = [MTRefreshAutoNormalFooter class];
                     
         MJRefreshFooter<MJRefreshFooterProtocol>* footer = [footerClass new];
         footer.refreshingBlock = ^{
+            
+            weakSelf.currentPage ++;
+            
              if(weakSelf.mj_footer_Block)
                    weakSelf.mj_footer_Block();
         };
@@ -201,7 +193,7 @@
 
 -(Class)footerClass
 {
-    return MTRefreshBackNormalFooter.class;
+    return MTRefreshAutoNormalFooter.class;
 }
 
 -(MTBlock)mj_footer_Block
@@ -219,14 +211,5 @@
     return _mj_footer_Block;
 }
 
--(NSMutableArray *)itemArr
-{
-    if(!_itemArr)
-    {
-        _itemArr = [NSMutableArray array];
-    }
-    
-    return _itemArr;
-}
 
 @end

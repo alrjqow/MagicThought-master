@@ -33,7 +33,7 @@ CG_EXTERN NSString*  MTBaseAlertDismissOrder;
 
 @property (nonatomic,strong, readonly) MTBaseAlertBlackView* blackView;
 
-@property (nonatomic,strong, readonly) UIViewController* rootAlertController;
+@property (nonatomic,strong) UIViewController* rootAlertController;
 
 @property (nonatomic,assign) CGFloat animateTime;
 

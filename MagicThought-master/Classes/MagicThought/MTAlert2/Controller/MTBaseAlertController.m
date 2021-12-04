@@ -87,8 +87,8 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 -(void)alert
 {
     self.isDismiss = self.type != MTBaseAlertTypeUp_DismissTwice;
-        
-    UIViewController* vc = self.rootAlertController;
+            
+    UIViewController* vc = self.rootAlertController ? self.rootAlertController : mt_rootViewController();
     while (vc.presentedViewController) {vc = vc.presentedViewController;}
     
     switch (self.type) {
@@ -142,10 +142,6 @@ NSString*  MTBaseAlertDismissOrder = @"MTBaseAlertDismissOrder_True";
 -(void)alerting{}
 -(void)alertCompletion{}
 
--(UIViewController *)rootAlertController
-{
-    return mt_rootViewController();
-}
 
 -(BOOL)navigationBarHidden{return YES;}
 

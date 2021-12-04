@@ -12,6 +12,8 @@
 
 @interface MTAppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (nonatomic, assign) BOOL allowOrentitaionRotation;
+
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, readonly, strong) UIViewController* rootViewController;

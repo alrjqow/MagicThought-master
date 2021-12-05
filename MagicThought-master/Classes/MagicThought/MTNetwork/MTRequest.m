@@ -34,7 +34,27 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
             MTViewController* viewController = (id) weakSelf.object;
             if([viewController isKindOfClass:MTViewController.class])
                 viewController.isLoadResult = YES;
-            [weakSelf.object setEndRefreshStatus:weakSelf.endRefreshStatusCallback(obj, &message, success, request) Message:message];
+            
+            MTEndRefreshStatus endRefreshStatus;
+            if(success && [viewController isKindOfClass:MTHeaderFooterRefreshListController.class] && [obj isKindOfClass:NSArray.class])
+            {
+                MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
+                NSArray* array = (id) obj;
+                
+                if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
+                        [headerFooterRefreshListController.modelArray removeAllObjects];
+                              
+                [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
+                
+                endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
+                
+                if(endRefreshStatus == MTEndRefreshStatusDefault)
+                    endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
+            }
+            else
+                endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
+            
+            [weakSelf.object setEndRefreshStatus:endRefreshStatus Message:message];
         }
     };
     
@@ -140,7 +160,8 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
             responseModel.request = self;
             _responeMessage = responseModel.responeMessage;
             _success = responseModel.success;
-                        
+            _totalCount = responseModel.totalCount;
+            
             //如果返回的result是个数组
             if(self.cls)
             {

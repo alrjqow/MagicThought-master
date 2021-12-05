@@ -7,7 +7,7 @@
 //
 
 #import <YTKNetwork/YTKNetwork.h>
-#import "MTBaseListController.h"
+#import "MTHeaderFooterRefreshListController.h"
 
 typedef enum : NSUInteger {
     MTEndRefreshStatusNone,
@@ -54,6 +54,8 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 @property (nonatomic, assign) BOOL success;
 @property (nonatomic, copy) NSString *responeMessage;
 
+@property (nonatomic, assign) NSInteger totalCount;
+
 @property (nonatomic, strong) id responseJSONModel;
 
 /*发起者*/
@@ -73,6 +75,8 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 @property (nonatomic, assign, readonly) BOOL success;
 
 @property (nonatomic, copy, readonly) NSString *responeMessage;
+
+@property (nonatomic, assign, readonly) NSInteger totalCount;
 
 -(void)convertComplete:(MTRequest*)request;
 

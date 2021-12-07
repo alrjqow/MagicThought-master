@@ -19,4 +19,13 @@
 
 -(id)getItemByIndex:(NSInteger)index;
 
+
+@end
+
+
+
+@interface NSMutableArray (Handle)
+
+-(void)addObjectsFromArrayAfterRemoveAll:(NSArray*)array;
+
 @end

@@ -34,4 +34,18 @@
     return self[index];
 }
 
+
+@end
+
+
+
+@implementation NSMutableArray (Handle)
+
+-(void)addObjectsFromArrayAfterRemoveAll:(NSArray*)array
+{
+    [self removeAllObjects];
+    
+    [self addObjectsFromArray:array];
+}
+
 @end

@@ -218,6 +218,8 @@
     
     if(self.isWait)
         self.isWait = false;
+    else if(self.htmlString.length)
+        [self.webView loadHTMLString:self.htmlString baseURL:nil];
     else
         [self loadH5];
 }

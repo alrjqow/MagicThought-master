@@ -10,16 +10,11 @@
 #import "MTRefreshBackNormalFooter.h"
 #import "MTPageInfoModel.h"
 
-#define propertyModelArray(className) \
--(NSMutableArray<className*> *)modelArray \
-{return [super modelArray];}
 
 @interface MTHeaderFooterRefreshListController : MTHeaderRefreshListController
 
 @property (nonatomic,assign) NSInteger startPage;
 @property (nonatomic,assign) NSInteger currentPage;
-
-@property (nonatomic,strong) NSMutableArray* modelArray;
 
 @property (nonatomic,strong) MJRefreshFooter<MJRefreshFooterProtocol>* mj_footer;
 

@@ -23,6 +23,8 @@
 @property (nonatomic,assign) BOOL isShowProgressBar;
 
 @property(nonatomic,strong) NSString* url;
+@property(nonatomic,strong) NSString* htmlString;
+
 
 /*!
  用于判断是否加载H5的标题，默认加载

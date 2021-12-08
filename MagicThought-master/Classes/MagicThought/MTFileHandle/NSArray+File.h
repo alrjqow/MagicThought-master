@@ -26,6 +26,6 @@
 
 @interface NSMutableArray (Handle)
 
--(void)addObjectsFromArrayAfterRemoveAll:(NSArray*)array;
+-(void)addObjectsFromArray_del:(NSArray*)array;
 
 @end

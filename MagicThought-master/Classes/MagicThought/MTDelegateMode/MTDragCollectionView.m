@@ -67,8 +67,8 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
             
             [self setupDisplayLink];
             
-            if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
-                [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureBeganOrder];
+            if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:withItem:)])
+                [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureBeganOrder withItem:_indexPath];
             //移动
         }else if (gestureRecognizer.state == UIGestureRecognizerStateChanged){
             
@@ -174,8 +174,8 @@ typedef NS_ENUM(NSUInteger, MTDragCollectionViewScrollDirection) {
             self.scrollEnabled = YES;
             [_snapshotView removeFromSuperview];
             _originalCell.hidden = NO;
-            if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
-                [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureEndOrder];
+            if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:withItem:)])
+                [self.mt_delegate doSomeThingForMe:self withOrder:MTDragGestureEndOrder withItem:_indexPath];
         }
     }
 }

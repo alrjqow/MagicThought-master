@@ -262,14 +262,5 @@
     return [UICollectionViewFlowLayout new];
 }
 
--(NSMutableArray *)modelArray
-{
-    if(!_modelArray)
-    {
-        _modelArray = NSMutableArray.new;
-    }
-    
-    return _modelArray;
-}
 
 @end

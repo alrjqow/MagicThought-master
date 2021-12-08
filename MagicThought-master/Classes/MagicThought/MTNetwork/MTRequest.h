@@ -99,6 +99,10 @@ typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerCallback)(MTEn
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBack;
 
+@property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBackNoMsg;
+
+@property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBackNoMsgResult;
+
 @end
 
 

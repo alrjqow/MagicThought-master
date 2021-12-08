@@ -16,7 +16,13 @@
 @class MTBaseDataModel;
 @protocol MTDelegateProtocol;
 
+#define propertyModelArray(className) \
+-(NSMutableArray<className*> *)modelArray \
+{return [super modelArray];}
+
 @interface MTViewController : UIViewController<MTDelegateProtocol, WKScriptMessageHandler>
+
+@property (nonatomic,strong) NSMutableArray* modelArray;
 
 @property (nonatomic,assign) BOOL isLoadResult;
 

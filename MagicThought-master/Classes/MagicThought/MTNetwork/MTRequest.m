@@ -266,10 +266,20 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
       return callBack;
 }
 
+-(MTCreateRequestCallbackHandlerCallback)callBackNoMsg{return self.callBack;}
+
+-(MTCreateRequestCallbackHandlerCallback)callBackNoMsgResult{return self.callBack;}
+
+
 @end
 
 
 @implementation MTViewController (EndRefresh)
+
+-(MTCreateRequestCallbackHandlerCallback)callBackNoMsg{return self.showNoMsg.callBack;}
+
+-(MTCreateRequestCallbackHandlerCallback)callBackNoMsgResult{return self.showNoMsgResult.callBack;}
+
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{
     

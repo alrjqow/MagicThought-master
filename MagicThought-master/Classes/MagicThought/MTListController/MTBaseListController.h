@@ -12,13 +12,8 @@
 #import "MTConst.h"
 #import "MJRefresh.h"
 
-#define propertyModelArray(className) \
--(NSMutableArray<className*> *)modelArray \
-{return [super modelArray];}
 
 @interface MTBaseListController : MTViewController<MTDelegateViewDataProtocol>
-
-@property (nonatomic,strong) NSMutableArray* modelArray;
 
 /**懒加载，默认不添加到父级*/
 @property (nonatomic, strong) MTDelegateTableView *mtBase_tableView;

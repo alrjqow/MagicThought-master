@@ -25,6 +25,9 @@ typedef enum : NSUInteger {
 @property (nonatomic,assign) CGFloat xImageSpacing;
 @property (nonatomic,assign) CGFloat yImageSpacing;
 
+@property (nonatomic,assign) CGFloat sizeFitWidth;
+@property (nonatomic,assign) CGFloat sizeFitHeight;
+
 
 @end
 

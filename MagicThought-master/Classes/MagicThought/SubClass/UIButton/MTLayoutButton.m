@@ -40,10 +40,31 @@
     
     [self.imageView sizeToFit];
     [self.titleLabel sizeToFit];
+            
+    if(self.imageView.width && self.imageView.height)
+    {
+        CGFloat scale;
+        if((self.layoutType == MTLayoutButtonLayoutImageInLeft || self.layoutType == MTLayoutButtonLayoutImageInRight) && self.sizeFitHeight)
+        {
+            scale = self.imageView.width / self.imageView.height;
+            CGFloat imageHeight = self.sizeFitHeight - self.padding.top - self.padding.bottom;
+            
+            self.imageView.bounds = imageHeight < 0 ? CGRectZero : CGRectMake(0, 0, imageHeight * scale, imageHeight);
+        }
         
+        if((self.layoutType == MTLayoutButtonLayoutImageInTop || self.layoutType == MTLayoutButtonLayoutImageInBottom) && self.sizeFitWidth)
+        {
+            scale = self.imageView.height / self.imageView.width;
+            
+            CGFloat imageWidth = self.sizeFitWidth - self.padding.left - self.padding.right;
+            
+            self.imageView.bounds = imageWidth < 0 ? CGRectZero : CGRectMake(0, 0, imageWidth, imageWidth * scale);
+        }
+    }
+    
     CGFloat xImageSpacing;
     CGFloat yImageSpacing;
-    if(!self.imageView.image || !self.titleLabel.text.length)
+    if(!self.imageView.width || !self.imageView.height || !self.titleLabel.text.length)
         xImageSpacing = yImageSpacing = 0;
     else
     {

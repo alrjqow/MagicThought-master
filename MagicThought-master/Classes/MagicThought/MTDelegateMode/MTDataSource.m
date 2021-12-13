@@ -63,7 +63,7 @@
 
 #define MTEasyDefaultCollectionViewHeaderFooterReuseIdentifier MTEasyReuseIdentifier(NSStringFromClass([MTDelegateCollectionReusableView class]))
 
-@interface MTDataSource()
+@interface MTDataSource()<MTDelegateProtocol>
 
 @property (nonatomic,weak) MTDelegateTableView* tableView;
 
@@ -641,7 +641,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     
     indexPath.mt_order = nil;
     cell.indexPath = indexPath;
-    cell.mt_delegate = self.delegate;
+    cell.mt_delegate = self;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
     [cell setNeedsLayout];
     
@@ -683,7 +683,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         view = view0;
     }
     
-    view.mt_delegate = self.delegate;
+    view.mt_delegate = self;
     view.section = indexPath.section;
     view.mt_data = data;
     
@@ -922,6 +922,50 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
     if([self.delegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)])
         [self.delegate scrollViewDidEndScrollingAnimation:scrollView];
 }
+
+#pragma mark - MTDelegateProtocol
+
+-(void)doSomeThingForMe:(id)obj withOrder:(NSString*)order
+{
+    if([order isEqualToString:@"MTWebImageReloadOrder"])
+    {
+        NSIndexPath* indexPath = obj;
+        
+        NSArray* list = [self getSectionDataListForSection:indexPath.section];
+        NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
+        data.automaticDimension();
+                
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        }];        
+    }
+        
+    if([self.delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
+        [self.delegate doSomeThingForMe:obj withOrder:order];
+}
+
+-(id)getSomeThingForMe:(id)obj withOrder:(NSString*)order
+{
+    if([self.delegate respondsToSelector:@selector(getSomeThingForMe:withOrder:)])
+        return [self.delegate getSomeThingForMe:obj withOrder:order];
+    
+    return nil;
+}
+
+-(void)doSomeThingForMe:(id)obj withOrder:(NSString*)order withItem:(id)item
+{
+    if([self.delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:withItem:)])
+        [self.delegate doSomeThingForMe:obj withOrder:order withItem:item];
+}
+
+-(id)getSomeThingForMe:(id)obj withOrder:(NSString*)order withItem:(id)item
+{
+    if([self.delegate respondsToSelector:@selector(getSomeThingForMe:withOrder:withItem:)])
+        return [self.delegate getSomeThingForMe:obj withOrder:order withItem:item];
+    
+    return nil;
+}
+
 
 #pragma mark - pickerView 数据源
 

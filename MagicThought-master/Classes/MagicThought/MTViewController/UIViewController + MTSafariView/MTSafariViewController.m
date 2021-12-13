@@ -83,6 +83,20 @@
         _url = url;
 }
 
+-(void)setHtmlString:(NSString *)htmlString
+{
+    _htmlString = htmlString;
+    if(self.isViewDidLoad)
+        [self.webView loadHTMLString:bodyHtml(htmlString) baseURL:nil];
+}
+
+-(void)setBodyHtmlString:(NSString *)bodyHtmlString
+{
+    _htmlString = bodyHtmlString;
+    if(self.isViewDidLoad)
+        [self.webView loadHTMLString:bodyHtml(bodyHtmlString) baseURL:nil];
+}
+
 -(void)setTitleName:(NSString *)titleName
 {
     _titleName = titleName;
@@ -565,3 +579,28 @@
 
 
 @end
+
+
+NSString * bodyHtml(NSString* html)
+{
+    return [NSString stringWithFormat:@"<html> \n"
+            "<head> \n"
+            "<meta name='viewport' content='width=device-width, initial-scale=1.0,user-scalable=no'>\n"
+            "<style type=\"text/css\"> \n"
+            "* {margin:0;padding:0;}\n"
+            "body {font-size:17px;}\n"
+            "</style> \n"
+            "</head> \n"
+            "<body>"
+            "<script type='text/javascript'>"
+            "window.onload = function(){\n"
+            "var $img = document.getElementsByTagName('img');\n"
+            "for(var p in  $img){\n"
+            " $img[p].style.width = '100%%';\n"
+            "$img[p].style.height ='auto'\n"
+            "}\n"
+            "}\n"
+            "</script>%@\n"
+            "</body>\n"
+            "</html>",html];
+}

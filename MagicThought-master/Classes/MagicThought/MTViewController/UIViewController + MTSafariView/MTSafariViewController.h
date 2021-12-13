@@ -9,6 +9,8 @@
 #import <WebKit/WebKit.h>
 #import "MTViewController.h"
 
+extern NSString * bodyHtml(NSString* html);
+
 @class MTSafariView;
 @interface MTSafariViewController : MTViewController<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
@@ -24,7 +26,7 @@
 
 @property(nonatomic,strong) NSString* url;
 @property(nonatomic,strong) NSString* htmlString;
-
+@property(nonatomic,strong) NSString* bodyHtmlString;
 
 /*!
  用于判断是否加载H5的标题，默认加载
@@ -80,3 +82,5 @@
 
 
 @end
+
+

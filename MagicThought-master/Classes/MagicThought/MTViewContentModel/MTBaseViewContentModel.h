@@ -63,6 +63,10 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 /**图片名*/
 @property (nonatomic,strong) NSString* imageURL;
 
+/**是否下载完图片刷新数据*/
+@property (nonatomic,assign) BOOL reloadWebImage;
+
+
 /**图片或视频*/
 @property (nonatomic,strong) PHAsset* asset;
 
@@ -105,9 +109,6 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 /**是否作为默认model*/
 @property (nonatomic,strong) NSObject* beDefault;
 
-/**是否发送图片下载通知l*/
-@property (nonatomic,strong) NSObject* postDownloadFinishNotification;
-
 /**最大宽度*/
 @property (nonatomic,strong) NSNumber* maxWidth;
 
@@ -129,6 +130,8 @@ typedef NS_ENUM(NSInteger, MTViewContentHorizontalAlignment) {
 /*-----------------------------------判断用-----------------------------------*/
 
 @property (nonatomic,assign, readonly) BOOL isDefaultOriginModel;
+
+-(void)webImageReload;
 
 @end
 
@@ -152,7 +155,6 @@ CG_EXTERN MTBaseViewContentModel* _Nonnull mt_header(MTBaseViewContentModel* _Nu
 CG_EXTERN MTBaseViewContentModel* _Nonnull mt_footer(MTBaseViewContentModel* _Nullable model);
 
 CG_EXTERN NSObject* _Nonnull mt_beDefault(void);
-CG_EXTERN NSObject* _Nonnull mt_postDownloadFinishNotification(void);
 
 CG_EXTERN NSObject* _Nonnull mt_userInteractionEnabled(BOOL userInteractionEnabled);
 
@@ -178,6 +180,7 @@ CG_EXTERN NSString* _Nonnull mt_css(NSString* _Nullable str);
 CG_EXTERN NSObject* _Nonnull mt_textColor(UIColor* _Nullable color);
 CG_EXTERN NSObject* _Nonnull mt_image_bg(NSObject* _Nullable img_bg);
 CG_EXTERN NSObject* _Nonnull mt_image_url(NSString* _Nullable imageURL);
+CG_EXTERN NSObject* _Nonnull mt_reloadWebImage(id _Nonnull imageURL);
 CG_EXTERN NSObject* _Nonnull mt_placeholderImage(id _Nullable placeholderImage);
 
 

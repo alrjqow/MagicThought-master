@@ -14,6 +14,10 @@
 
 @interface MTBaseViewContentModel ()
 
+@property (nonatomic,strong) NSIndexPath* indexPath;
+@property (nonatomic,weak) id<MTDelegateProtocol> mtDataSource;
+
+
 @property (nonatomic,assign) CGFloat viewHeight;
 
 @property (nonatomic,assign) BOOL isNoMatchHidden;
@@ -54,6 +58,18 @@
 
 @implementation MTBaseViewContentModel
 
+-(void)setIndexPath:(NSIndexPath*)indexPath WithDelegate:(id)mtDataSource
+{
+    self.mtDataSource = mtDataSource;
+    self.indexPath = indexPath;
+}
+
+-(void)webImageReload
+{
+    if([self.mtDataSource respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
+        [self.mtDataSource doSomeThingForMe:self.indexPath withOrder:@"MTWebImageReloadOrder"];
+}
+
 -(BOOL)isDefaultOriginModel
 {
     return self.superOriginModel.beDefault != nil || self.beDefault != nil;
@@ -78,11 +94,17 @@
     {
         if(data)
         {
-            if([obj.mt_keyName isEqualToString:kExternData])
+            if([obj.mt_keyName isEqualToString:@"reloadWebImage"])
+            {
+                self.imageURL = (id) data;
+                self.reloadWebImage = YES;
+            }
+            else if([obj.mt_keyName isEqualToString:kExternData])
                 self.externData = data;
             else
                 [self mj_setKeyValues:@{obj.mt_keyName : data}];
         }
+        
         return self;
     }
                         
@@ -347,9 +369,6 @@ MTBaseViewContentModel* _Nonnull mt_footer(MTBaseViewContentModel* _Nullable mod
 NSObject* _Nonnull mt_beDefault(void)
 {return mt_empty().bindKey(@"beDefault");}
 
-NSObject* _Nonnull mt_postDownloadFinishNotification(void)
-{return mt_empty().bindKey(@"postDownloadFinishNotification");}
-
 NSObject* _Nonnull mt_userInteractionEnabled(BOOL userInteractionEnabled)
 {return mt_reuse(@(userInteractionEnabled)).bindKey(@"userInteractionEnabled");}
 
@@ -422,6 +441,14 @@ NSObject* _Nonnull mt_placeholderImage(id _Nullable placeholderImage)
 
 NSObject* _Nonnull mt_image_url(NSString* _Nullable imageURL)
 {return mt_reuse(imageURL).bindKey(@"imageURL");}
+
+NSObject* _Nonnull mt_reloadWebImage(id _Nonnull imageURL)
+{
+    if([imageURL isKindOfClass:NSString.class])
+        return mt_reuse(imageURL).bindKey(@"reloadWebImage");
+    
+    return imageURL;
+}
 
 NSObject* _Nonnull mt_closeSepLine(BOOL isCloseSepLine)
 {return mt_reuse(@(isCloseSepLine)).bindKey(kIsCloseSepLine);}

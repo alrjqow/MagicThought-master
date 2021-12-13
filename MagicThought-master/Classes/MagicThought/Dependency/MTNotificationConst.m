@@ -7,9 +7,6 @@
 
 #import "MTNotificationConst.h"
 
-//下载图片后
-NSString* const kNotificationDidDownloadImageFinish_mt = @"kNotificationDidDownloadImageFinish_mt";
-
 //登录超时
 NSString* const kNotificationDidUserLoginTimeOut_mt = @"kNotificationDidUserLoginTimeOut_mt";
 

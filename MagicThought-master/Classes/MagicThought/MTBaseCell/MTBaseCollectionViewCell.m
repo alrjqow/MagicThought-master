@@ -161,7 +161,14 @@
     if(view == _externView)
         view.objects(dataModel);
     else
+    {        
+        if([view isKindOfClass:UIButton.class] || [view isKindOfClass:UIImageView.class])
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wundeclared-selector"
+                [dataModel performSelector:@selector(setIndexPath:WithDelegate:) withObject:self.indexPath withObject:self.mt_delegate];
+        #pragma clang diagnostic pop
         view.baseContentModel = dataModel;
+    }
     
     reSetModel.viewState = startViewState;
 }

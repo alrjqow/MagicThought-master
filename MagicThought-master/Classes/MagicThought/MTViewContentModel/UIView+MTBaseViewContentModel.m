@@ -606,28 +606,9 @@
                   if(!image)
                       return;
                   
-                  if(self.baseContentModel.postDownloadFinishNotification)
-                  {
-                      UIView* superView = self.superview;
-                      BOOL isRealCell = false;
-                      while (superView) {
-                          
-                          if([superView isKindOfClass:NSClassFromString(@"MTDelegateCollectionViewCell")] && [superView.mt_order containsString:@"isAssistCell"])
-                          {
-                              isRealCell = YES;
-                              break;
-                          }
-                                                                
-                          superView = superView.superview;
-                      }
-                                            
-                      if(isRealCell && self.baseContentModel.postDownloadFinishNotification)
-                          [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationDidDownloadImageFinish_mt" object:nil userInfo:@{@"url" : imageModel.imageURL}];
-                  }
-                                                   
-                  if(completion)
-                      completion(image, false);
-                  
+                  imageModel.image = image;
+                  self.baseContentModel.reloadWebImage ? [self.baseContentModel webImageReload] : completion(image, false);
+                                    
                   if([imageModel.mt_order isEqualToString:@"MTBigimageCellOrder"])
                   {
                       UIView* superView = self.superview;
@@ -1077,8 +1058,6 @@
        
        //图片
         [self findImageModel:baseContentModel For:^(UIImage *image, BOOL isPlaceholder) {
-            if(!baseContentModel.image && image && !baseContentModel.beDefault && !isPlaceholder)
-                baseContentModel.image = image;
             self.image = image;
         }];
 }
@@ -1202,8 +1181,6 @@
 -(void)setButtonState:(UIControlState)state forModel:(MTBaseViewContentModel*)model
 {
     [self findImageModel:model For:^(UIImage *image, BOOL isPlaceholder) {
-        if(!model.image && image && !model.beDefault && !isPlaceholder)
-            model.image = image;
           [self  setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:state];
     }];
          

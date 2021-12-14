@@ -251,7 +251,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    textField.bindEnum(kEndEditing);
+    textField.bindEnum(kTextFieldEndEditing);
     textField.bindTagText(textField.text);
     [self viewEventWithView:_textField Data:self.indexPath];
 }
@@ -259,7 +259,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self endEditing:YES];
-    textField.bindEnum(kEndEditingReturn);
+    textField.bindEnum(kTextFieldEndEditingReturn);
     textField.bindTagText(textField.text);
     [self viewEventWithView:_textField Data:self.indexPath];
     
@@ -281,7 +281,7 @@
     if(textView.baseContentModel.wordStyle.isAttributedWord)
            textView.attributedText = [textView.baseContentModel.wordStyle createAttributedWordName:textView.text];
     
-    textView.bindEnum(kEndEditing);
+    textView.bindEnum(kTextViewEndEditing);
     textView.bindTagText(textView.text);
 //    textView.width = textView.width;
 //    [textView sizeToFit];

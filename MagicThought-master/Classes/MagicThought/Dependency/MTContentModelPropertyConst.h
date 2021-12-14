@@ -97,5 +97,9 @@ typedef enum : NSInteger {
     kEndEditingReturn = 117,    
     kTextFieldValueChange = 118,
     kTextViewValueChange = 119,
+    kTextFieldEndEditing = 120,
+    kTextViewEndEditing = 121,
+    kTextFieldEndEditingReturn = 122,
+    kTextViewEndEditingReturn = 123,
     
 } MTViewState;

@@ -228,6 +228,8 @@
         return [super showSuccess:msg];
     
     [self.pageSumController showSuccess:msg];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 
@@ -238,6 +240,8 @@
         return [super showError:msg];
     
     [self.pageSumController showError:msg];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 
@@ -248,6 +252,8 @@
         return [super showTips:msg];
     
     [self.pageSumController showTips:msg];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 
@@ -258,6 +264,8 @@
         return [super showToast:msg];
     
     [self.pageSumController showToast:msg];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 
@@ -267,6 +275,8 @@
         return [super showCenterToast:msg];
     
     [self.pageSumController showCenterToast:msg];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 
@@ -286,7 +296,9 @@
     if(self.isUseSelfHud)
         return [super dismissIndicator];
     
-    [self.pageSumController dismissIndicator];    
+    [self.pageSumController dismissIndicator];
+    [self.pageSumController.mtListView.mj_header endRefreshing];
+    [self.pageSumController.mtListView.mj_footer endRefreshing];
     return self;
 }
 

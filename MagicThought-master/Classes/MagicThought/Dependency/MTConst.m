@@ -9,6 +9,11 @@
 #import "MTConst.h"
 #import "UIDevice+DeviceInfo.h"
 
+
+void kCopyString_Pasteboard(NSString* string){[[UIPasteboard generalPasteboard] setString:string];}
+
+NSString* kString_Pasteboard(void){return [UIPasteboard generalPasteboard].string;}
+
 //获取验证码标识
 NSString* getVfCodeIdentifier_mt(NSString* identifier)
 {

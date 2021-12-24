@@ -54,6 +54,10 @@ typedef CGFloat (^MTFloatBlockWithObject) (id);
 typedef id (^MTObjectBlock) (void);
 typedef id (^MTObjectBlockWithObject) (id);
 
+MT_EXTERN void kCopyString_Pasteboard(NSString* string);
+MT_EXTERN  NSString* kString_Pasteboard(void);
+
+
 //获取验证码标识
 MT_EXTERN NSString* getVfCodeIdentifier_mt(NSString* identifier);
 

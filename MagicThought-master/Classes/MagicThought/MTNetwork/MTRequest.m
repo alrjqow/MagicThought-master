@@ -161,6 +161,7 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
             _responeMessage = responseModel.responeMessage;
             _success = responseModel.success;
             _totalCount = responseModel.totalCount;
+            _code = responseModel.code;
             
             //如果返回的result是个数组
             if(self.cls)

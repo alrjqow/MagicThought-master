@@ -51,6 +51,7 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 
 @property (nonatomic, assign) YTKResponseSerializerType responseContentType;
 
+@property (nonatomic,assign) NSInteger code;
 @property (nonatomic, assign) BOOL success;
 @property (nonatomic, copy) NSString *responeMessage;
 
@@ -69,6 +70,8 @@ typedef MTEndRefreshStatus (^MTEndRefreshStatusCallback)(id obj, NSString **mssa
 @interface MTResponseModel : NSObject
 
 @property (nonatomic,weak) MTRequest* request;
+
+@property (nonatomic,assign) NSInteger code;
 
 @property (nonatomic,strong, readonly) NSDictionary* keyData;
 

@@ -12,6 +12,8 @@
 
 +(NSDate*)getCurrentDate
 {
+//    return [self getDateWithTime:[self getTimeWithCurrentDateAndFormat:nil] Format:nil];
+        
     NSDate* date = [NSDate date];
 //    NSTimeZone *zone = [NSTimeZone systemTimeZone]; // 获得系统的时区
 //    NSTimeInterval time = [zone secondsFromGMTForDate:date];// 以秒为单位返回当前时间与系统格林尼治时间的差
@@ -22,7 +24,7 @@
 
 +(NSString*)getTimeWithCurrentDateAndFormat:(NSString*)format
 {
-    return [self getTimeWithDate:[self getCurrentDate] Format:format];
+    return [self getTimeWithDate:[NSDate date] Format:format];
 }
 
 +(NSString*)getTimeWithDateString:(NSString*)dateString Format:(NSString*)format
@@ -44,21 +46,21 @@
 +(NSTimeInterval)getTimeStampWithString:(NSString*)timeString Format:(NSString*)format
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat: format ? format : @"YYYY-MM-dd HH:mm:ss"];
+    [formatter setDateFormat: format ? format : @"yyyy-MM-dd HH:mm:ss"];
     return [[formatter dateFromString:timeString] timeIntervalSince1970];
 }
 
 +(NSString*)getTimeWithDate:(NSDate*)date Format:(NSString*)format
 {        
     NSDateFormatter* formater = [NSDateFormatter new];
-    [formater setDateFormat:format ? format : @"YYYY-MM-dd HH:mm:ss"];
+    [formater setDateFormat:format ? format : @"yyyy-MM-dd HH:mm:ss"];
     return  [formater stringFromDate:date];
 }
 
 +(NSDate*)getDateWithTime:(NSString*)time Format:(NSString*)format
 {
     NSDateFormatter* formater = [NSDateFormatter new];
-    [formater setDateFormat:format ? format : @"YYYY-MM-dd HH:mm:ss"];
+    [formater setDateFormat:format ? format : @"yyyy-MM-dd HH:mm:ss"];
     
     NSDate* date = [formater dateFromString:time];
     return date;
@@ -112,7 +114,7 @@
     
     NSTimeInterval startStamp = [self getCurrentTimeStamp] - stamp;
     
-    return [self getTimeWithDate:[NSDate dateWithTimeIntervalSince1970:startStamp] Format:@"YYYY-MM-dd"];
+    return [self getTimeWithDate:[NSDate dateWithTimeIntervalSince1970:startStamp] Format:@"yyyy-MM-dd"];
 }
 
 +(void)setCurrentVfCodeTimeStamp:(NSString*)Identifier

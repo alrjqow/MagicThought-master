@@ -41,7 +41,7 @@
 
 -(BOOL)testPhoneNumber
 {
-    return [self testWithFormat:@"^1(2[0-9]|3[0-9]|4[0-9]|5[0-35-9]|6[0-9]|7[0135678]|8[0-9])\\d{8}$"];
+    return [self testWithFormat:@"^1(2[0-9]|3[0-9]|4[0-9]|5[0-35-9]|6[0-9]|7[0135678]|8[0-9]|9[0-9])\\d{8}$"];
 }
 
 -(BOOL)testIDCard

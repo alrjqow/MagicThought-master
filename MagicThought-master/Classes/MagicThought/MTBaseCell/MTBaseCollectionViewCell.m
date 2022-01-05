@@ -266,11 +266,19 @@
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     if(textView.baseContentModel.wordStyle.isAttributedWord)
-        textView.attributedText = [textView.baseContentModel.wordStyle createAttributedWordName:textView.text];
-    
+    {
+        [textView.baseContentModel.wordStyle configAttributedDict];
+        textView.typingAttributes = textView.baseContentModel.wordStyle.attributedDict;
+    }
+        
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{    
     textView.bindEnum(kTextViewValueChange);
     textView.bindTagText(textView.text);
     [self viewEventWithView:textView Data:self.indexPath];

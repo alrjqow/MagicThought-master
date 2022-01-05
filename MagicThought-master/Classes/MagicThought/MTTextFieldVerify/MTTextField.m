@@ -95,7 +95,7 @@
                 return YES;
             
             //拼出输入完成的str,判断str的长度大于等于“.”的位置＋4,则返回false,此次插入string失败 （"379132.424",长度10,"."的位置6, 10>=6+4）
-            NSMutableString *str = [[NSMutableString alloc] initWithString:self.text];
+            NSMutableString *str = [[NSMutableString alloc] initWithString:[super text]];
             [str insertString:string atIndex:range.location];
             if (str.length > [str rangeOfString:@"."].location+3){
                 return NO;

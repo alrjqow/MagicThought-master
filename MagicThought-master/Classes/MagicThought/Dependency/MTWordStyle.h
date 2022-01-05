@@ -98,6 +98,9 @@ typedef MTWordStyle* (^FontName)(NSString* wordFontName);
 @property (nonatomic,copy,readonly)  UnderLine underLine;
 @property (nonatomic,copy,readonly)  ThroughLine throughLine;
 
+
+@property (nonatomic,strong) NSMutableDictionary* attributedDict;
+-(void)configAttributedDict;
 -(NSAttributedString *)createAttributedWordName:(NSString*)wordName;
 
 @end

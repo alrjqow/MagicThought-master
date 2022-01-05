@@ -16,8 +16,6 @@
 
 @property (nonatomic,strong) NSMutableParagraphStyle* paragraphStyle;
 
-@property (nonatomic,strong) NSMutableDictionary* attributedDict;
-
 @property(nonatomic,strong) NSString* defauleWordName;
 
 @end

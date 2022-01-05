@@ -55,6 +55,9 @@
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
+    if([self.mt_delegate respondsToSelector:@selector(textViewShouldBeginEditing:)])
+        [self.mt_delegate performSelector:@selector(textViewShouldBeginEditing:) withObject:textView];
+    
     return self.verifyModel ? self.verifyModel.shouldBeginEdit : YES;
 }
 
@@ -119,8 +122,8 @@
     self.verifyModel.content = textView.text;
     if([self.mt_delegate respondsToSelector:@selector(textViewDidChange:)])
        [self.mt_delegate performSelector:@selector(textViewDidChange:) withObject:textView];
-//    if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
-//        [self.mt_delegate doSomeThingForMe:self.verifyModel withOrder:@"MTTextValueChangeOrder"];
+    if([self.mt_delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
+        [self.mt_delegate doSomeThingForMe:self.verifyModel withOrder:@"MTTextValueChangeOrder"];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView

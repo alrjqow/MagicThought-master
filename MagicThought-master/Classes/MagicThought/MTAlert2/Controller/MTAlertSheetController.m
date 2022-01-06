@@ -94,5 +94,5 @@ CGFloat bottomCellHeight_mtAlertHair(CGFloat height)
 
 CGFloat bottomCellHeight_mtAlertNormal(CGFloat height)
 {
-    return height + ([UIDevice isHairScreen] ?  kStatusBarHeight_mt() : 0);
+    return height + ([UIDevice isHairScreen] ?  kStatusBarHeight_mt() : 0.000000001);
 }

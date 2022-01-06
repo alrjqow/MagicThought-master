@@ -15,6 +15,7 @@
 
 @property (nonatomic,assign) NSInteger startPage;
 @property (nonatomic,assign) NSInteger currentPage;
+@property (nonatomic,assign) NSInteger totalCount;
 
 @property (nonatomic,strong) MJRefreshFooter<MJRefreshFooterProtocol>* mj_footer;
 

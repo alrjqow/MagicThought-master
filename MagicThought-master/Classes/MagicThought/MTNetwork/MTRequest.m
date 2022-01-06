@@ -50,6 +50,7 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 
                 if(endRefreshStatus == MTEndRefreshStatusDefault)
                     endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
+                headerFooterRefreshListController.totalCount = request.totalCount;
             }
             else
                 endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);

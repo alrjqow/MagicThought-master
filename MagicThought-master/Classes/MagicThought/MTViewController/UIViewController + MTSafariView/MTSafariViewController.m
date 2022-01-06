@@ -87,14 +87,14 @@
 {
     _htmlString = htmlString;
     if(self.isViewDidLoad)
-        [self.webView loadHTMLString:bodyHtml(htmlString) baseURL:nil];
+        [self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
 -(void)setBodyHtmlString:(NSString *)bodyHtmlString
 {
-    _htmlString = bodyHtmlString;
+    _htmlString = bodyHtml(bodyHtmlString);
     if(self.isViewDidLoad)
-        [self.webView loadHTMLString:bodyHtml(bodyHtmlString) baseURL:nil];
+        [self.webView loadHTMLString:_htmlString baseURL:nil];
 }
 
 -(void)setTitleName:(NSString *)titleName

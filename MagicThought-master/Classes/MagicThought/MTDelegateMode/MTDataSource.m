@@ -346,6 +346,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         self.shadowCollectionViewCellList[mt_reuseIdentifier] = cell;
     }
     
+    cell.mt_delegate = self;
     cell.indexPath = indexPath;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
     [cell layoutIfNeeded];
@@ -934,10 +935,12 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         NSArray* list = [self getSectionDataListForSection:indexPath.section];
         NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
         data.automaticDimension();
-                
-        [UIView performWithoutAnimation:^{
-            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-        }];        
+        [self getAutomaticDimensionSizeWithData:data IndexPath:indexPath SuperView:self.collectionView];
+        
+        if([self.collectionView cellForItemAtIndexPath:indexPath])        
+            [UIView performWithoutAnimation:^{
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }];
     }
         
     if([self.delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])

@@ -936,8 +936,8 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         NSObject* data = [self getDataForIndexPath:[NSIndexPath indexPathForRow:(indexPath.row % (list.count ? list.count : 1)) inSection:indexPath.section]];
         data.automaticDimension();
         [self getAutomaticDimensionSizeWithData:data IndexPath:indexPath SuperView:self.collectionView];
-        
-        if([self.collectionView cellForItemAtIndexPath:indexPath])        
+                
+        if(indexPath.section < [self.collectionView numberOfSections] && indexPath.row < [self.collectionView numberOfItemsInSection:indexPath.section] && [self.collectionView cellForItemAtIndexPath:indexPath] != nil)
             [UIView performWithoutAnimation:^{
                 [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
             }];

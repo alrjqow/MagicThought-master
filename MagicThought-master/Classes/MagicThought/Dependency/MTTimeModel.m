@@ -112,8 +112,8 @@
     NSString* minuteTag = format.count > 1 ? format[1] : @":";
     NSString* secondTag = format.lastObject ? format.lastObject : @"";
     
-
-    NSString* hourText = self.hour ? [NSString stringWithFormat:@"%@%.0lf%@", self.hour < 10 ? @"0" : @"", self.hour, hourTag] : @"";
+    NSTimeInterval hour = [self getTotalHour];
+    NSString* hourText = hour ? [NSString stringWithFormat:@"%@%.0lf%@", hour < 10 ? @"0" : @"", hour, hourTag] : @"";
         
     return [hourText stringByAppendingString:[NSString stringWithFormat:@"%@%.0lf%@%@%.0lf%@", self.minute < 10 ? @"0" : @"", self.minute, minuteTag, self.second < 10 ? @"0" : @"", self.second, secondTag]];
 }

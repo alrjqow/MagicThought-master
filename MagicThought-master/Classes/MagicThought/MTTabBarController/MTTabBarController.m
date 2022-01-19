@@ -54,9 +54,8 @@
         [self.tabBar setBackgroundImage:[self.tabBarColor changeToImageWithSize:self.tabBar.bounds.size]];        
     
     [self setupChildController];
-    
-    if(self.hostNameList.count)
-        [self.hostServiceModel addHostSwitchButton:self.hostNameList];
+        
+    [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
 
 -(void)setupTabBar

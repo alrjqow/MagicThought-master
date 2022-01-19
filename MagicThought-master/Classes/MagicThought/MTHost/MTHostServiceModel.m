@@ -31,6 +31,9 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
 
 -(void)addHostSwitchButton:(NSArray<MTBaseViewContentModel*>*)hostNameList
 {
+    if(!hostNameList.count)
+        return;    
+        
     UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 70, 30) byRoundingCorners:UIRectCornerBottomRight|UIRectCornerTopRight cornerRadii:CGSizeMake(15, 15)];
     CAShapeLayer * maskLayer = [[CAShapeLayer alloc]init];
     maskLayer.frame = CGRectMake(0, 0, 70, 30);

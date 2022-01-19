@@ -38,8 +38,8 @@
         return;
     
     self.view.tag = 1;
-    if(self.hostNameList.count)
-        [self.hostServiceModel addHostSwitchButton:self.hostNameList];
+    
+    [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
 
 -(void)setupDefault

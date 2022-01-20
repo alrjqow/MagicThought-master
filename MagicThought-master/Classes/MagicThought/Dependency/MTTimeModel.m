@@ -118,6 +118,22 @@
     return [hourText stringByAppendingString:[NSString stringWithFormat:@"%@%.0lf%@%@%.0lf%@", self.minute < 10 ? @"0" : @"", self.minute, minuteTag, self.second < 10 ? @"0" : @"", self.second, secondTag]];
 }
 
+-(NSString*)getMinuteToSecondRecordString
+{
+    return [self getMinuteToSecondRecordString:nil];
+}
+
+-(NSString*)getMinuteToSecondRecordString:(NSArray<NSString*>*)format
+{
+    NSString* minuteTag = format.count > 1 ? format[1] : @":";
+    NSString* secondTag = format.lastObject ? format.lastObject : @"";
+    
+    NSTimeInterval minute = [self getTotalMinute];
+    NSString* minuteText = minute ? [NSString stringWithFormat:@"%@%.0lf%@", minute < 10 ? @"0" : @"", minute, minuteTag] : @"";
+        
+    return [minuteText stringByAppendingString:[NSString stringWithFormat:@"%@%.0lf%@", self.second < 10 ? @"0" : @"", self.second, secondTag]];
+}
+
 #pragma mark - 时间增加 block
 
 -(MTTimeRecord)addMilliSecond

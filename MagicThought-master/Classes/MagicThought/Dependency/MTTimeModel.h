@@ -72,6 +72,9 @@ typedef MTTimeRecordModel* (^MTTimerAdd) (MTTimerModel* timerModel, void (^compl
 -(NSString*)getHourToSecondRecordString;
 -(NSString*)getHourToSecondRecordString:(NSArray<NSString*>*)format;
 
+-(NSString*)getMinuteToSecondRecordString;
+-(NSString*)getMinuteToSecondRecordString:(NSArray<NSString*>*)format;
+
 @end
 
 

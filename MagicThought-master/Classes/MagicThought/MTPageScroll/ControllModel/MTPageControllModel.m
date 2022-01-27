@@ -205,6 +205,12 @@
             
     [self.pageTitleView reloadDataWithDataList:self.titleControllModel.dataSourceModel.dataList SectionList:self.titleControllModel.dataSourceModel.sectionList];
     
+    if([self.pageTitleView numberOfSections] < 1)
+        return;
+    
+    if([self.pageTitleView numberOfItemsInSection:0] < 1)
+        return;
+    
     [self.pageTitleView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
     [self.pageTitleView layoutIfNeeded];

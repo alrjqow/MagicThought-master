@@ -71,8 +71,8 @@
         self.mt_BackgroundView.alpha = 0.0f;
     } completion:^(BOOL finished) {
         
-        if (!finished)
-            return;
+//        if (!finished)
+//            return;
         if (self != [MTWindow sharedWindow].attachView)
             return;
         

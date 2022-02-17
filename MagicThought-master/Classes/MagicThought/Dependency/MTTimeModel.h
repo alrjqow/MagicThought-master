@@ -90,6 +90,7 @@ typedef MTTimeRecordModel* (^MTTimerAdd) (MTTimerModel* timerModel, void (^compl
 -(void)addObserver:(id)observer;
 -(void)removeObserver:(id)observer;
 
+-(void)addSecond:(CGFloat)second;
 
 @end
 

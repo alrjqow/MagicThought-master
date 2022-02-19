@@ -606,9 +606,14 @@
                   if(!image)
                       return;
                   
-                  imageModel.image = image;
-                  self.baseContentModel.reloadWebImage ? [self.baseContentModel webImageReload] : completion(image, false);
-                                    
+                  if([imageURL.absoluteString hasSuffix:@".gif"])
+                      completion(image, false);
+                  else
+                  {
+                      imageModel.image = image;
+                      self.baseContentModel.reloadWebImage ? [self.baseContentModel webImageReload] : completion(image, false);
+                  }
+                                                      
                   if([imageModel.mt_order isEqualToString:@"MTBigimageCellOrder"])
                   {
                       UIView* superView = self.superview;

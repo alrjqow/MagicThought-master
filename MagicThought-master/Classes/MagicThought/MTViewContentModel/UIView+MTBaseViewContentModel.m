@@ -641,20 +641,22 @@
         }
         
         CGSize size = self.mt_itemSize;
+        CGFloat scale = [UIScreen mainScreen].scale;
+        scale = 2;
         if(!size.width)
         {
-            size.height *= [UIScreen mainScreen].scale;
+            size.height *= scale;
             size.width = size.height * imageModel.asset.pixelWidth / imageModel.asset.pixelHeight;
         }
         else if(!size.height)
         {
-            size.width *= [UIScreen mainScreen].scale;
+            size.width *= scale;
             size.height = size.width * imageModel.asset.pixelHeight / imageModel.asset.pixelWidth;
         }
         else
         {
-            size.width *= [UIScreen mainScreen].scale;
-            size.height *= [UIScreen mainScreen].scale;
+            size.width *= scale;
+            size.height *= scale;
         }
         
         PHImageRequestOptions* options = [[PHImageRequestOptions alloc] init];

@@ -954,6 +954,8 @@
 
 @implementation MTTimerModel
 
+-(void)addSecond:(CGFloat)second{[super addSecond:second];}
+
 -(void)countdown
 {
     [self addSecond:self.timeInterval];
@@ -962,7 +964,19 @@
 
 -(void)start
 {
-    [self stop];
+    [self start:YES];
+}
+
+-(void)startWithoutClear
+{
+    [self start:false];
+}
+
+-(void)start:(BOOL)isClear
+{
+    if(isClear)
+        [self stop];
+    
     self.isBegin = YES;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval target:self selector:@selector(countdown) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];

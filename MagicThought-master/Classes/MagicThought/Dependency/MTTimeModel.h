@@ -85,6 +85,7 @@ typedef MTTimeRecordModel* (^MTTimerAdd) (MTTimerModel* timerModel, void (^compl
 @property (nonatomic,assign) CGFloat timeInterval;
 
 -(void)start;
+-(void)startWithoutClear;
 -(void)stop;
 
 -(void)addObserver:(id)observer;

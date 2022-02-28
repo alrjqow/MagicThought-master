@@ -72,8 +72,15 @@
         return;
     if([self isKindOfClass:NSClassFromString(@"MTPhotoBrowserController")])
         return;
-    if([self isKindOfClass:NSClassFromString(@"MTPageScrollListController")] && [self.view.superview.superview isKindOfClass:[UIScrollView class]])
-        return;
+    if([self isKindOfClass:NSClassFromString(@"MTPageScrollListController")])
+    {
+        UIViewController* pageSumController = [self valueForKey:@"pageSumController"];
+        if([pageSumController isKindOfClass:UIViewController.class] && pageSumController.navigationController)
+        {
+            [MTCloud shareCloud].currentViewController = pageSumController;
+            return;
+        }
+    }
         
     if(self.isNotCurrentController)
         return;

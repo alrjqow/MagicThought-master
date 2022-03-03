@@ -642,7 +642,9 @@
         
         CGSize size = self.mt_itemSize;
         CGFloat scale = [UIScreen mainScreen].scale;
-        scale = 2;
+        if(size.width < [UIScreen mainScreen].bounds.size.width * 0.5)
+            scale = 2;
+
         if(!size.width)
         {
             size.height *= scale;
@@ -663,7 +665,7 @@
         options.synchronous = YES;
         options.resizeMode = PHImageRequestOptionsResizeModeExact;
         
-        [[PHCachingImageManager defaultManager] requestImageForAsset:imageModel.asset targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [[PHCachingImageManager defaultManager] requestImageForAsset:imageModel.asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             completion(result, false);
         }];
     }

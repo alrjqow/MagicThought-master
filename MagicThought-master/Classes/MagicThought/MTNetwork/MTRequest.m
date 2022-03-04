@@ -36,33 +36,22 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 viewController.isLoadResult = YES;
             
             MTEndRefreshStatus endRefreshStatus;
-            if(success && [viewController isKindOfClass:MTViewController.class] && [obj isKindOfClass:NSArray.class])
+            if(success && [viewController isKindOfClass:MTHeaderFooterRefreshListController.class] && [obj isKindOfClass:NSArray.class])
             {
-                viewController.totalCount = request.totalCount;
-                
                 NSArray* array = (id) obj;
-                if([viewController isKindOfClass:MTHeaderFooterRefreshListController.class])
-                {
-                    MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
-                                        
-                    if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
-                            [headerFooterRefreshListController.modelArray removeAllObjects];
-                                  
-                    [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
-                    
-                    endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
-                    
-                    if(endRefreshStatus == MTEndRefreshStatusDefault)
-                        endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
-                                        
-                    headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArray.count;
-                }
-                else
-                {
-                    [viewController.modelArray removeAllObjects];
-                    [viewController.modelArray addObjectsFromArray:array];
-                    endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
-                }
+                MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
+                
+                if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
+                    [headerFooterRefreshListController.modelArray removeAllObjects];
+                
+                [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
+                
+                endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
+                
+                if(endRefreshStatus == MTEndRefreshStatusDefault)
+                    endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
+                
+                headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArray.count;
             }
             else
             {

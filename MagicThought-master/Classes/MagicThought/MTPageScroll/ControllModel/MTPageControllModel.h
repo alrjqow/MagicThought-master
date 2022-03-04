@@ -79,6 +79,7 @@ typedef enum : NSInteger {
 
 @interface UIViewController (MTPageControllModel)
 
+-(void)refreshMJFooter;;
 -(void)whenGetPageData:(NSObject *)data;
 
 @end

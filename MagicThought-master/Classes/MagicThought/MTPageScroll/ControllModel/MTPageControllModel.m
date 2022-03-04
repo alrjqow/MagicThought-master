@@ -529,6 +529,8 @@
                 [listView setValue:self forKey:@"mt_pageControllModel"];
                 [vc setValue:self forKey:@"pageControllModel"];
             }
+            
+            [vc refreshMJFooter];
             [vc whenGetPageData:[obj isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)obj).data : ([obj isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)obj).data : obj)];
         }
         else
@@ -695,6 +697,8 @@
 
 
 @implementation UIViewController (MTPageControllModel)
+
+-(void)refreshMJFooter{};
 
 -(void)whenGetPageData:(NSObject *)data{}
 

@@ -24,6 +24,7 @@
 
 @property (nonatomic,strong) NSMutableArray* modelArray;
 @property (nonatomic,assign) NSInteger totalCount;
+@property (nonatomic,assign) BOOL modelArrayTag;
 
 @property (nonatomic,assign) BOOL isLoadResult;
 

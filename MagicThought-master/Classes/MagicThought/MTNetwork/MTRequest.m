@@ -20,6 +20,8 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
 
 @property (nonatomic,copy, readonly) MTRequestCallbackHandlerCallback callBack;
 
+@property (nonatomic,assign) BOOL modelArrayTag;
+
 @end
 
 @implementation MTRequestCallbackHandler
@@ -32,30 +34,50 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
         if(weakSelf.endRefreshStatusCallback)
         {
             MTViewController* viewController = (id) weakSelf.object;
+            BOOL modelArrayTag = false;
             if([viewController isKindOfClass:MTViewController.class])
+            {
                 viewController.isLoadResult = YES;
-            
+                modelArrayTag = viewController.modelArrayTag;
+            }
+                
+            BOOL isModelArraySet = (modelArrayTag && weakSelf.modelArrayTag) || (!modelArrayTag && [obj isKindOfClass:NSArray.class]);
+                        
             MTEndRefreshStatus endRefreshStatus;
-            if(success && [viewController isKindOfClass:MTHeaderFooterRefreshListController.class] && [obj isKindOfClass:NSArray.class])
+            
+            if(success && [viewController isKindOfClass:MTViewController.class] && isModelArraySet)
             {
                 NSArray* array = (id) obj;
-                MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
+                viewController.totalCount = request.totalCount;
                 
-                if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
-                    [headerFooterRefreshListController.modelArray removeAllObjects];
-                
-                [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
-                
-                endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
-                
-                if(endRefreshStatus == MTEndRefreshStatusDefault)
-                    endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
-                
-                headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArray.count;
+                if([viewController isKindOfClass:MTHeaderFooterRefreshListController.class])
+                {
+                    MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
+                    
+                    if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
+                        [headerFooterRefreshListController.modelArray removeAllObjects];
+                    [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
+                    
+                    
+                    endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
+                    
+                    
+                    if(endRefreshStatus == MTEndRefreshStatusDefault)
+                        endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
+                    
+                    headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArray.count;
+                }
+                else
+                {
+                    [viewController.modelArray removeAllObjects];
+                    [viewController.modelArray addObjectsFromArray:array];
+                    
+                    endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
+                }
             }
             else
             {
-                if([viewController isKindOfClass:MTHeaderFooterRefreshListController.class])
+                if([viewController isKindOfClass:MTHeaderFooterRefreshListController.class] && isModelArraySet)
                 {
                     MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
                     if(headerFooterRefreshListController.currentPage > headerFooterRefreshListController.startPage)
@@ -64,6 +86,8 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 
                 endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
             }
+            
+            
             
             [weakSelf.object setEndRefreshStatus:endRefreshStatus Message:message];
         }
@@ -287,6 +311,23 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 
 
 @implementation MTViewController (EndRefresh)
+
+-(MTCreateRequestCallbackHandlerCallback)modelArrayCallBack
+{
+    __weak typeof(self) weakSelf = self;
+    self.modelArrayTag = YES;
+    MTCreateRequestCallbackHandlerCallback modelArrayCallBack  = ^(MTEndRefreshStatusCallback endRefreshStatusCallback){
+        
+        MTRequestCallbackHandler* handler = [MTRequestCallbackHandler new];
+        handler.modelArrayTag = YES;
+        handler.endRefreshStatusCallback = endRefreshStatusCallback;
+        handler.object = weakSelf;
+        return handler;
+    };
+    
+    return modelArrayCallBack;
+}
+
 
 -(MTCreateRequestCallbackHandlerCallback)callBackNoMsg{return self.showNoMsg.callBack;}
 

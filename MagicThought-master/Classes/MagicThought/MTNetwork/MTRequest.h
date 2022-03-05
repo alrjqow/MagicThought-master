@@ -108,6 +108,11 @@ typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerCallback)(MTEn
 
 @end
 
+@interface MTViewController (EndRefresh)
+
+@property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback modelArrayCallBack;
+
+@end
 
 @interface MTBatchRequest : YTKBatchRequest
 

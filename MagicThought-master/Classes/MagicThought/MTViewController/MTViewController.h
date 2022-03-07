@@ -17,12 +17,12 @@
 @protocol MTDelegateProtocol;
 
 #define propertyModelArray(className) \
--(NSMutableArray<className*> *)modelArray \
-{return [super modelArray];}
+@property (nonatomic,strong) NSMutableArray<className*>* modelArray;
 
 @interface MTViewController : UIViewController<MTDelegateProtocol, WKScriptMessageHandler>
 
-@property (nonatomic,strong) NSMutableArray* modelArray;
+@property (nonatomic,strong, readonly) NSMutableArray* modelArrayAlias;
+
 @property (nonatomic,assign) NSInteger totalCount;
 @property (nonatomic,assign) BOOL modelArrayTag;
 

@@ -37,6 +37,7 @@
 {
     if(self = [super init])
     {
+        [self setValue:NSMutableArray.new forKey:@"modelArray"];
         [self initProperty];
     }
     
@@ -315,14 +316,9 @@
     }    
 }
 
--(NSMutableArray *)modelArray
+-(NSMutableArray *)modelArrayAlias
 {
-    if(!_modelArray)
-    {
-        _modelArray = NSMutableArray.new;
-    }
-    
-    return _modelArray;
+    return [self valueForKey:@"modelArray"];    
 }
 
 @end

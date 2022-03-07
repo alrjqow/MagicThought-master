@@ -163,7 +163,7 @@
     if(self.isRemoveMJFooter)
         return;
         
-    self.modelArray.count >= self.pageSumController.totalCount ? [self.mj_footer endRefreshingWithNoMoreData] : [self.mj_footer endRefreshing];
+    self.modelArrayAlias.count >= self.pageSumController.totalCount ? [self.mj_footer endRefreshingWithNoMoreData] : [self.mj_footer endRefreshing];
 }
 
 -(void)loadData

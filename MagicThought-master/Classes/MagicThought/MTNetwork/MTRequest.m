@@ -55,22 +55,22 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                     MTHeaderFooterRefreshListController* headerFooterRefreshListController = (id) viewController;
                     
                     if(headerFooterRefreshListController.currentPage <= headerFooterRefreshListController.startPage)
-                        [headerFooterRefreshListController.modelArray removeAllObjects];
-                    [headerFooterRefreshListController.modelArray addObjectsFromArray:array];
+                        [headerFooterRefreshListController.modelArrayAlias removeAllObjects];
+                    [headerFooterRefreshListController.modelArrayAlias addObjectsFromArray:array];
                     
                     
                     endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
                     
                     
                     if(endRefreshStatus == MTEndRefreshStatusDefault)
-                        endRefreshStatus = headerFooterRefreshListController.modelArray.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
+                        endRefreshStatus = headerFooterRefreshListController.modelArrayAlias.count >= request.totalCount ? MTEndRefreshStatusDefaultFooterNoMoreData : MTEndRefreshStatusDefault;
                     
-                    headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArray.count;
+                    headerFooterRefreshListController.mj_footer.hidden = headerFooterRefreshListController.isFooterAlwaysShow ? YES : !headerFooterRefreshListController.modelArrayAlias.count;
                 }
                 else
                 {
-                    [viewController.modelArray removeAllObjects];
-                    [viewController.modelArray addObjectsFromArray:array];
+                    [viewController.modelArrayAlias removeAllObjects];
+                    [viewController.modelArrayAlias addObjectsFromArray:array];
                     
                     endRefreshStatus = weakSelf.endRefreshStatusCallback(obj, &message, success, request);
                 }

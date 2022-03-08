@@ -53,6 +53,7 @@ TODO: Add long description of the pod here.
   s.dependency 'SAMKeychain'
   s.dependency 'IQKeyboardManager'
   s.dependency 'Masonry'
+  s.dependency 'Bugly'
   
   
 end

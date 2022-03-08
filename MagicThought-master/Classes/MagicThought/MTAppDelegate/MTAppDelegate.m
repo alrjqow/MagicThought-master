@@ -23,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
+    [self setValue:@(YES) forKey:@"isOnlineTag"];
+    
     //设置异常监听
 //    [self configExceptionHandle];
        
@@ -178,5 +180,7 @@ void gloablException(NSException * exception) {
     self.window.rootViewController = self.rootViewController;
     [self.window makeKeyAndVisible];
 }
+
+-(BOOL)isOnline{return [[self valueForKey:@"isOnlineTag"] boolValue];}
 
 @end

@@ -10,6 +10,8 @@
 
 #define RegisterAppDelegate(appDelegate) typedef appDelegate __MTAppDelegate__;
 
+#define RegisterOnline @property (nonatomic, assign) BOOL isOnlineTag;
+
 @interface MTAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, assign) BOOL allowOrentitaionRotation;
@@ -34,6 +36,8 @@
 /**请求干预者类名*/
 @property (nonatomic,strong, readonly) NSString* apiManagerName;
 
+
+@property (nonatomic, readonly, assign) BOOL isOnline;
 
 /**设置第三方库信息*/
 - (void)configThirdPartyLibrary;

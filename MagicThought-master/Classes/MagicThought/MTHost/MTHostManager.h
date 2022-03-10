@@ -15,7 +15,13 @@
 
 @end
 
-#define RegisterHostManager(manager) typedef manager __MTHostManager__;
+#define RegisterMTHostManager(className) RegisterHostManager(MTHostManager, className)
+
+#define RegisterHostManager(manager, className) typedef manager __MTHostManager__; \
+@interface MTHostManager(HostModel) \
+@property (nonatomic,strong, readonly) className* currentHostModel; \
+@end
+
 #define RegisterHostManagerConfirm @implementation MTHostManager (registerHostManager)\
 +(instancetype)registerHostManager{return kHostManager_mt;}\
 @end

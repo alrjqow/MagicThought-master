@@ -9,6 +9,8 @@
 
 #import "Reachability.h"
 
+#import "MTProjectArchitectureManager.h"
+
 #import "MTConst.h"
 #import "MTContentModelPropertyConst.h"
 #import "MTNotificationConst.h"

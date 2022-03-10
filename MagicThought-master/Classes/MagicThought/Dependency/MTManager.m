@@ -27,8 +27,11 @@
 - (instancetype)initPrivate
 {
     self  = [super init];
+    [self setupDefault];
     return self;
 }
+
+-(void)setupDefault{}
 
 static NSMutableDictionary* dict = nil;
 +(instancetype)manager

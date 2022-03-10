@@ -19,6 +19,7 @@ extern NSString * bodyHtml(NSString* html);
 @property (nonatomic,weak) MTViewController* scriptDelegate;
 
 @property (strong, nonatomic)  MTSafariView *webView;
+@property (nonatomic,strong)  void (^layoutWebView)(UIView* view);
 
 /**进度条*/
 @property (nonatomic,strong) UIProgressView* progressView;

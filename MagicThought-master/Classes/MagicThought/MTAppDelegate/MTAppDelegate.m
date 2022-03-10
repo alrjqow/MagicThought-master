@@ -31,6 +31,9 @@
     //设置第三方库信息
     [self configThirdPartyLibrary];
     
+    //配置项目架构
+    [self configProjectArchitecture];
+    
     //配置网路请求
     [self configNetwork];
     
@@ -61,6 +64,9 @@
 
 //配置网路请求
 - (void)configNetwork{}
+
+//配置项目架构
+- (void)configProjectArchitecture{}
 
 //设置样式
 -(void)configViewStyle;

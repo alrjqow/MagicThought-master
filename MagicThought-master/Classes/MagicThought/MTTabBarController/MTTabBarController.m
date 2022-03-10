@@ -13,6 +13,7 @@
 #import "NSString+Exist.h"
 #import "UIColor+Image.h"
 #import "MJExtension.h"
+#import "MTProjectArchitectureManager.h"
 
 @interface MTTabBarController ()
 
@@ -37,15 +38,19 @@
     
     [self setupTabBar];
     
+    self.tabBar.translucent = self.tabBarTranslucent;
+    
     if(self.selectedColor)
         self.tabBar.tintColor = self.selectedColor;
 
     if(self.normalColor)
+    {
         if (@available(iOS 10.0, *)) {
             self.tabBar.unselectedItemTintColor = self.normalColor;
         } else {
             [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:self.normalColor} forState:UIControlStateNormal];
         }
+    }        
 
     if(self.tabBarFont)
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName:self.tabBarFont} forState:UIControlStateNormal];
@@ -55,8 +60,13 @@
     
     [self setupChildController];
         
+    if(kArchitectureManager_mt.isOnline)
+        return;
+        
     [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
+
+-(NSArray<NSString *> *)hostNameList{return kArchitectureManager_mt.hostNameList;}
 
 -(void)setupTabBar
 {
@@ -122,6 +132,18 @@
 }
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray{}
+
+-(NSArray<NSDictionary *> *)tabBarItemArr{return kArchitectureManager_mt.baseTabBarItemArr;}
+
+-(UIColor *)normalColor{return kArchitectureManager_mt.baseNormalColor;}
+
+-(UIColor *)selectedColor{return kArchitectureManager_mt.baseSelectedColor;}
+
+-(UIFont *)tabBarFont{return kArchitectureManager_mt.baseTabBarFont;}
+
+-(UIColor *)tabBarColor{return kArchitectureManager_mt.baseTabBarColor;}
+
+-(BOOL)tabBarTranslucent{return kArchitectureManager_mt.baseTabBarTranslucent;}
 
 -(void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
 {

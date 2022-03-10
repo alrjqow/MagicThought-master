@@ -5,6 +5,7 @@
 //  Created by 王奕聪 on 2021/4/23.
 //
 
+#import "MTProjectArchitectureManager.h"
 #import "MTNavigationBar.h"
 #import "MTConst.h"
 #import "UIView+Frame.h"
@@ -25,9 +26,12 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    self.button.defaultViewContent();
-    self.button2.defaultViewContent();
-    self.textLabel.defaultViewContent();
+    [self button];
+    [self button2];
+    [self textLabel];
+    
+    if(kArchitectureManager_mt.baseNavigationBarSetupDefault)
+        kArchitectureManager_mt.baseNavigationBarSetupDefault(self);
 }
 
 -(CGSize)layoutSubviewsForWidth:(CGFloat)contentWidth Height:(CGFloat)contentHeight

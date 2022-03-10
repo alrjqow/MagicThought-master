@@ -10,6 +10,7 @@
 
 #import "UIView+Frame.h"
 #import "NSObject+ReuseIdentifier.h"
+#import "MTProjectArchitectureManager.h"
 
 @interface MTHeaderFooterRefreshListController ()
 
@@ -211,6 +212,6 @@
     return _mj_footer_Block;
 }
 
-
+-(NSInteger)startPage{return kArchitectureManager_mt.baseFootListStartPage;}
 
 @end

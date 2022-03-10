@@ -127,9 +127,10 @@
         WKWebViewConfiguration*  config = WKWebViewConfiguration.new;
         config.userContentController = [self safariViewUserContentController];
                 
-        CGFloat topInset = [self valueForKey:@"navigationBarAlpha"] ? kNavigationBarHeight_mt() : 0;
+//        CGFloat topInset = [self valueForKey:@"navigationBarAlpha"] ? kNavigationBarHeight_mt() : 0;
+//        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), self.isAutoHeight ? 1 : (mt_ScreenH() - topInset)) configuration:config];
         
-        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), self.isAutoHeight ? 1 : (mt_ScreenH() - topInset)) configuration:config];        
+        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight_mt(), kScreenWidth_mt(), kScreenHeight_mt() - kNavigationBarHeight_mt() - kStatusBarHeight_mt()) configuration:config];
         
         _webView.multipleTouchEnabled=YES;
         _webView.scrollView.showsVerticalScrollIndicator = false;
@@ -264,6 +265,9 @@
         [self.view addSubview:self.progressView];
         [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     }
+    
+    if(self.layoutWebView)
+        self.layoutWebView(self.view);
 }
 
 -(void)setupNavigationItem

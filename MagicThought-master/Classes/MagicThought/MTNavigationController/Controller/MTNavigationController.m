@@ -8,6 +8,7 @@
 
 #import "MTNavigationController.h"
 #import <objc/runtime.h>
+#import "MTProjectArchitectureManager.h"
 
 @interface MTNavigationController ()<UIGestureRecognizerDelegate>
 
@@ -39,8 +40,13 @@
     
     self.view.tag = 1;
     
+    if(kArchitectureManager_mt.isOnline)
+        return;
+    
     [self.hostServiceModel addHostSwitchButton:self.hostNameList];
 }
+
+-(NSArray<NSString *> *)hostNameList{return kArchitectureManager_mt.hostNameList;}
 
 -(void)setupDefault
 {
@@ -52,6 +58,8 @@
     UIView* bottomLine = [self.navigationBar valueForKey:@"bottomLine"];
     bottomLine.backgroundColor = [UIColor blackColor];
     self.delegate = self;
+        
+    self.navigationBar.hidden = kArchitectureManager_mt.baseSystemNavigationBarHidden;
 }
 
 #pragma mark - 成员方法

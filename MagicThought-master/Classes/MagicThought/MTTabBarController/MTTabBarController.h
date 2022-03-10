@@ -24,6 +24,8 @@
 
 @property (nonatomic,strong) UIColor* tabBarColor;
 
+@property (nonatomic,assign) BOOL tabBarTranslucent;
+
 @property (nonatomic,strong,readonly) NSArray<NSDictionary*>* tabBarItemArr;
 
 -(void)setupTabBarItemWithArray:(NSArray<UITabBarItem*>*)tabBarItemArray;

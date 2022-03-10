@@ -27,6 +27,7 @@
 {
     [super whenDealloc];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUpdateUserInfo_mt object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationDidUserLoginSuccess_mt object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationDidUserLoginTimeOut_mt object:nil];
     
@@ -135,8 +136,9 @@
 /**初始化属性*/
 -(void)setupDefault
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [self isKindOfClass:NSClassFromString(@"MTPageScrollListController")] ? kArchitectureManager_mt.basePageScrollListBackgroundColor : kArchitectureManager_mt.baseBackgroundColor;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUpdateUserInfo) name:kNotificationUpdateUserInfo_mt object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveLoginSuccess:) name:kNotificationDidUserLoginSuccess_mt object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveLoginTimeOut:) name:kNotificationDidUserLoginTimeOut_mt object:nil];
 }
@@ -190,6 +192,8 @@
 }
 
 #pragma mark - 通知
+
+-(void)didReceiveUpdateUserInfo{[self startRequest];}
 
 -(void)didReceiveLoginSuccess:(NSNotification*)notification
 {
@@ -279,8 +283,8 @@
 }
 
 -(NSString *)navigationBarClassName
-{
-    return @"MTNavigationBar";
+{    
+    return kArchitectureManager_mt.baseNavigationBarClassName;
 }
 
 -(UIView *)emptyLoadingView

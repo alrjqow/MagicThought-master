@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+#import "MTProjectArchitectureManager.h"
+
 #import "UIView+MBHud.h"
 #import "NSObject+CommonProtocol.h"
 #import "MTNavigationBar.h"
@@ -74,5 +76,7 @@
 
 /**接收到登录*/
 -(void)didReceiveLogin:(BOOL)isLogin;
+
+-(void)didReceiveUpdateUserInfo;
 
 @end

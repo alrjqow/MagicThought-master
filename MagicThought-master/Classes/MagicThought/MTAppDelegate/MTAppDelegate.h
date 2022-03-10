@@ -45,6 +45,9 @@
 /**配置网络请求*/
 - (void)configNetwork;
 
+/**配置项目架构*/
+- (void)configProjectArchitecture;
+
 /**去登录*/
 -(void)goToLogin;
 

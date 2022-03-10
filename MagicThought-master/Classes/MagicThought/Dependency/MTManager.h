@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTInitProtocol.h"
 
-@interface MTManager : NSObject
+@interface MTManager : NSObject<MTInitProtocol>
 
 /**管理者单例*/
 +(instancetype)manager;

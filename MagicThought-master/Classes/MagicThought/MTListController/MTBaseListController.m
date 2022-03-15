@@ -40,6 +40,7 @@
     NSArray* dataList;
     NSArray* sectionList;
     NSObject* emptyData;
+    NSDictionary* setupDefaultDict;
     
     if([self respondsToSelector:@selector(dataList)])
         dataList = self.dataList;
@@ -50,14 +51,19 @@
     if([self respondsToSelector:@selector(emptyData)])
         emptyData = self.emptyData;
     
+    if([self respondsToSelector:@selector(setupDefaultDict)])
+        setupDefaultDict = self.setupDefaultDict;
+    
     if(!dataList)
         dataList = self.dataModel.dataList;
     if(!sectionList)
         sectionList = self.dataModel.sectionList;
     if(!emptyData)
         emptyData = self.dataModel.emptyData;
-    
-    [self.mtListView reloadDataWithDataList:dataList  SectionList:sectionList EmptyData:emptyData];
+    if(!setupDefaultDict)
+        setupDefaultDict = self.dataModel.setupDefaultDict;
+        
+    [self.mtListView reloadDataWithDataList:dataList  SectionList:sectionList EmptyData:emptyData SetupDefaultDict:setupDefaultDict];
 }
 
 -(void)doSomeThingForMe:(id)obj withOrder:(NSString *)order

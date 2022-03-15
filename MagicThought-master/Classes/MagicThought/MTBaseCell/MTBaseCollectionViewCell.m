@@ -8,6 +8,8 @@
 
 #import "MTBaseCollectionViewCell.h"
 #import "MTContentModelPropertyConst.h"
+#import "MTSetupDefaultModel.h"
+
 
 @interface MTBaseCollectionViewCell ()<UITextViewDelegate>
 {
@@ -18,14 +20,32 @@
     UIView* _externView;
 }
 
+@property (nonatomic,weak) MTSetupDefaultModel* setupDefaultModel;
+
 @end
 
 
 @implementation MTBaseCollectionViewCell
 
+-(instancetype)setWithObject:(NSObject *)obj
+{
+    if([obj isKindOfClass:MTSetupDefaultModel.class])
+    {
+        self.setupDefaultModel = (id) obj;
+        
+        if(self.setupDefaultModel && self.setupDefaultModel.setupDefault)
+            self.setupDefaultModel.setupDefault(self);
+    }
+    
+    return [super setWithObject:obj];
+}
+
 -(void)whenGetResponseObject:(MTViewContentModel *)contentModel
 {
     self.contentModel = contentModel;
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.setContentModel)
+        self.setupDefaultModel.setContentModel(self, contentModel);
 }
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
@@ -201,6 +221,9 @@
     
     [_textField sizeToFit];
     [_textView sizeToFit];
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
+        self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
     
     return CGSizeZero;
 }

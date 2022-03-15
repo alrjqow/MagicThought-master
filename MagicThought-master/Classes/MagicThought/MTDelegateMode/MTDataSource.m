@@ -638,6 +638,9 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         
         self.registerCellList[identifier] = identifier;
         cell = cell0;
+        
+        if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+            [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     }
     
     indexPath.mt_order = nil;

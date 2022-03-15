@@ -88,6 +88,8 @@ typedef void (^MTNotificationHandle)(NSNotification * _Nonnull notification);
 
 @property (nonatomic,strong) NSString* _Nullable mt_reuseIdentifier;
 
+@property (nonatomic,strong) NSString* _Nullable mt_baseCellIdentifier;
+
 @property (nonatomic,strong) NSString* _Nullable mt_keyName;
 
 @property (nonatomic,assign) CGFloat mt_itemHeight;
@@ -190,6 +192,18 @@ typedef NSObject* _Nonnull (^WhenReceiveNotification) (MTNotificationHandle _Nul
 -(instancetype _Nullable)clearBind;
 
 @end
+
+typedef NSObject* _Nonnull (^BaseCellTag) (NSString* _Nonnull baseCellIdentifier);
+
+@interface NSObject (BindBaseCell)
+
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseCollectionCell;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell2;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell3;
+
+@end
+
 
 @interface NSObject (Notification)
 

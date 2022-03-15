@@ -27,6 +27,22 @@ if(!_##propertyName){_##propertyName = defaulValue;}\
     return _##propertyName;\
 }
 
+#define emptyClass(className, name) \
+-(className *)name\
+{\
+if(!_##name){ _##name = className.new;}\
+    return _##name;\
+}
+
+#define emptyClassWithNew(className, name, obj) \
+-(className *)name\
+{\
+if(!_##name){ _##name = className.new(obj);}\
+    return _##name;\
+}
+
+#define propertyClass(className, name) @property (nonatomic,strong) className* name;
+
 #define emptyString(propertyName) emptyStringWithDefault(propertyName, @"")
 #define propertyString(propertyName) @property (nonatomic,strong) NSString* propertyName;
 

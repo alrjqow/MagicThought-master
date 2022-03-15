@@ -39,6 +39,8 @@
 
 - (void)reloadDataWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList EmptyData:(NSObject*)emptyData;
 
+- (void)reloadDataWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList EmptyData:(NSObject*)emptyData SetupDefaultDict:(NSDictionary*)setupDefaultDict;
+
 @end
 
 @interface UIScrollView (Direction)

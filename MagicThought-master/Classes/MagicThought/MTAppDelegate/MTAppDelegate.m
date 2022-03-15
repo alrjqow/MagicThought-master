@@ -176,6 +176,13 @@ void gloablException(NSException * exception) {
 
 -(UIViewController *)rootViewController
 {
+    switch (self.windowNum) {
+        case MTAppDelegateWindowNumMain:
+            return self.tabBarController;
+                        
+        default:
+            return self.loginController;
+    }
     return nil;
 }
 
@@ -188,5 +195,35 @@ void gloablException(NSException * exception) {
 }
 
 -(BOOL)isOnline{return [[self valueForKey:@"isOnlineTag"] boolValue];}
+
+-(MTNavigationController *)loginController
+{
+    if(!_loginController)
+    {
+        Class loginClass = NSClassFromString(self.loginClassName ? self.loginClassName : @"MTLoginController");
+                
+        if(![loginClass isSubclassOfClass:NSClassFromString(@"MTViewController")])
+            loginClass = NSClassFromString(@"MTViewController");
+            
+        _loginController = [[MTNavigationController alloc] initWithRootViewController:loginClass.new];
+    }
+    
+    return _loginController;
+}
+
+-(MTTabBarController *)tabBarController
+{
+    if(!_tabBarController)
+    {
+        Class tabBarClass = NSClassFromString(self.tabBarClassName ? self.tabBarClassName : @"MTTabBarController");
+                
+        if(![tabBarClass isSubclassOfClass:NSClassFromString(@"MTTabBarController")])
+            tabBarClass = NSClassFromString(@"MTTabBarController");
+            
+        _tabBarController = tabBarClass.new;
+    }
+    
+    return _tabBarController;
+}
 
 @end

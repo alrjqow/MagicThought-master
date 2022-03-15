@@ -145,6 +145,16 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)setMt_baseCellIdentifier:(NSString *)mt_baseCellIdentifier
+{
+    objc_setAssociatedObject(self, @selector(mt_baseCellIdentifier), mt_baseCellIdentifier, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(NSString *)mt_baseCellIdentifier
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
 -(void)setMt_keyName:(NSString *)mt_keyName
 {
     objc_setAssociatedObject(self, @selector(mt_keyName), mt_keyName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -859,7 +869,74 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
 
 
 @end
+    
+@implementation NSObject (BindBaseCell)
 
+-(NSObject*)bindBaseCell:(NSString*)mt_reuseIdentifier BaseCellIdentifier:(NSString*)mt_baseCellIdentifier
+{
+    if(mt_baseCellIdentifier.length <= 0)
+        return self;
+    
+    if([self isKindOfClass:[NSArray class]])
+    {
+        NSArray* arr = (NSArray*)self;
+        for(NSObject* obj in arr)
+        {
+            if(![obj.mt_reuseIdentifier isExist])
+                obj.mt_reuseIdentifier = mt_reuseIdentifier;
+            if(![obj.mt_baseCellIdentifier isExist])
+                obj.mt_baseCellIdentifier = mt_baseCellIdentifier;
+        }
+        
+        return self;
+    }
+    
+    self.mt_reuseIdentifier = mt_reuseIdentifier;
+    self.mt_baseCellIdentifier = mt_baseCellIdentifier;
+    return self;
+}
+
+-(BaseCellTag)bindBaseCollectionCell
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseCollectionViewCell" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseCell;
+}
+
+-(BaseCellTag)bindBaseSubCollectionCell
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseSubCollectionViewCell" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseCell;
+}
+
+-(BaseCellTag)bindBaseSubCollectionCell2
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseSubCollectionViewCell2" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseCell;
+}
+
+-(BaseCellTag)bindBaseSubCollectionCell3
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseSubCollectionViewCell3" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseCell;
+}
+
+@end
 
 @implementation NSObject (Notification)
 

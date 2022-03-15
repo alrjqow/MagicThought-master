@@ -20,4 +20,6 @@
 
 @property (nonatomic,strong) NSObject* emptyData;
 
+@property (nonatomic,strong) NSDictionary* setupDefaultDict;
+
 @end

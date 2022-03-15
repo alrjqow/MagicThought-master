@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong) NSObject* emptyData;
 
+@property (nonatomic,strong) NSDictionary* setupDefaultDict;
+
 @property (nonatomic,weak) UIScrollView* scrollView;
 
 -(void)reloadListView;

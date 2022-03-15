@@ -89,29 +89,34 @@
 
 - (void)addTarget:(id)target EmptyData:(NSObject*)emptyData DataList:(NSArray*)dataList SectionList:(NSArray*)sectionList
 {
-    if(dataList && [self.viewModel respondsToSelector:@selector(newDataList:)])
-        dataList = [self.viewModel newDataList:dataList];
-    
-    if(![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])
-        return;
-    
-//    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
-//        self.cellStateArray.mt_order = nil;
-    
-    NSString* key = [self isKindOfClass:[UITableView class]] ? @"tableView" : @"collectionView";
-    
-    MTDataSource* dataSource = [MTDataSource new];
-    [dataSource setValue:self forKey:key];
-    dataSource.delegate = target;
-    
-    dataSource.emptyData = emptyData;
-    dataSource.dataList = dataList;
-    dataSource.sectionList = sectionList;
-    
-    self.delegate = dataSource;    
-    [self setValue:dataSource forKey:@"dataSource"];
-    
-    self.mt_dataSource = dataSource;
+    [self addTarget:target EmptyData:emptyData DataList:dataList SectionList:sectionList SetupDefaultDict:nil];
+}
+
+- (void)addTarget:(id)target EmptyData:(NSObject*)emptyData DataList:(NSArray*)dataList SectionList:(NSArray*)sectionList SetupDefaultDict:(NSDictionary*)setupDefaultDict
+{
+     if(dataList && [self.viewModel respondsToSelector:@selector(newDataList:)])
+            dataList = [self.viewModel newDataList:dataList];
+        
+        if(![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])
+            return;
+        
+    //    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
+    //        self.cellStateArray.mt_order = nil;
+        
+        NSString* key = [self isKindOfClass:[UITableView class]] ? @"tableView" : @"collectionView";
+        
+        MTDataSource* dataSource = [MTDataSource new];
+        [dataSource setValue:self forKey:key];
+        dataSource.delegate = target;
+        
+        dataSource.emptyData = emptyData;
+        dataSource.dataList = dataList;
+        dataSource.sectionList = sectionList;
+        
+        self.delegate = dataSource;
+        [self setValue:dataSource forKey:@"dataSource"];
+        
+        self.mt_dataSource = dataSource;
 }
 
 - (void)reloadDataWithDataList:(NSArray*)dataList
@@ -126,10 +131,15 @@
 
 - (void)reloadDataWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList
 {
-    [self reloadDataWithDataList:dataList SectionList:sectionList EmptyData:nil];
+    [self reloadDataWithDataList:dataList SectionList:sectionList EmptyData:nil SetupDefaultDict:nil];
 }
 
 - (void)reloadDataWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList EmptyData:(NSObject*)emptyData
+{
+    [self reloadDataWithDataList:dataList SectionList:sectionList EmptyData:emptyData SetupDefaultDict:nil];
+}
+
+- (void)reloadDataWithDataList:(NSArray*)dataList SectionList:(NSArray*)sectionList EmptyData:(NSObject*)emptyData SetupDefaultDict:(NSDictionary*)setupDefaultDict
 {
     if([self.viewModel respondsToSelector:@selector(newDataList:)])
         dataList = [self.viewModel newDataList:dataList];
@@ -137,25 +147,26 @@
     if(![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])
         return;
     
-//    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
-//    {
-//        if(self.cellStateArray.mt_order.mt_tag != kNew)
-//            self.cellStateArray.mt_order = nil;
-//        else
-//            self.cellStateArray.mt_order.bindEnum(kOld);
-//    }
+    //    if([self.cellStateArray.mt_order containsString:@"MTCellKeepStateOrder"])
+    //    {
+    //        if(self.cellStateArray.mt_order.mt_tag != kNew)
+    //            self.cellStateArray.mt_order = nil;
+    //        else
+    //            self.cellStateArray.mt_order.bindEnum(kOld);
+    //    }
     
     self.mt_dataSource.emptyData = emptyData;
     self.mt_dataSource.dataList = dataList;
     self.mt_dataSource.sectionList = sectionList;
+    self.mt_dataSource.setupDefaultDict = setupDefaultDict;
     
     if([self.mt_dataSource.delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
         [self.mt_dataSource.delegate doSomeThingForMe:self.mt_dataSource withOrder:@"MTDataSourceReloadDataBeforeOrder"];
-        
+    
     [self performSelector:@selector(reloadData)];
     
     if([self.mt_dataSource.delegate respondsToSelector:@selector(doSomeThingForMe:withOrder:)])
-    [self.mt_dataSource.delegate doSomeThingForMe:self.mt_dataSource withOrder:@"MTDataSourceReloadDataAfterOrder"];
+        [self.mt_dataSource.delegate doSomeThingForMe:self.mt_dataSource withOrder:@"MTDataSourceReloadDataAfterOrder"];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

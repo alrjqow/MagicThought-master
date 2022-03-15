@@ -7,10 +7,17 @@
 //
 
 #import "NSObject+CommonProtocol.h"
+#import "MTNavigationController.h"
+#import "MTTabBarController.h"
 
 #define RegisterAppDelegate(appDelegate) typedef appDelegate __MTAppDelegate__;
 
 #define RegisterOnline @property (nonatomic, assign) BOOL isOnlineTag;
+
+typedef enum : NSUInteger {
+    MTAppDelegateWindowNumLogin,
+    MTAppDelegateWindowNumMain
+} MTAppDelegateWindowNum;
 
 @interface MTAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -29,6 +36,12 @@
 @property (nonatomic,strong) NSString* cssFilePath;
 /**模拟器css文件路径*/
 @property (nonatomic,strong) NSString* cssFilePath_simulator;
+
+@property (nonatomic,strong, readonly) NSString* loginClassName;
+@property (nonatomic,strong) MTNavigationController* loginController;
+
+@property (nonatomic,strong, readonly) NSString* tabBarClassName;
+@property (nonatomic,strong) MTTabBarController* tabBarController;
 
 
 /**弹框类名*/

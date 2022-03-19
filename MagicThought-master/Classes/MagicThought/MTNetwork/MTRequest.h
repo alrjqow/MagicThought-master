@@ -98,6 +98,8 @@ CG_EXTERN NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializer
 
 typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerCallback)(MTEndRefreshStatusCallback);
 
+typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerTagCallback)(MTEndRefreshStatusCallback callBack, NSString* tagIdentifier);
+
 @interface UIViewController (EndRefresh)<MTEndRefreshStatusProtocol>
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBack;
@@ -106,11 +108,17 @@ typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerCallback)(MTEn
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback callBackNoMsgResult;
 
+@property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerTagCallback tagCallBack;
+
 @end
 
 @interface MTViewController (EndRefresh)
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback modelArrayCallBack;
+
+@property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerTagCallback tagCallBackNoMsg;
+
+-(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier;
 
 @end
 

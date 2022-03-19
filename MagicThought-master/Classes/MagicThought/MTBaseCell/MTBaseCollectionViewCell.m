@@ -27,6 +27,11 @@
 
 @implementation MTBaseCollectionViewCell
 
+-(void)dealloc
+{
+    [self.timerModel removeObserver:self];
+}
+
 -(instancetype)setWithObject:(NSObject *)obj
 {
     if([obj isKindOfClass:MTSetupDefaultModel.class])
@@ -46,11 +51,23 @@
     
     if(self.setupDefaultModel && self.setupDefaultModel.setContentModel)
         self.setupDefaultModel.setContentModel(self, contentModel);
+    
+//    if(contentModel.mt_updateUI)
+//        contentModel.mt_updateUI(self);
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.updateUIClick)
+        self.setupDefaultModel.updateUIClick(self);
 }
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
 {
     __weak __typeof(self) weakSelf = self;
+    
+    [self.timerModel removeObserver:self];
+    
+    self.timerModel = contentModel.mtTimer;
+    if(![self.mt_order containsString:@"isAssistCell"])
+        [self.timerModel addObserver:self];
     
     _contentModel = contentModel;
     contentModel.viewState = contentModel.viewState;
@@ -115,6 +132,18 @@
     [self setSubView:_externView Model:(MTBaseViewContentModel*)contentModel.mtExternContent For:^UIView *{
         return weakSelf.externView;
                                  }];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if(object == self.timerModel)
+    {
+//        if(self.contentModel.mt_updateUI)
+//            self.contentModel.mt_updateUI(self);
+                
+        if(self.setupDefaultModel && self.setupDefaultModel.updateUIClick)
+            self.setupDefaultModel.updateUIClick(self);
+    }
 }
 
 -(void)setSubView:(UIView*)view Model:(MTBaseViewContentModel*)baseViewContentModel For:(UIView* (^)(void))getView
@@ -324,6 +353,16 @@
 -(Class)classOfResponseObject
 {
     return [MTViewContentModel class];
+}
+
+-(MTTimeRecordModel *)timeRecordModel
+{
+    if(!_timeRecordModel)
+    {
+        _timeRecordModel = mt_timeRecorder();
+    }
+    
+    return _timeRecordModel;
 }
 
 -(UILabel *)textLabel

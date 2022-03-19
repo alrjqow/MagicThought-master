@@ -25,6 +25,9 @@
     if(![oldValue isKindOfClass:[NSObject class]])
         return oldValue;
     
+    if([oldValue isKindOfClass:[MTTimeRecordModel class]])
+        return oldValue;        
+    
     if([property.type.typeClass isSubclassOfClass:[NSArray class]])
     {
         Class objectClass = [property objectClassInArrayForClass:[self class]];

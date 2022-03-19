@@ -105,6 +105,16 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return objc_getAssociatedObject(self, _cmd);
 }
 
+-(void)setMt_updateUI:(MTClick)mt_updateUI
+{
+    objc_setAssociatedObject(self, @selector(mt_updateUI), mt_updateUI, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+-(MTClick)mt_updateUI
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
 -(void)setMt_automaticDimensionSize:(MTAutomaticDimensionSize)mt_automaticDimensionSize
 {
      objc_setAssociatedObject(self, @selector(mt_automaticDimensionSize), mt_automaticDimensionSize, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -253,6 +263,31 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
 
 
 @implementation NSObject (BindReuseIdentifier)
+
+-(BindClick)updateUI
+{
+    __weak __typeof(self) weakSelf = self;
+    BindClick updateUI  = ^(MTClick updateUI){
+        
+        if(!updateUI)
+            return weakSelf;
+        
+        if([weakSelf isKindOfClass:[NSArray class]])
+        {
+            NSArray* arr = (NSArray*)weakSelf;
+            for(NSObject* obj in arr)
+            {
+                if(!obj.mt_updateUI)
+                    obj.mt_updateUI = updateUI;
+            }
+        }
+        
+        weakSelf.mt_updateUI = updateUI;
+        return weakSelf;
+    };
+    
+    return updateUI;
+}
 
 -(BindClick)bindClick
 {
@@ -816,7 +851,9 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     if(![self.mt_reuseIdentifier isExist])
         self.bind(obj.mt_reuseIdentifier);
     if(obj.mt_click)
-        self.bindClick(obj.mt_click);    
+        self.bindClick(obj.mt_click);
+    if(obj.mt_updateUI)
+        self.updateUI(obj.mt_updateUI);    
     if(!CGSizeEqualToSize(obj.mt_itemSize, CGSizeZero))
         self.bindSize(obj.mt_itemSize);
     if(![self.mt_order isExist])

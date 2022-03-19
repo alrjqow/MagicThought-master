@@ -9,6 +9,22 @@
 
 @implementation MTSetupDefaultModel
 
+-(MTUpdateUI)updateUI
+{
+    __weak __typeof(self) weakSelf = self;
+    MTUpdateUI updateUI = ^(MTSetupDefault updateUIClick){
+        
+        if(!updateUIClick)
+            return weakSelf;
+        
+        weakSelf.updateUIClick = updateUIClick;
+        
+        return weakSelf;
+    };
+    
+    return updateUI;
+}
+
 @end
 
 

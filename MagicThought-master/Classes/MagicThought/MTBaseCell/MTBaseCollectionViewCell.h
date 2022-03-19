@@ -12,6 +12,7 @@
 #import "UIView+Frame.h"
 #import "MTTextField.h"
 #import "MTTextView.h"
+#import "MTTimeModel.h"
 
 @interface MTBaseCollectionViewCell : MTDragCollectionViewCell<MTTextFieldDelegate>
 
@@ -47,6 +48,10 @@
 @property (nonatomic,strong) MTTextField* textField;
 
 @property (nonatomic, strong) MTTextView *textView;
+
+@property (nonatomic,strong) MTTimerModel* timerModel;
+
+@property (nonatomic,strong) MTTimeRecordModel* timeRecordModel;
 
 @end
 

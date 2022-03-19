@@ -9,6 +9,7 @@
 #import "MTRequest.h"
 #import "NSString+Exist.h"
 #import "MJExtension.h"
+#import "NSObject+ReuseIdentifier.h"
 
 typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL success, MTRequest* request);
 
@@ -40,7 +41,10 @@ typedef void(^MTRequestCallbackHandlerCallback)(id obj, NSString *mssage, BOOL s
                 viewController.isLoadResult = YES;
                 modelArrayTag = viewController.modelArrayTag;
             }
-                
+                            
+            if(success)
+                [viewController successDefaultHandle:self.mt_tagIdentifier];
+            
             BOOL isModelArraySet = (modelArrayTag && weakSelf.modelArrayTag) || (!modelArrayTag && [obj isKindOfClass:NSArray.class]);
                         
             MTEndRefreshStatus endRefreshStatus;
@@ -302,10 +306,29 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
       return callBack;
 }
 
+-(MTCreateRequestCallbackHandlerTagCallback)tagCallBack
+{
+    __weak typeof(self) weakSelf = self;
+
+    MTCreateRequestCallbackHandlerTagCallback tagCallBack = ^(MTEndRefreshStatusCallback endRefreshStatusCallback, NSString* tagIdentifier){
+
+        MTRequestCallbackHandler* handler = [MTRequestCallbackHandler new];
+        handler.endRefreshStatusCallback = endRefreshStatusCallback;
+        handler.object = weakSelf;
+        handler.bindTag(tagIdentifier);
+
+        return handler;
+    };
+
+    return tagCallBack;
+}
+
+ 
 -(MTCreateRequestCallbackHandlerCallback)callBackNoMsg{return self.callBack;}
 
 -(MTCreateRequestCallbackHandlerCallback)callBackNoMsgResult{return self.callBack;}
 
+-(MTCreateRequestCallbackHandlerTagCallback)tagCallBackNoMsg{return self.tagCallBack;}
 
 @end
 
@@ -333,6 +356,7 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 
 -(MTCreateRequestCallbackHandlerCallback)callBackNoMsgResult{return self.showNoMsgResult.callBack;}
 
+-(MTCreateRequestCallbackHandlerTagCallback)tagCallBackNoMsg{return self.showNoMsg.tagCallBack;}
 
 -(void)setEndRefreshStatus:(MTEndRefreshStatus)endRefreshStatus Message:(NSString *)message{
     
@@ -377,6 +401,8 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
     [self loadStatusBarStyle];
     [self afterSetEndRefreshStatus:endRefreshStatus Message:message];
 }
+
+-(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier{}
 
 @end
 

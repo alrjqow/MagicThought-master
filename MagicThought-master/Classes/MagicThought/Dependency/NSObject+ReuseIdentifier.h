@@ -106,6 +106,7 @@ typedef void (^MTNotificationHandle)(NSNotification * _Nonnull notification);
 
 @property (nonatomic,copy) MTClick _Nullable mt_click;
 @property (nonatomic,copy) MTBoolClick _Nullable mt_BoolClick;
+@property (nonatomic,copy) MTClick _Nullable mt_updateUI;
 @property (nonatomic,copy) MTAutomaticDimensionSize _Nullable mt_automaticDimensionSize;
 @property (nonatomic,copy) MTNotificationHandle _Nullable mt_notificationHandle;
 
@@ -144,6 +145,8 @@ typedef NSObject* _Nonnull (^WhenReceiveNotification) (MTNotificationHandle _Nul
 
 @property (nonatomic,copy,readonly) BindClick _Nonnull bindClick;
 @property (nonatomic,copy,readonly) BindBoolClick _Nonnull bindBoolClick;
+@property (nonatomic,copy,readonly) BindClick _Nonnull updateUI;
+
 
 @property (nonatomic,copy,readonly) BindOrder _Nonnull bindOrder;
 @property (nonatomic,copy,readonly) BindOrder _Nonnull bindArrayOrder;

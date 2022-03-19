@@ -62,8 +62,8 @@ NSString* kMinWidth = @"minWidth";
 NSString* kMinHeight = @"minHeight";
 NSString* kExternData = @"externData";
 
-NSString* kTimer = @"timer";
-NSString* kTimeRecord = @"timeRecord";
+NSString* kTimer = @"mtTimer";
+NSString* kTimeRecord = @"mtTimeRecord";
 
 NSString* kVfCodeString = @"mtVfCodeString";
 

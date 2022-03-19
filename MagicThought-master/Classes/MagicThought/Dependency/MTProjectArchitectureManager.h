@@ -46,6 +46,9 @@
 
 @property (nonatomic,strong) NSArray* loginSectionList;
 
+@property (nonatomic,strong) NSDictionary* loginSetupDefaultDict;
+
+@property (nonatomic,assign) NSTimeInterval vfCodeTotalSecond;
 
 
 @end
@@ -56,6 +59,7 @@ extern NSString *const kIsUserPhone;
 extern NSString *const kIsPassword;
 extern NSString *const kIsVfcode;
 extern NSString *const kIsLogin;
+extern NSString *const kIsAgree;
 
 #define kArchitectureManager_mt [MTProjectArchitectureManager manager]
 

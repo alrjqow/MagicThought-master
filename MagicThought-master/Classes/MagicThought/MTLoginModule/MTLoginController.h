@@ -6,9 +6,11 @@
 //
 
 #import "MTListController.h"
-
+#import "MTLoginServiceModel.h"
 
 @interface MTLoginController : MTListController
+
+propertyClass(MTLoginServiceModel, loginServiceModel)
 
 @end
 

@@ -8,18 +8,50 @@
 #import "MTLoginServiceModel.h"
 #import "NSString+Exist.h"
 #import "UIView+MBHud.h"
+#import "MTConst.h"
 
 
 @implementation MTLoginServiceModel
 
-emptyString(userPhone)
+-(void)dealloc
+{
+    [self.timerModel stop];
+    [self.timerModel removeObserver:self];
+}
 
-emptyString(password)
+-(void)setupDefault
+{
+    self.maxVfCodeTotalSecond = kArchitectureManager_mt.vfCodeTotalSecond;
+}
 
-emptyString(vfCode)
+-(void)startVfcodeCount
+{
+    [MTTimer setCurrentVfCodeTimeStamp:self.vfCodeIdentifier];
+    [self.timerModel start];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if(self.isVfCodeOver < 0)
+        return;
+    
+    [kUserDefaults_mt() removeObjectForKey:self.vfCodeIdentifier];
+    [self.timerModel stop];
+}
+
+-(NSTimeInterval)isVfCodeOver
+{
+    return [MTTimer didValueBetweenCurrentZoneTimeStampAndLastStamp:[kUserDefaults_mt() integerForKey:self.vfCodeIdentifier] IsOver:self.maxVfCodeTotalSecond];
+}
 
 -(BOOL)canLogin
 {
+    if([self.tagIdentifier containsString:kIsAgree] && !self.isAgree)
+    {
+        [self showCenterToast:@"请同意用户协议"];
+        return false;
+    }
+    
     if([self.tagIdentifier containsString:kIsUserPhone] && ![self.userPhone isExist])
     {
         [self showCenterToast:@"请输入手机号码"];
@@ -42,5 +74,33 @@ emptyString(vfCode)
 }
 
 emptyString(tagIdentifier)
+
+emptyString(userPhone)
+
+emptyString(password)
+
+emptyString(vfCode)
+
+-(NSString *)vfCodeIdentifier
+{
+    if(!_vfCodeIdentifier)
+    {
+        _vfCodeIdentifier = getVfCodeIdentifier_mt(NSStringFromClass(self.controller.class));
+    }
+    
+    return _vfCodeIdentifier;
+}
+
+-(MTTimerModel *)timerModel
+{
+    if(!_timerModel)
+    {
+        _timerModel = mt_timer();
+        _timerModel.timeInterval = 1;
+        [_timerModel addObserver:self];
+    }
+    
+    return _timerModel;
+}
 
 @end

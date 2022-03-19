@@ -9,12 +9,15 @@
 #import "MTViewContentModel.h"
 
 
+@class MTSetupDefaultModel;
+
 typedef void (^MTSetupDefault)(id object);
 
 typedef void (^MTLayoutSubviews)(id object, CGFloat contentWidth, CGFloat contentHeight);
 
 typedef void (^MTSetContentModel)(id object, MTViewContentModel* contentModel);
 
+typedef MTSetupDefaultModel* (^MTUpdateUI)(MTSetupDefault updateUI);
 
 @interface MTSetupDefaultModel : NSObject
 
@@ -23,6 +26,10 @@ typedef void (^MTSetContentModel)(id object, MTViewContentModel* contentModel);
 @property (nonatomic,copy) MTLayoutSubviews layoutSubviews;
 
 @property (nonatomic,copy) MTSetContentModel setContentModel;
+
+@property (nonatomic,copy) MTSetupDefault updateUIClick;
+
+@property (nonatomic,copy, readonly) MTUpdateUI updateUI;
 
 @end
 

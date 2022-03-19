@@ -12,6 +12,7 @@
 -(void)setupDefault
 {
     self.baseSystemNavigationBarHidden = YES;
+    self.vfCodeTotalSecond = 60;
 }
 
 -(UIColor*)baseBackgroundColor
@@ -55,3 +56,4 @@ NSString *const kIsUserPhone = @"mtIsUserPhone";
 NSString *const kIsPassword = @"mtIsPassword";
 NSString *const kIsVfcode = @"mtIsVfcode";
 NSString *const kIsLogin = @"kIsLogin";
+NSString *const kIsAgree = @"kIsAgree";

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MTBaseViewContentModel.h"
+#import "MTTimeModel.h"
 
 @interface MTViewContentModel : MTBaseViewContentStateModel
 
@@ -102,6 +103,12 @@
 @property (nonatomic,strong) NSObject* mtExternContent;
 /**扩展内容*/
 @property (nonatomic,weak) NSObject* mtWeakExternContent;
+
+/**计时器*/
+@property (nonatomic,weak) MTTimerModel* mtTimer;
+
+/**存储时间*/
+@property (nonatomic,weak) MTTimeRecordModel* mtTimeRecord;
 
 @end
 

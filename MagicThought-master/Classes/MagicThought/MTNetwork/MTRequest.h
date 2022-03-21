@@ -110,6 +110,8 @@ typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerTagCallback)(M
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerTagCallback tagCallBack;
 
+-(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier;
+
 @end
 
 @interface MTViewController (EndRefresh)
@@ -117,8 +119,6 @@ typedef MTRequestCallbackHandler* (^MTCreateRequestCallbackHandlerTagCallback)(M
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerCallback modelArrayCallBack;
 
 @property (nonatomic,copy, readonly) MTCreateRequestCallbackHandlerTagCallback tagCallBackNoMsg;
-
--(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier;
 
 @end
 

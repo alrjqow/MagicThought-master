@@ -330,6 +330,8 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
 
 -(MTCreateRequestCallbackHandlerTagCallback)tagCallBackNoMsg{return self.tagCallBack;}
 
+-(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier{}
+
 @end
 
 
@@ -401,8 +403,6 @@ NSObject* _Nonnull responseContentType_mtRequest(YTKResponseSerializerType respo
     [self loadStatusBarStyle];
     [self afterSetEndRefreshStatus:endRefreshStatus Message:message];
 }
-
--(void)successDefaultHandle:(NSString*_Nullable)tagIdentifier{}
 
 @end
 

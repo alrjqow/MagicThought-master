@@ -593,6 +593,7 @@ NSString * bodyHtml(NSString* html)
             "<style type=\"text/css\"> \n"
             "* {margin:0;padding:0;}\n"
             "body {font-size:17px;}\n"
+            "#content {overflow: hidden;}"
             "</style> \n"
             "</head> \n"
             "<body>"
@@ -604,7 +605,10 @@ NSString * bodyHtml(NSString* html)
             "$img[p].style.height ='auto'\n"
             "}\n"
             "}\n"
-            "</script>%@\n"
+            "</script>\n"
+            "<div id=\"content\">\n"
+            "%@\n"
+            "</div>\n"
             "</body>\n"
             "</html>",html];
 }

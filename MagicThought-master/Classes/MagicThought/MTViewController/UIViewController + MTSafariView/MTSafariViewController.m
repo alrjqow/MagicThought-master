@@ -126,7 +126,8 @@
     {
         WKWebViewConfiguration*  config = WKWebViewConfiguration.new;
         config.userContentController = [self safariViewUserContentController];
-                
+//        [config.userContentController addScriptMessageHandler:self name:@"aa"];
+        
 //        CGFloat topInset = [self valueForKey:@"navigationBarAlpha"] ? kNavigationBarHeight_mt() : 0;
 //        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), self.isAutoHeight ? 1 : (mt_ScreenH() - topInset)) configuration:config];
         
@@ -422,7 +423,7 @@
 
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    
+//    NSLog(@"哈哈哈=== %@", message.body);
 }
 
 
@@ -614,6 +615,9 @@ NSString * bodyHtml(NSString* html)
             "<body>"
             "<script type='text/javascript'>"
             "window.onload = function(){\n"
+//            "window.webkit.messageHandlers.aa.postMessage({\n"
+//            "\"height\":document.getElementById(\"content\").offsetHeight\n"
+//            "});\n"
             "var $img = document.getElementsByTagName('img');\n"
             "for(var p in  $img){\n"
             " $img[p].style.width = '100%%';\n"

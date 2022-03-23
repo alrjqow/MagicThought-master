@@ -14,7 +14,7 @@ extern NSString * bodyHtml(NSString* html);
 @class MTSafariView;
 @interface MTSafariViewController : MTViewController<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
-@property (nonatomic,assign) BOOL isAutoHeight;
+//@property (nonatomic,assign) BOOL isAutoHeight;
 
 @property (nonatomic,weak) MTViewController* scriptDelegate;
 
@@ -27,7 +27,10 @@ extern NSString * bodyHtml(NSString* html);
 
 @property(nonatomic,strong) NSString* url;
 @property(nonatomic,strong) NSString* htmlString;
+
 @property(nonatomic,strong) NSString* bodyHtmlString;
+@property(nonatomic,copy) void (^whenGetBodyHeight)(CGFloat bodyHeight);
+-(void)layoutWebViewWhenGetBodyHeight:(CGFloat)bodyHeight;
 
 /*!
  用于判断是否加载H5的标题，默认加载

@@ -92,9 +92,9 @@
 
 -(void)setBodyHtmlString:(NSString *)bodyHtmlString
 {
-    _htmlString = bodyHtml(bodyHtmlString);
+    _bodyHtmlString = bodyHtml(bodyHtmlString);
     if(self.isViewDidLoad)
-        [self.webView loadHTMLString:_htmlString baseURL:nil];
+        [self.webView loadHTMLString:_bodyHtmlString baseURL:nil];
 }
 
 -(void)setTitleName:(NSString *)titleName
@@ -235,6 +235,8 @@
         self.isWait = false;
     else if(self.htmlString.length)
         [self.webView loadHTMLString:self.htmlString baseURL:nil];
+    else if(self.bodyHtmlString.length)
+        [self.webView loadHTMLString:self.bodyHtmlString baseURL:nil];
     else
         [self loadH5];
 }
@@ -448,9 +450,22 @@
         self.titleName = webView.title;
     
     NSLog(@"webView.title %@",webView.title);
-   
+    
     [self makeCookiesForeverAfterFinishNavigation:webView];
+    
+    if([self.bodyHtmlString isExist])
+        [webView evaluateJavaScript:@"document.getElementById(\"content\").offsetHeight;" completionHandler:^(NSNumber* _Nullable height, NSError * _Nullable error) {
+            
+            NSLog(@"bodyHeight : %@", height);
+            
+            [self layoutWebViewWhenGetBodyHeight:height.floatValue];
+            
+            if(self.whenGetBodyHeight)
+                self.whenGetBodyHeight(height.floatValue);
+        }];
 }
+
+-(void)layoutWebViewWhenGetBodyHeight:(CGFloat)bodyHeight{}
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {

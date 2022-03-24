@@ -8,6 +8,38 @@
 
 #import "MTConst.h"
 #import "UIDevice+DeviceInfo.h"
+#import "WXApi.h"
+
+
+BOOL kIsSimuLator(void){return TARGET_IPHONE_SIMULATOR == 1 && TARGET_OS_IPHONE == 1;}
+
+void kSetAppCheck(BOOL isAppCheck)
+{
+    [kUserDefaults_mt() setBool:isAppCheck forKey:@"MTAppCheck"];
+}
+
+BOOL kIsAppCheck(void)
+{
+    if(kIsSimuLator())
+        return false;
+    
+    return [kUserDefaults_mt() boolForKey:@"MTAppCheck"];
+}
+
+BOOL kIsWechatInstall(void)
+{
+    if(kIsAppCheck())
+        return false;
+    
+    return [WXApi isWXAppInstalled];
+}
+
+BOOL kIsWechatInstallOrSimuLator(void)
+{
+    BOOL isSimuLatorShow = [[((NSObject*)[UIApplication sharedApplication].delegate) valueForKey:@"isSimuLatorShow"] boolValue];
+    
+    return isSimuLatorShow ? (kIsWechatInstall() || kIsSimuLator()) : kIsWechatInstall();
+}
 
 
 void kCopyString_Pasteboard(NSString* string){[[UIPasteboard generalPasteboard] setString:string];}

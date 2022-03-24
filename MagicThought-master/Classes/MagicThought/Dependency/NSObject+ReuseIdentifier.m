@@ -923,6 +923,13 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
                 obj.mt_reuseIdentifier = mt_reuseIdentifier;
             if(![obj.mt_baseCellIdentifier isExist])
                 obj.mt_baseCellIdentifier = mt_baseCellIdentifier;
+            
+            if(obj.mt_itemHeight)
+                continue;
+            if(!CGSizeEqualToSize(obj.mt_itemSize, CGSizeZero))
+                continue;
+            obj.mt_automaticDimension = YES;
+            obj.mt_tag = kNew;
         }
         
         return self;
@@ -930,10 +937,13 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     
     self.mt_reuseIdentifier = mt_reuseIdentifier;
     self.mt_baseCellIdentifier = mt_baseCellIdentifier;
+    self.mt_automaticDimension = YES;
+    self.mt_tag = kNew;
+    
     return self;
 }
 
--(BaseCellTag)bindBaseCollectionCell
+-(BaseCellTag)bindAutomaticDimensionBaseCollectionCell
 {
     __weak __typeof(self) weakSelf = self;
     BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
@@ -943,7 +953,7 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return bindBaseCell;
 }
 
--(BaseCellTag)bindBaseSubCollectionCell
+-(BaseCellTag)bindAutomaticDimensionBaseSubCollectionCell
 {
     __weak __typeof(self) weakSelf = self;
     BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
@@ -953,7 +963,7 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return bindBaseCell;
 }
 
--(BaseCellTag)bindBaseSubCollectionCell2
+-(BaseCellTag)bindAutomaticDimensionBaseSubCollectionCell2
 {
     __weak __typeof(self) weakSelf = self;
     BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
@@ -963,7 +973,7 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return bindBaseCell;
 }
 
--(BaseCellTag)bindBaseSubCollectionCell3
+-(BaseCellTag)bindAutomaticDimensionBaseSubCollectionCell3
 {
     __weak __typeof(self) weakSelf = self;
     BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){

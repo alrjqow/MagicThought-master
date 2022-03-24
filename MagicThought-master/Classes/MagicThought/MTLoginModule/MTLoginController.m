@@ -10,6 +10,7 @@
 #import "MTSetupDefaultModel.h"
 #import "MTBaseCollectionViewCell.h"
 #import "MTRequest.h"
+#import "MTLoginServiceModel.h"
 
 @interface MTLoginController ()
 
@@ -17,6 +18,7 @@ propertyClass(NSMutableArray, loginDataList)
 
 propertyClass(NSMutableDictionary, loginSetupDefaultDict)
 
+propertyClass(MTLoginServiceModel, loginServiceModel)
 
 @end
 
@@ -36,8 +38,6 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
     if(!loginDataList.count)
         return loginDataList;
     
-    self.loginServiceModel.tagIdentifier = nil;
-    
     NSMutableArray* dataList = NSMutableArray.new;
     
     __weak typeof(self) weakSelf = self;
@@ -47,7 +47,8 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
         MTClick dataClick = data.mt_click;
         NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
         
-        self.loginServiceModel.tagIdentifier = [self.loginServiceModel.tagIdentifier stringByAppendingString:data.mt_tagIdentifier];
+        if(data.mt_tagIdentifier)
+            self.loginServiceModel.tagIdentifier = [self.loginServiceModel.tagIdentifier stringByAppendingString:data.mt_tagIdentifier];
         
         [self configSetupDefault:data.mt_tagIdentifier];
         
@@ -66,7 +67,8 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
                         weakSelf.loginServiceModel.password = tagIdentifier;
                 }
                 
-                dataClick(indexPath);
+                if(dataClick)
+                    dataClick(indexPath);
             });
         }
         
@@ -77,7 +79,8 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
                 if(indexPath.mt_order.mt_tag == kTextFieldValueChange)
                     weakSelf.loginServiceModel.vfCode = indexPath.mt_order.mt_tagIdentifier;
                 
-                dataClick(indexPath);
+                if(dataClick)
+                    dataClick(indexPath);
             });
         }
         
@@ -92,7 +95,8 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
                     isLoad = YES;
                 }
                                     
-                dataClick(indexPath);
+                if(dataClick)
+                    dataClick(indexPath);
                 if(isLoad)
                    [weakSelf loadData];
             });
@@ -102,7 +106,7 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
         {
             data.bindClick(^(NSIndexPath* indexPath) {
                 
-                if([weakSelf.loginServiceModel canLogin])
+                if([weakSelf.loginServiceModel canLogin] && dataClick)
                     dataClick(indexPath);
             });
         }
@@ -115,6 +119,9 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
 
 -(void)configSetupDefault:(NSString*)tagIdentifier
 {
+    if(!tagIdentifier)
+        return;
+    
     MTSetupDefaultModel* setupDefaultModel = kArchitectureManager_mt.loginSetupDefaultDict[tagIdentifier];
     
     if([tagIdentifier isEqualToString:kIsVfcode])
@@ -169,6 +176,7 @@ propertyClass(NSMutableDictionary, loginSetupDefaultDict)
 
 -(void)loadData
 {
+    self.loginServiceModel.tagIdentifier = @"";
     [self.loginDataList removeAllObjects];
     [self.loginSetupDefaultDict removeAllObjects];
     

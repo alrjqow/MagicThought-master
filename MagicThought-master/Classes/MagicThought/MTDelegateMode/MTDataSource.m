@@ -330,10 +330,11 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         return;
     
     NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
+    NSString* identifier = [data.mt_baseCellIdentifier isExist] ? data.mt_baseCellIdentifier : mt_reuseIdentifier;
     if(![mt_reuseIdentifier isExist])
         return;
             
-    MTDelegateCollectionViewCell* cell = self.shadowCollectionViewCellList[mt_reuseIdentifier];
+    MTDelegateCollectionViewCell* cell = self.shadowCollectionViewCellList[identifier];
     if(!cell)
     {
         Class class = NSClassFromString(mt_reuseIdentifier);
@@ -343,7 +344,9 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         cell = class.new;
         cell.automaticDimension();
         cell.bindOrder(@"isAssistCell");
-        self.shadowCollectionViewCellList[mt_reuseIdentifier] = cell;
+        self.shadowCollectionViewCellList[identifier] = cell;
+        if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+            [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     }
     
     cell.mt_delegate = self;
@@ -619,8 +622,8 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         
 //    NSString* mt_reuseIdentifier = list.mt_reuseIdentifier ? list.mt_reuseIdentifier : data.mt_reuseIdentifier;
     NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
-    
-    NSString* identifier = MTEasyReuseIdentifier(mt_reuseIdentifier);
+        
+    NSString* identifier = MTEasyReuseIdentifier([data.mt_baseCellIdentifier isExist] ? data.mt_baseCellIdentifier : mt_reuseIdentifier);
     
     MTDelegateCollectionViewCell* cell;
     if(self.registerCellList[identifier])
@@ -638,15 +641,15 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         
         self.registerCellList[identifier] = identifier;
         cell = cell0;
-        
-        if(self.setupDefaultDict[data.mt_baseCellIdentifier])
-            [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     }
+    
+    if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+        [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     
     indexPath.mt_order = nil;
     cell.indexPath = indexPath;
     cell.mt_delegate = self;
-    cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
+    cell.mt_data = data;
     [cell setNeedsLayout];
     
     if(data.mt_open3dTouch)
@@ -1120,13 +1123,16 @@ static NSString* mt_titleForRowAtIndexPath(id self, SEL cmd, UIPickerView * pick
 {
     if(![mt_data isKindOfClass:self.classOfResponseObject])
     {
+        NSObject* metaData = mt_data;
+        mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
+                
         if([mt_data isKindOfClass:[NSDictionary class]] && [self.classOfResponseObject isSubclassOfClass:[NSObject class]])
         {
             NSObject* model = [self.classOfResponseObject mj_objectWithKeyValues:mt_data];
             if(!model)
                 return;
             
-            mt_data = [model copyBindWithObject:mt_data];
+            mt_data = [model copyBindWithObject:metaData];
         }
         else
         {

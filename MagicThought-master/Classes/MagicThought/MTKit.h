@@ -13,6 +13,7 @@
 #import "MTCategory.h"
 #import "Library.h"
 #import "MTViewContentModels.h"
+#import "MTSetupDefaultModel.h"
 #import "MTServiceModel.h"
 #import "MTHost.h"
 

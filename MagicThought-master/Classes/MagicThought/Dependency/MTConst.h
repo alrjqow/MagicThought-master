@@ -70,6 +70,14 @@ typedef CGFloat (^MTFloatBlockWithObject) (id);
 typedef id (^MTObjectBlock) (void);
 typedef id (^MTObjectBlockWithObject) (id);
 
+MT_EXTERN BOOL kIsSimuLator(void);
+
+MT_EXTERN void kSetAppCheck(BOOL isAppCheck);
+MT_EXTERN BOOL kIsAppCheck(void);
+
+MT_EXTERN BOOL kIsWechatInstall(void);
+MT_EXTERN BOOL kIsWechatInstallOrSimuLator(void);
+
 MT_EXTERN void kCopyString_Pasteboard(NSString* string);
 MT_EXTERN  NSString* kString_Pasteboard(void);
 

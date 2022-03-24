@@ -200,10 +200,10 @@ typedef NSObject* _Nonnull (^BaseCellTag) (NSString* _Nonnull baseCellIdentifier
 
 @interface NSObject (BindBaseCell)
 
-@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseCollectionCell;
-@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell;
-@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell2;
-@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindBaseSubCollectionCell3;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseCollectionCell;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseSubCollectionCell;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseSubCollectionCell2;
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseSubCollectionCell3;
 
 @end
 

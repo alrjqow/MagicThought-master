@@ -9,10 +9,13 @@
 #import "NSObject+CommonProtocol.h"
 #import "MTNavigationController.h"
 #import "MTTabBarController.h"
+#import "MTLoginServiceModel.h"
 
 #define RegisterAppDelegate(appDelegate) typedef appDelegate __MTAppDelegate__;
 
 #define RegisterOnline @property (nonatomic, assign) BOOL isOnlineTag;
+
+#define RegisterSimuLatorShowTag @property (nonatomic, assign) BOOL isSimuLatorShow;
 
 typedef enum : NSUInteger {
     MTAppDelegateWindowNumLogin,
@@ -43,6 +46,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong, readonly) NSString* tabBarClassName;
 @property (nonatomic,strong) MTTabBarController* tabBarController;
 
+@property (nonatomic,strong) MTLoginServiceModel* loginServiceModel;
 
 /**弹框类名*/
 @property (nonatomic,strong, readonly) NSString* alertConfigName;

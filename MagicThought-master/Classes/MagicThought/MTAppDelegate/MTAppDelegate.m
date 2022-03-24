@@ -24,6 +24,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
     [self setValue:@(YES) forKey:@"isOnlineTag"];
+        
+    [self setValue:@(YES) forKey:@"isSimuLatorShow"];    
     
     //设置异常监听
 //    [self configExceptionHandle];
@@ -202,8 +204,8 @@ void gloablException(NSException * exception) {
     {
         Class loginClass = NSClassFromString(self.loginClassName ? self.loginClassName : @"MTLoginController");
                 
-        if(![loginClass isSubclassOfClass:NSClassFromString(@"MTViewController")])
-            loginClass = NSClassFromString(@"MTViewController");
+        if(![loginClass isSubclassOfClass:NSClassFromString(@"MTLoginController")])
+            loginClass = NSClassFromString(@"MTLoginController");
             
         _loginController = [[MTNavigationController alloc] initWithRootViewController:loginClass.new];
     }
@@ -224,6 +226,16 @@ void gloablException(NSException * exception) {
     }
     
     return _tabBarController;
+}
+
+-(MTLoginServiceModel *)loginServiceModel
+{
+    if(!_loginServiceModel)
+        _loginServiceModel = MTLoginServiceModel.new;
+        
+    MTLoginServiceModel * loginServiceModel = [self.loginController.childViewControllers.firstObject valueForKey:@"loginServiceModel"];
+    
+    return [loginServiceModel isKindOfClass:MTLoginServiceModel.class] ? loginServiceModel : _loginServiceModel;
 }
 
 @end

@@ -13,11 +13,14 @@
 
 typedef void (^MTSetupDefault)(id object);
 
-typedef void (^MTLayoutSubviews)(id object, CGFloat contentWidth, CGFloat contentHeight);
+typedef CGSize (^MTLayoutSubviews)(id object, CGFloat contentWidth, CGFloat contentHeight);
 
 typedef void (^MTSetContentModel)(id object, MTViewContentModel* contentModel);
 
 typedef MTSetupDefaultModel* (^MTUpdateUI)(MTSetupDefault updateUI);
+
+typedef MTSetupDefaultModel* (^MTDrawRect)(MTSetupDefault drawRect);
+
 
 @interface MTSetupDefaultModel : NSObject
 
@@ -29,7 +32,13 @@ typedef MTSetupDefaultModel* (^MTUpdateUI)(MTSetupDefault updateUI);
 
 @property (nonatomic,copy) MTSetupDefault updateUIClick;
 
+@property (nonatomic,copy) MTSetupDefault drawRectHandle;
+
+
+
 @property (nonatomic,copy, readonly) MTUpdateUI updateUI;
+
+@property (nonatomic,copy, readonly) MTDrawRect drawRect;
 
 @end
 

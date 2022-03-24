@@ -54,6 +54,7 @@ TODO: Add long description of the pod here.
   s.dependency 'IQKeyboardManager'
   s.dependency 'Masonry'
   s.dependency 'Bugly'
+  s.dependency 'WechatOpenSDK'
   
   
 end

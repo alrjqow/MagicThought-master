@@ -25,6 +25,23 @@
     return updateUI;
 }
 
+-(MTDrawRect)drawRect
+{
+    __weak __typeof(self) weakSelf = self;
+    MTDrawRect drawRect = ^(MTSetupDefault drawRectHandle){
+        
+        if(!drawRectHandle)
+            return weakSelf;
+        
+        weakSelf.drawRectHandle = drawRectHandle;
+        
+        return weakSelf;
+    };
+    
+    return drawRect;
+}
+
+
 @end
 
 

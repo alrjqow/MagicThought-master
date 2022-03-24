@@ -251,10 +251,11 @@
     [_textField sizeToFit];
     [_textView sizeToFit];
     
+    CGSize size = CGSizeZero;
     if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
-        self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
+        size = self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
     
-    return CGSizeZero;
+    return size;
 }
 
 -(void)layoutSubviews
@@ -265,6 +266,15 @@
         return;    
                             
     [self layoutSubviewsForWidth:self.width Height:self.height];
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    if([self.mt_order containsString:@"isAssistCell"])
+        return;
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.drawRectHandle)
+        self.setupDefaultModel.drawRectHandle(self);    
 }
 
 -(void)configButton:(UIButton*)button WithOrder:(NSString*)order

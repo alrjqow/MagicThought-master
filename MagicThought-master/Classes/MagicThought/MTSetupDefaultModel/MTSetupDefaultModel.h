@@ -29,8 +29,10 @@ typedef MTSetupDefaultModel* (^MTDrawRect)(MTSetupDefault drawRect);
 @property (nonatomic,copy) MTLayoutSubviews layoutSubviews;
 
 @property (nonatomic,copy) MTSetContentModel setContentModel;
+@property (nonatomic,copy) MTSetContentModel adjustSetContentModel;
 
 @property (nonatomic,copy) MTSetupDefault updateUIClick;
+@property (nonatomic,copy) MTSetupDefault adjustUpdateUIClick;
 
 @property (nonatomic,copy) MTSetupDefault drawRectHandle;
 

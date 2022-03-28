@@ -61,6 +61,15 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+//设置登录数据源
+- (void)configLoginData{}
+
+//设置注册数据源
+- (void)configRegisterData:(MTLoginServiceModel*)registerServiceModel{}
+
+//设置忘记密码数据源
+- (void)configForgetPasswordData:(MTLoginServiceModel*)forgetPasswordServiceModel{}
+
 //设置第三方库信息
 - (void)configThirdPartyLibrary{}
 
@@ -204,10 +213,14 @@ void gloablException(NSException * exception) {
     {
         Class loginClass = NSClassFromString(self.loginClassName ? self.loginClassName : @"MTLoginController");
                 
-        if(![loginClass isSubclassOfClass:NSClassFromString(@"MTLoginController")])
-            loginClass = NSClassFromString(@"MTLoginController");
+        if(![loginClass isSubclassOfClass:NSClassFromString(@"MTViewController")])
+            loginClass = NSClassFromString(@"MTViewController");
             
         _loginController = [[MTNavigationController alloc] initWithRootViewController:loginClass.new];
+        self.loginServiceModel.bindTag(kIsLogin);
+        
+        //设置登录数据源
+        [self configLoginData];
     }
     
     return _loginController;

@@ -56,6 +56,15 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, readonly, assign) BOOL isOnline;
 
+//设置登录数据源
+- (void)configLoginData;
+
+//设置注册数据源
+- (void)configRegisterData:(MTLoginServiceModel*)registerServiceModel;
+
+//设置忘记密码数据源
+- (void)configForgetPasswordData:(MTLoginServiceModel*)forgetPasswordServiceModel;
+
 /**设置第三方库信息*/
 - (void)configThirdPartyLibrary;
 

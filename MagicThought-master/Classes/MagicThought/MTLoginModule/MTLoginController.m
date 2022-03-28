@@ -50,8 +50,8 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
         if(data.mt_tagIdentifier)
             self.loginServiceModel.tagIdentifier = [self.loginServiceModel.tagIdentifier stringByAppendingString:data.mt_tagIdentifier];
         
-        [self configSetupDefault:data.mt_tagIdentifier];
-        
+        [self configSetupDefault:data];
+                
         if([data.mt_tagIdentifier isEqualToString:kIsUserPhone] || [data.mt_tagIdentifier isEqualToString:kIsPassword])
         {
             data.bindClick(^(NSIndexPath* indexPath) {
@@ -102,14 +102,38 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
             });
         }
         
-        if([data.mt_tagIdentifier isEqualToString:kIsLogin])
+        if([data.mt_tagIdentifier isEqualToString:kIsGoback])
+        {
+            data.bindClick(^(NSIndexPath* indexPath) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            });
+        }
+                        
+        if([data.mt_tagIdentifier isEqualToString:kIsLogin] || [data.mt_tagIdentifier isEqualToString:kIsRegister] || [data.mt_tagIdentifier isEqualToString:kIsForgetPassword])
         {
             data.bindClick(^(NSIndexPath* indexPath) {
                 
                 if([weakSelf.loginServiceModel canLogin] && dataClick)
                     dataClick(indexPath);
             });
-        }
+        }                
+        
+        if([data.mt_tagIdentifier isEqualToString:kIsGoToRegister] || [data.mt_tagIdentifier isEqualToString:kIsGoToForgetPassword])
+            data.bindClick(^(NSIndexPath* indexPath) {
+                
+                MTLoginController* loginController = MTLoginController.new;
+                loginController.loginServiceModel.bindTag([data.mt_tagIdentifier isEqualToString:kIsGoToRegister] ? kIsGoToRegister : kIsGoToForgetPassword);
+                                
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                
+                SEL selector = [data.mt_tagIdentifier isEqualToString:kIsGoToRegister] ? @selector(configRegisterData:) : @selector(configForgetPasswordData:);
+                if([[UIApplication sharedApplication].delegate respondsToSelector:selector])
+                    [[UIApplication sharedApplication].delegate performSelector:selector withObject:loginController.loginServiceModel];
+#pragma clang diagnostic pop                
+                
+                [weakSelf.navigationController pushViewController:loginController animated:YES];
+            });
         
         [dataList addObject:data];
     }
@@ -117,40 +141,39 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
     return dataList;
 }
 
--(void)configSetupDefault:(NSString*)tagIdentifier
+-(void)configSetupDefault:(NSObject*)data
 {
-    if(!tagIdentifier)
+    if(!data.mt_tagIdentifier)
         return;
+        
+    MTSetupDefaultModel* setupDefaultModel = kArchitectureManager_mt.loginSetupDefaultDict[data.mt_baseCellIdentifier];
     
-    MTSetupDefaultModel* setupDefaultModel = kArchitectureManager_mt.loginSetupDefaultDict[tagIdentifier];
-    
-    if([tagIdentifier isEqualToString:kIsVfcode])
+    if([data.mt_tagIdentifier isEqualToString:kIsVfcode])
     {
         if(!setupDefaultModel)
             setupDefaultModel = MTSetupDefaultModel.new;
         
-        MTSetContentModel setContentModel = setupDefaultModel.setContentModel;
-         
         __weak __typeof(self) weakSelf = self;
-        setupDefaultModel.setContentModel = ^(MTBaseCollectionViewCell* cell, MTViewContentModel *contentModel) {
+        
+        MTSetContentModel setContentModel = setupDefaultModel.setContentModel;
+        
+        setupDefaultModel.adjustSetContentModel = ^(MTBaseCollectionViewCell* cell, MTViewContentModel *contentModel) {
                         
             [cell.timerModel removeObserver:cell];
+            
             if(![cell.mt_order containsString:@"isAssistCell"])
             {
                 cell.timerModel = weakSelf.loginServiceModel.timerModel;
-                [cell.timerModel addObserver:self];
+                [cell.timerModel addObserver:cell];
                 
-                [cell.timeRecordModel clearTimeRecord];
+                NSTimeInterval vfCodeTotalSecond = [contentModel.mtTimeRecord getTotalSecond];
+                if(!vfCodeTotalSecond)
+                    vfCodeTotalSecond = weakSelf.loginServiceModel.maxVfCodeTotalSecond;
+                            
+                NSTimeInterval isOver = [MTTimer didValueBetweenCurrentZoneTimeStampAndLastStamp:[kUserDefaults_mt() integerForKey:weakSelf.loginServiceModel.vfCodeIdentifier] IsOver:vfCodeTotalSecond];
                 
-                {
-                    NSTimeInterval vfCodeTotalSecond = [contentModel.mtTimeRecord getTotalSecond];
-                    if(!vfCodeTotalSecond)
-                        vfCodeTotalSecond = weakSelf.loginServiceModel.maxVfCodeTotalSecond;
-                    
-                    NSTimeInterval isOver = [MTTimer didValueBetweenCurrentZoneTimeStampAndLastStamp:[kUserDefaults_mt() integerForKey:weakSelf.loginServiceModel.vfCodeIdentifier] IsOver:vfCodeTotalSecond];
-                    
-                    cell.timeRecordModel.addSecond(isOver < 0 ? -isOver : 0);
-                }
+                if(isOver < 0)
+                   [weakSelf.loginServiceModel.timerModel start];                
             }
                         
             if(setContentModel)
@@ -159,19 +182,27 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
         
         MTSetupDefault updateUIClick = setupDefaultModel.updateUIClick;
         
-        setupDefaultModel.updateUIClick = ^(MTBaseCollectionViewCell* cell) {
+        setupDefaultModel.adjustUpdateUIClick = ^(MTBaseCollectionViewCell* cell) {
           
-            [cell.timeRecordModel reduceTImeWithModel:cell.timerModel];
+            if([cell.mt_order containsString:@"isAssistCell"])
+                return;
                         
-            if(weakSelf.loginServiceModel.isVfCodeOver >= 0)
-                [cell.timeRecordModel clearTimeRecord];
+            [cell.timeRecordModel clearTimeRecord];
+                                
+            NSTimeInterval vfCodeTotalSecond = [cell.contentModel.mtTimeRecord getTotalSecond];
+            if(!vfCodeTotalSecond)
+                vfCodeTotalSecond = weakSelf.loginServiceModel.maxVfCodeTotalSecond;
+                        
+            NSTimeInterval isOver = [MTTimer didValueBetweenCurrentZoneTimeStampAndLastStamp:[kUserDefaults_mt() integerForKey:weakSelf.loginServiceModel.vfCodeIdentifier] IsOver:vfCodeTotalSecond];
+            
+            cell.timeRecordModel.addSecond(isOver < 0 ? -isOver : 0);
                                         
             if(updateUIClick)
                 updateUIClick(cell);
         };
     }
-    
-    self.loginSetupDefaultDict[tagIdentifier] = setupDefaultModel;
+        
+    self.loginSetupDefaultDict[data.mt_baseCellIdentifier] = setupDefaultModel;
 }
 
 -(void)loadData
@@ -180,14 +211,14 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
     [self.loginDataList removeAllObjects];
     [self.loginSetupDefaultDict removeAllObjects];
     
-    BOOL isAllArray = kArchitectureManager_mt.loginDataList.isAllArray;
+    BOOL isAllArray = self.loginServiceModel.dataList.isAllArray;
     
     if(!isAllArray)
-        self.loginDataList = (id)[self configLoginDataList:kArchitectureManager_mt.loginDataList];
+        self.loginDataList = (id)[self configLoginDataList:self.loginServiceModel.dataList];
     else
     {
         self.loginDataList = NSMutableArray.new;
-        for (NSArray* array in kArchitectureManager_mt.loginDataList)
+        for (NSArray* array in self.loginServiceModel.dataList)
             [self.loginDataList addObject:[self configLoginDataList:array]];
     }
     
@@ -196,7 +227,7 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
 
 -(NSArray *)dataList{return self.loginDataList;}
 
--(NSArray *)sectionList{return kArchitectureManager_mt.loginSectionList;}
+-(NSArray *)sectionList{return self.loginServiceModel.sectionList;}
 
 -(NSDictionary *)setupDefaultDict{return kArchitectureManager_mt.loginSetupDefaultDict;}
 

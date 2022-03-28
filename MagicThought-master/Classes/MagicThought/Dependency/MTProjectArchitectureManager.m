@@ -51,9 +51,3 @@
 
 
 NSString *const kHostOnlineNum = @"mtHostOnlineNum";
-
-NSString *const kIsUserPhone = @"mtIsUserPhone";
-NSString *const kIsPassword = @"mtIsPassword";
-NSString *const kIsVfcode = @"mtIsVfcode";
-NSString *const kIsLogin = @"kIsLogin";
-NSString *const kIsAgree = @"kIsAgree";

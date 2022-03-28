@@ -49,14 +49,24 @@
 {
     self.contentModel = contentModel;
     
-    if(self.setupDefaultModel && self.setupDefaultModel.setContentModel)
-        self.setupDefaultModel.setContentModel(self, contentModel);
+    if(self.setupDefaultModel)
+    {
+        if(self.setupDefaultModel.adjustSetContentModel)
+            self.setupDefaultModel.adjustSetContentModel(self, contentModel);
+        else if(self.setupDefaultModel.setContentModel)
+            self.setupDefaultModel.setContentModel(self, contentModel);
+    }
     
 //    if(contentModel.mt_updateUI)
 //        contentModel.mt_updateUI(self);
     
-    if(self.setupDefaultModel && self.setupDefaultModel.updateUIClick)
-        self.setupDefaultModel.updateUIClick(self);
+    if(self.setupDefaultModel)
+    {
+        if(self.setupDefaultModel.adjustUpdateUIClick)
+            self.setupDefaultModel.adjustUpdateUIClick(self);
+        else if(self.setupDefaultModel.updateUIClick)
+            self.setupDefaultModel.updateUIClick(self);
+    }
 }
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
@@ -141,8 +151,13 @@
 //        if(self.contentModel.mt_updateUI)
 //            self.contentModel.mt_updateUI(self);
                 
-        if(self.setupDefaultModel && self.setupDefaultModel.updateUIClick)
-            self.setupDefaultModel.updateUIClick(self);
+        if(self.setupDefaultModel)
+        {
+            if(self.setupDefaultModel.adjustUpdateUIClick)
+                self.setupDefaultModel.adjustUpdateUIClick(self);
+            else if(self.setupDefaultModel.updateUIClick)
+                self.setupDefaultModel.updateUIClick(self);
+        }
     }
 }
 

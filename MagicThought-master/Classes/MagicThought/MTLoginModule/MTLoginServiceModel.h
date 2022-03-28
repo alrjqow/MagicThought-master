@@ -36,5 +36,26 @@ propertyString(vfCode)
 
 -(void)startVfcodeCount;
 
+
+//数据源
+@property (nonatomic,strong) NSArray* dataList;
+
+@property (nonatomic,strong) NSArray* sectionList;
+
+
 @end
 
+
+
+extern NSString *const kIsUserPhone;
+extern NSString *const kIsPassword;
+extern NSString *const kIsVfcode;
+extern NSString *const kIsLogin;
+extern NSString *const kIsRegister;
+extern NSString *const kIsForgetPassword;
+extern NSString *const kIsGoback;
+
+extern NSString *const kIsAgree;
+
+extern NSString *const kIsGoToRegister;
+extern NSString *const kIsGoToForgetPassword;

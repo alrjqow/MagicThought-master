@@ -40,12 +40,7 @@
 
 @property (nonatomic,strong) NSDictionary* baseHostModelDict;
 
-
 //登录模块
-@property (nonatomic,strong) NSArray* loginDataList;
-
-@property (nonatomic,strong) NSArray* loginSectionList;
-
 @property (nonatomic,strong) NSDictionary* loginSetupDefaultDict;
 
 @property (nonatomic,assign) NSTimeInterval vfCodeTotalSecond;
@@ -54,12 +49,6 @@
 @end
 
 extern NSString *const kHostOnlineNum;
-
-extern NSString *const kIsUserPhone;
-extern NSString *const kIsPassword;
-extern NSString *const kIsVfcode;
-extern NSString *const kIsLogin;
-extern NSString *const kIsAgree;
 
 #define kArchitectureManager_mt [MTProjectArchitectureManager manager]
 

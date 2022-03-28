@@ -26,6 +26,12 @@
 
 -(void)startVfcodeCount
 {
+    if(![self.userPhone isExist])
+    {
+        [self showCenterToast:@"请输入手机号码"];
+        return;
+    }
+    
     [MTTimer setCurrentVfCodeTimeStamp:self.vfCodeIdentifier];
     [self.timerModel start];
 }
@@ -85,7 +91,7 @@ emptyString(vfCode)
 {
     if(!_vfCodeIdentifier)
     {
-        _vfCodeIdentifier = getVfCodeIdentifier_mt(NSStringFromClass(self.controller.class));
+        _vfCodeIdentifier = getVfCodeIdentifier_mt([NSString stringWithFormat:@"%@_%@", NSStringFromClass(self.controller.class), self.mt_tagIdentifier]);
     }
     
     return _vfCodeIdentifier;
@@ -104,3 +110,16 @@ emptyString(vfCode)
 }
 
 @end
+
+
+NSString *const kIsUserPhone = @"mtIsUserPhone";
+NSString *const kIsPassword = @"mtIsPassword";
+NSString *const kIsVfcode = @"mtIsVfcode";
+NSString *const kIsLogin = @"mtIsLogin";
+NSString *const kIsRegister = @"mtIsRegister";
+NSString *const kIsForgetPassword = @"mtIsForgetPassword";
+NSString *const kIsAgree = @"mtIsAgree";
+NSString *const kIsGoback = @"mtIsGoback";
+
+NSString *const kIsGoToRegister = @"mtIsGoToRegister";
+NSString *const kIsGoToForgetPassword = @"mtIsGoToForgetPassword";

@@ -40,6 +40,8 @@
 
 @property (nonatomic,strong) NSDictionary* baseHostModelDict;
 
+@property (nonatomic,strong) NSString* basePhotoListControllerClassName;
+
 //登录模块
 @property (nonatomic,strong) NSDictionary* loginSetupDefaultDict;
 

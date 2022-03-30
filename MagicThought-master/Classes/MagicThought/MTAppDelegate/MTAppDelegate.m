@@ -116,6 +116,14 @@
 /**去登录*/
 -(void)goToLogin{}
 
+-(void)loginSuccess:(NSString*)token
+{
+    setUserToken_mt(token);
+    self.tabBarController = nil;
+    self.windowNum = MTAppDelegateWindowNumMain;
+}
+
+
 + (instancetype)sharedDefault
 {
     id d = [UIApplication sharedApplication].delegate;    
@@ -192,7 +200,7 @@ void gloablException(NSException * exception) {
             return self.tabBarController;
                         
         default:
-            return self.loginController;
+            return [UserToken_mt() isExist] ? self.tabBarController : self.loginController;            
     }
     return nil;
 }

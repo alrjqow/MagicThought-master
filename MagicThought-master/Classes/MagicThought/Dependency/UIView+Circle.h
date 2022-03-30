@@ -32,3 +32,11 @@
 @property (nonatomic,assign) CGFloat lineMargin;
 
 @end
+
+@interface UIView (GradientLayer)
+
+-(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect;
+
+@end
+
+

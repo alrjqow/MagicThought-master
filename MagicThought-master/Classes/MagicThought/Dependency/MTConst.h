@@ -70,6 +70,8 @@ typedef CGFloat (^MTFloatBlockWithObject) (id);
 typedef id (^MTObjectBlock) (void);
 typedef id (^MTObjectBlockWithObject) (id);
 
+MT_EXTERN UIImage * kImageInBundle(NSString * name, NSString* className);
+
 MT_EXTERN BOOL kIsSimuLator(void);
 
 MT_EXTERN void kSetAppCheck(BOOL isAppCheck);

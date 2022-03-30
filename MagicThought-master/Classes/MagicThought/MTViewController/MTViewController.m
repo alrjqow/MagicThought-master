@@ -267,6 +267,10 @@
             return nil;
                 
         _navigationBar = (MTNavigationBar*)c.new;
+        NSObject* setupDefaultModel = self.navigationBarSetupDefaultModel;
+        if(setupDefaultModel)
+           [_navigationBar setWithObject:setupDefaultModel];
+            
         __weak __typeof(self) weakSelf = self;
         _navigationBar.button.bindClick(^(NSString *order) {
             [weakSelf goBack];

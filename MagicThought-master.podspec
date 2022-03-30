@@ -30,7 +30,9 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
   
-  s.resources = ['MagicThought-master/Classes/MagicThought/MTHud/MTHud.bundle', 'MagicThought-master/Classes/MagicThought/Library/TZImagePickerController/TZImagePickerController.bundle']
+  s.resources = ['MagicThought-master/Classes/MagicThought/MTHud/MTHud.bundle',
+  'MagicThought-master/Classes/MagicThought/MTPhoto/MTPhoto.bundle',
+  'MagicThought-master/Classes/MagicThought/Library/TZImagePickerController/TZImagePickerController.bundle']
   s.source_files = 'MagicThought-master/Classes/**/*'
   s.xcconfig = {'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'}
   

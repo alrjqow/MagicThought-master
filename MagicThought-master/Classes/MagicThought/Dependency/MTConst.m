@@ -10,6 +10,21 @@
 #import "UIDevice+DeviceInfo.h"
 #import "WXApi.h"
 
+UIImage * kImageInBundle(NSString * name, NSString* className) {
+
+    UIImage *image = nil;
+
+    NSString *image_name = [NSString stringWithFormat:@"%@.png", name];
+
+    NSString *resourcePath = [[NSBundle bundleForClass:NSClassFromString(className)] resourcePath];
+    
+    NSString *image_path = [resourcePath stringByAppendingPathComponent:image_name];
+
+    image = [[UIImage alloc] initWithContentsOfFile:image_path];
+
+    return image;
+
+}
 
 BOOL kIsSimuLator(void){return TARGET_IPHONE_SIMULATOR == 1 && TARGET_OS_IPHONE == 1;}
 

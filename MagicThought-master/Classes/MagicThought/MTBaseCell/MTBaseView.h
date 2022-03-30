@@ -45,6 +45,8 @@
 
 @property (nonatomic,strong) MTTextField* textField;
 
+-(CGSize)setupDefaultModelSize:(CGFloat)contentWidth Height:(CGFloat)contentHeight;
+
 @end
 
 

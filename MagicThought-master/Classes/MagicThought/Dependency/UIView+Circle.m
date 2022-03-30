@@ -269,3 +269,33 @@
 }
 
 @end
+
+
+@implementation UIView (GradientLayer)
+
+-(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect
+{
+    if(!colors.count)
+        return;
+    
+    CAGradientLayer* gradientLayer = CAGradientLayer.new;
+    
+    NSMutableArray* array = NSMutableArray.new;
+    for (UIColor* color in colors) {
+        [array addObject:(id) color.CGColor];
+    }    
+    gradientLayer.colors = array;
+    
+    
+    gradientLayer.startPoint = CGPointMake(0.5, 0);
+    gradientLayer.endPoint = CGPointMake(0.5, 1);
+    gradientLayer.frame = rect;
+    gradientLayer.zPosition = -1;
+    
+    [self.layer addSublayer:gradientLayer];
+}
+
+    
+@end
+
+

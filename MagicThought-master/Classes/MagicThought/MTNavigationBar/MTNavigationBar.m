@@ -52,7 +52,11 @@
          
      self.textLabel.centerX = half(contentWidth);
      self.textLabel.centerY = self.navigationBarCenterY;
-    return CGSizeMake(contentWidth, contentHeight);
+    
+    CGSize size = CGSizeMake(contentWidth, contentHeight);
+    CGSize size1 = [self setupDefaultModelSize:contentWidth Height:contentHeight];
+        
+    return CGSizeEqualToSize(size, size1) ? size : size1;
 }
 
 @end

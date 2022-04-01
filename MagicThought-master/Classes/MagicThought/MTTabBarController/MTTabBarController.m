@@ -50,14 +50,29 @@
         } else {
             [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:self.normalColor} forState:UIControlStateNormal];
         }
-    }        
+    }
 
     if(self.tabBarFont)
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName:self.tabBarFont} forState:UIControlStateNormal];
 
-    if(self.tabBarColor)
-        [self.tabBar setBackgroundImage:[self.tabBarColor changeToImageWithSize:self.tabBar.bounds.size]];        
-    
+    UIImage* image = self.tabBarColor ? [self.tabBarColor changeToImageWithSize:self.tabBar.bounds.size] : nil;
+    if(image)
+    {
+        if (@available(iOS 15.0, *)) {
+            UITabBarAppearance * appearance = [UITabBarAppearance new];
+            appearance.backgroundImage = image;
+            self.tabBar.standardAppearance = appearance;
+        }
+        else
+            [self.tabBar setBackgroundImage:image];
+    }
+        
+    if (@available(iOS 15.0, *)) {
+        UITabBarAppearance * appearance = [UITabBarAppearance new];
+        appearance.backgroundImage = image ? image : [UIImage new];
+        self.tabBar.scrollEdgeAppearance = appearance;
+    }
+            
     [self setupChildController];
         
     if(kArchitectureManager_mt.isOnline)

@@ -29,8 +29,8 @@ extern NSString * bodyHtml(NSString* html);
 @property(nonatomic,strong) NSString* htmlString;
 
 @property(nonatomic,strong) NSString* bodyHtmlString;
+@property (nonatomic,assign) CGFloat bodyHeight;
 @property(nonatomic,copy) void (^whenGetBodyHeight)(CGFloat bodyHeight);
--(void)layoutWebViewWhenGetBodyHeight:(CGFloat)bodyHeight;
 
 /*!
  用于判断是否加载H5的标题，默认加载

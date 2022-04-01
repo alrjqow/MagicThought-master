@@ -21,7 +21,7 @@
 
 -(void)reloadListView:(UIScrollView*)listView
 {
-    [listView reloadDataWithDataList:self.dataList SectionList:self.sectionList EmptyData:self.emptyData];
+    [listView reloadDataWithDataList:self.dataList SectionList:self.sectionList EmptyData:self.emptyData SetupDefaultDict:self.setupDefaultDict];
 }
 
 -(instancetype)setWithObject:(NSObject *)obj
@@ -36,6 +36,8 @@
     
     if([obj isKindOfClass:[NSString class]])
         _className = (NSString*)obj;
+    if([obj isKindOfClass:[UIScrollView class]])
+        self.scrollView = (id)obj;    
             
     return self;
 }

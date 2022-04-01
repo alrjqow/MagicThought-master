@@ -131,7 +131,7 @@
 //        CGFloat topInset = [self valueForKey:@"navigationBarAlpha"] ? kNavigationBarHeight_mt() : 0;
 //        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, topInset, mt_ScreenW(), self.isAutoHeight ? 1 : (mt_ScreenH() - topInset)) configuration:config];
         
-        _webView = [[MTSafariView alloc] initWithFrame:CGRectMake(0, kNavigationBarHeight_mt(), kScreenWidth_mt(), kScreenHeight_mt() - kNavigationBarHeight_mt() - kStatusBarHeight_mt()) configuration:config];
+        _webView = [[MTSafariView alloc] initWithFrame:CGRectZero configuration:config];
         
         _webView.multipleTouchEnabled=YES;
         _webView.scrollView.showsVerticalScrollIndicator = false;
@@ -268,9 +268,19 @@
         [self.view addSubview:self.progressView];
         [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     }
-    
-    if(self.layoutWebView)
-        self.layoutWebView(self.view);
+        
+    self.bodyHeight = kScreenHeight_mt() - (self.navigationBarHidden ? 0 : self.navigationBar.height) - kTabBarHeight_mt();
+    if(!self.layoutWebView)
+    {
+        __weak __typeof(self) weakSelf = self;
+        self.layoutWebView = ^(UIView *view) {
+                
+            weakSelf.webView.frame = CGRectMake(0, weakSelf.navigationBarHidden ? 0 : weakSelf.navigationBar.maxY, kScreenWidth_mt(), weakSelf.bodyHeight);
+        };
+    }
+        
+                
+    self.layoutWebView(self.view);
 }
 
 -(void)setupNavigationItem
@@ -458,9 +468,9 @@
         [webView evaluateJavaScript:@"document.getElementById(\"content\").offsetHeight;" completionHandler:^(NSNumber* _Nullable height, NSError * _Nullable error) {
             
             NSLog(@"bodyHeight : %@", height);
+            self.bodyHeight = height.floatValue;
             
-            [self layoutWebViewWhenGetBodyHeight:height.floatValue];
-            
+            self.layoutWebView(self.view);
             if(self.whenGetBodyHeight)
                 self.whenGetBodyHeight(height.floatValue);
         }];

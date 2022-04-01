@@ -41,6 +41,39 @@
     return drawRect;
 }
 
+-(MTUpdateLayout)updateLayout
+{
+    __weak __typeof(self) weakSelf = self;
+    MTUpdateLayout updateLayout = ^(MTUpdateLayoutSubviews updateLayoutSubviews){
+        
+        if(!updateLayoutSubviews)
+            return weakSelf;
+        
+        weakSelf.updateLayoutSubviews = updateLayoutSubviews;
+        
+        return weakSelf;
+        
+    };
+    
+    return updateLayout;
+}
+
+-(MTConfigDataSource)configDataSource
+{
+    __weak __typeof(self) weakSelf = self;
+    MTConfigDataSource configDataSource = ^(MTSetupDefault configDataSourceModel){
+        
+        if(!configDataSourceModel)
+            return weakSelf;
+        
+        weakSelf.configDataSourceModel = configDataSourceModel;
+        
+        return weakSelf;
+        
+    };
+    
+    return configDataSource;
+}
 
 @end
 

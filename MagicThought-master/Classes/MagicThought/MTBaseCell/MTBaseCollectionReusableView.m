@@ -8,6 +8,7 @@
 
 #import "MTBaseCollectionReusableView.h"
 #import "MTContentModelPropertyConst.h"
+#import "MTSetupDefaultModel.h"
 
 @interface MTBaseCollectionReusableView ()
 {
@@ -17,13 +18,36 @@
     UIButton* _button4;
 }
 
+@property (nonatomic,weak) MTSetupDefaultModel* setupDefaultModel;
+
 @end
 
 @implementation MTBaseCollectionReusableView
 
+-(instancetype)setWithObject:(NSObject *)obj
+{
+    if([obj isKindOfClass:MTSetupDefaultModel.class])
+    {
+        self.setupDefaultModel = (id) obj;
+        
+        if(self.setupDefaultModel && self.setupDefaultModel.setupDefault)
+            self.setupDefaultModel.setupDefault(self);
+    }
+    
+    return [super setWithObject:obj];
+}
+
 -(void)whenGetResponseObject:(MTViewContentModel *)contentModel
 {
     self.contentModel = contentModel;
+    
+    if(self.setupDefaultModel)
+    {
+        if(self.setupDefaultModel.adjustSetContentModel)
+            self.setupDefaultModel.adjustSetContentModel(self, contentModel);
+        else if(self.setupDefaultModel.setContentModel)
+            self.setupDefaultModel.setContentModel(self, contentModel);
+    }
 }
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
@@ -187,6 +211,25 @@
         return;
         
     [self layoutSubviewsForWidth:self.width Height:self.height];
+}
+
+-(CGSize)layoutSubviewsForWidth:(CGFloat)contentWidth Height:(CGFloat)contentHeight
+{
+    CGSize size = [super layoutSubviewsForWidth:contentWidth Height:contentHeight];
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
+        size = self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
+    
+    return size;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    if([self.mt_order containsString:@"isAssistCell"])
+        return;
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.drawRectHandle)
+        self.setupDefaultModel.drawRectHandle(self);
 }
 
 #pragma mark - 懒加载

@@ -13,10 +13,13 @@
 #import "MTTextField.h"
 #import "MTTextView.h"
 #import "MTTimeModel.h"
+#import "MTSetupDefaultModel.h"
 
 @interface MTBaseCollectionViewCell : MTDragCollectionViewCell<MTTextFieldDelegate>
 
 @property (nonatomic,strong) MTViewContentModel* contentModel;
+
+@property (nonatomic,weak) MTSetupDefaultModel* setupDefaultModel;
 
 /**扩展*/
 @property (nonatomic,strong) UIView* externView;

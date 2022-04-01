@@ -9,6 +9,8 @@
 #import "MTImagePlayView.h"
 #import "MTImageCell.h"
 #import "MTImageShowControllModel.h"
+#import "MTBaseImagePlayCollectionViewCell.h"
+#import "MTPageControl.h"
 
 
 

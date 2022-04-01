@@ -38,7 +38,7 @@
 -(instancetype)showNoMsgResult;
 
 @property (nonatomic,strong, readonly) MTNavigationBar* navigationBar;
-@property (nonatomic,assign, readonly) BOOL navigationBarHidden;
+@property (nonatomic,assign) BOOL navigationBarHidden;
 /**给定类名，生成对应导航栏，默认为 MTNavigationBar*/
 @property (nonatomic,strong, readonly) NSString* navigationBarClassName;
 @property (nonatomic,strong, readonly) NSObject* navigationBarSetupDefaultModel;

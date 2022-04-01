@@ -15,6 +15,16 @@
     self.vfCodeTotalSecond = 60;
 }
 
+-(UIColor *)baseTabBarColor
+{
+    if(!_baseTabBarColor)
+    {
+        _baseTabBarColor = [UIColor whiteColor];
+    }
+    
+    return _baseTabBarColor;
+}
+
 -(UIColor*)baseBackgroundColor
 {
     if(!_baseBackgroundColor)

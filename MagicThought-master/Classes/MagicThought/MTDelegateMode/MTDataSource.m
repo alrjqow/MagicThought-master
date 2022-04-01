@@ -298,10 +298,11 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         return;
     
     NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
+    NSString* identifier = [data.mt_baseCellIdentifier isExist] ? data.mt_baseCellIdentifier : mt_reuseIdentifier;
     if(![mt_reuseIdentifier isExist])
         return;
             
-    MTDelegateCollectionReusableView* reusableView = self.shadowReusableViewList[mt_reuseIdentifier];
+    MTDelegateCollectionReusableView* reusableView = self.shadowReusableViewList[identifier];
     if(!reusableView)
     {
         Class class = NSClassFromString(mt_reuseIdentifier);
@@ -311,7 +312,9 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         reusableView = class.new;
         reusableView.automaticDimension();
         reusableView.bindOrder(@"isAssistCell");
-        self.shadowReusableViewList[mt_reuseIdentifier] = reusableView;
+        self.shadowReusableViewList[identifier] = reusableView;
+        if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+            [reusableView setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     }
     
     reusableView.section = section;
@@ -345,10 +348,10 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         cell.automaticDimension();
         cell.bindOrder(@"isAssistCell");
         self.shadowCollectionViewCellList[identifier] = cell;
-        if(self.setupDefaultDict[data.mt_baseCellIdentifier])
-            [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     }
     
+    if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+        [cell setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     cell.mt_delegate = self;
     cell.indexPath = indexPath;
     cell.mt_data = [data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)data).data : ([data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)data).data : data);
@@ -670,7 +673,7 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:MTEasyDefaultCollectionViewHeaderFooterReuseIdentifier forIndexPath:indexPath];
         
     NSString* mt_reuseIdentifier = data.mt_reuseIdentifier;
-    NSString* identifier = MTEasyReuseIdentifier(mt_reuseIdentifier);
+    NSString* identifier = MTEasyReuseIdentifier([data.mt_baseCellIdentifier isExist] ? data.mt_baseCellIdentifier : mt_reuseIdentifier);
     
     if(self.registerSectionList[identifier])
         view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
@@ -689,6 +692,9 @@ static CGFloat mt_estimatedHeightForRowAtIndexPath(id self, SEL cmd, UITableView
         self.registerSectionList[identifier] = identifier;
         view = view0;
     }
+    
+    if(self.setupDefaultDict[data.mt_baseCellIdentifier])
+        [view setWithObject:self.setupDefaultDict[data.mt_baseCellIdentifier]];
     
     view.mt_delegate = self;
     view.section = indexPath.section;
@@ -1253,13 +1259,16 @@ static NSString* mt_titleForRowAtIndexPath(id self, SEL cmd, UIPickerView * pick
 {
     if(![mt_data isKindOfClass:self.classOfResponseObject])
     {
+        NSObject* metaData = mt_data;
+        mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
+        
         if([mt_data isKindOfClass:[NSDictionary class]] && [self.classOfResponseObject isSubclassOfClass:[NSObject class]])
         {
             NSObject* model = [self.classOfResponseObject mj_objectWithKeyValues:mt_data];
             if(!model)
                 return;
             
-            mt_data = [model copyBindWithObject:mt_data];
+            mt_data = [model copyBindWithObject:metaData];
         }
         else
         {

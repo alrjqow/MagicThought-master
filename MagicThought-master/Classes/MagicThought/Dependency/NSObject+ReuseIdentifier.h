@@ -205,6 +205,11 @@ typedef NSObject* _Nonnull (^BaseCellTag) (NSString* _Nonnull baseCellIdentifier
 @property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseSubCollectionCell2;
 @property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseSubCollectionCell3;
 
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseImagePlayCollectionViewCell;
+
+
+@property (nonatomic,copy,readonly) BaseCellTag _Nonnull bindAutomaticDimensionBaseCollectionReusableView;
+
 @end
 
 

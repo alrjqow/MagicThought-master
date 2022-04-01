@@ -8,7 +8,6 @@
 
 #import "MTBaseView.h"
 #import "MTContentModelPropertyConst.h"
-#import "MTSetupDefaultModel.h"
 
 @interface MTBaseView()
 {
@@ -18,8 +17,6 @@
     UIButton* _button4;
     UIView* _externView;
 }
-
-@property (nonatomic,strong) MTSetupDefaultModel* setupDefaultModel;
 
 @end
 
@@ -205,14 +202,6 @@
 {
     CGSize size = [super layoutSubviewsForWidth:contentWidth Height:contentHeight];
     
-    CGSize size1 = [self setupDefaultModelSize:contentWidth Height:contentHeight];
-    
-    return CGSizeEqualToSize(size, size1) ? size : size1;
-}
-
--(CGSize)setupDefaultModelSize:(CGFloat)contentWidth Height:(CGFloat)contentHeight
-{
-    CGSize size = CGSizeZero;
     if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
         size = self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
     

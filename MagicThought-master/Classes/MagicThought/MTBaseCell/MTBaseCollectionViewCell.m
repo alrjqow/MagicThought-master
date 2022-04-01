@@ -8,8 +8,6 @@
 
 #import "MTBaseCollectionViewCell.h"
 #import "MTContentModelPropertyConst.h"
-#import "MTSetupDefaultModel.h"
-
 
 @interface MTBaseCollectionViewCell ()<UITextViewDelegate>
 {
@@ -19,8 +17,6 @@
     UIButton* _button4;
     UIView* _externView;
 }
-
-@property (nonatomic,weak) MTSetupDefaultModel* setupDefaultModel;
 
 @end
 
@@ -269,6 +265,9 @@
     CGSize size = CGSizeZero;
     if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
         size = self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
+    
+    if(self.setupDefaultModel && self.setupDefaultModel.updateLayoutSubviews)
+        self.setupDefaultModel.updateLayoutSubviews(self, contentWidth, contentHeight);
     
     return size;
 }

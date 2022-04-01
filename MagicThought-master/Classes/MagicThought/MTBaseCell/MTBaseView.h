@@ -11,10 +11,13 @@
 #import "UIView+MTBaseViewContentModel.h"
 #import "UIView+Frame.h"
 #import "MTTextField.h"
+#import "MTSetupDefaultModel.h"
 
 @interface MTBaseView : MTDelegateView
 
 @property (nonatomic,strong) MTViewContentModel* contentModel;
+
+@property (nonatomic,strong) MTSetupDefaultModel* setupDefaultModel;
 
 /**扩展*/
 @property (nonatomic,strong) UIView* externView;
@@ -44,8 +47,6 @@
 @property (nonatomic,strong) UIButton* button4;
 
 @property (nonatomic,strong) MTTextField* textField;
-
--(CGSize)setupDefaultModelSize:(CGFloat)contentWidth Height:(CGFloat)contentHeight;
 
 @end
 

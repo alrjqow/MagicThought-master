@@ -24,14 +24,8 @@
 @property(nonatomic,assign) NSInteger dataCount;
 @property(nonatomic,assign) NSInteger dataTimes;
 
-/**是否关闭自动滚动*/
-@property (nonatomic,assign) BOOL isStopTimer;
-
 /**滚动间隔*/
 @property(nonatomic,assign) CGFloat scrollTime;
-
-/**是否滚动有限*/
-@property (nonatomic,assign) BOOL isScrollLimit;
 
 @end
 

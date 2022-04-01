@@ -347,8 +347,12 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
         NSMutableArray* arr = [NSMutableArray array];
         
         for(NSInteger i = 0; i < count; i++)
-            [arr addObject:mt_reuse(weakSelf)];
-        
+        {
+            NSReuseObject* obj = mt_reuse(weakSelf);
+            [obj copyBindWithObject:weakSelf];
+            [arr addObject:obj];
+        }
+                    
         return [arr copy];
     };
     
@@ -848,6 +852,8 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
 }
 - (instancetype _Nullable)copyBindWithObject:(NSObject* _Nullable)obj
 {
+    if(![self.mt_baseCellIdentifier isExist])
+        self.mt_baseCellIdentifier = obj.mt_baseCellIdentifier;    
     if(![self.mt_reuseIdentifier isExist])
         self.bind(obj.mt_reuseIdentifier);
     if(obj.mt_click)
@@ -943,6 +949,16 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     return self;
 }
 
+-(BaseCellTag)bindAutomaticDimensionBaseImagePlayCollectionViewCell
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseCell  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseImagePlayCollectionViewCell" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseCell;
+}
+
 -(BaseCellTag)bindAutomaticDimensionBaseCollectionCell
 {
     __weak __typeof(self) weakSelf = self;
@@ -982,6 +998,17 @@ NSString* MTBindNewObjectOrder = @"MTBindNewObjectOrder";
     
     return bindBaseCell;
 }
+
+-(BaseCellTag)bindAutomaticDimensionBaseCollectionReusableView
+{
+    __weak __typeof(self) weakSelf = self;
+    BaseCellTag bindBaseView  = ^(NSString* baseCellIdentifier){
+        return [weakSelf bindBaseCell:@"MTBaseCollectionReusableView" BaseCellIdentifier:baseCellIdentifier];
+    };
+    
+    return bindBaseView;
+}
+
 
 @end
 

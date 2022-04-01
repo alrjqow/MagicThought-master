@@ -10,6 +10,12 @@
 
 @interface MTImagePlayViewModel : NSObject<MTViewModelProtocol>
 
+/**是否滚动有限*/
+@property (nonatomic,assign) BOOL isScrollLimit;
+
+/**是否关闭自动滚动*/
+@property (nonatomic,assign) BOOL isStopTimer;
+
 @property (nonatomic,copy) void (^pageChange)(NSInteger currentPage);
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "MTImagePlayView.h"
-#import "MTImagePlayViewModel.h"
 
 @implementation MTBaseImagePlayView
 
@@ -52,13 +51,33 @@
     return @"MTImagePlayViewModel";
 }
 
--(void)reloadDataWithDataList:(NSArray *)dataList SectionList:(NSArray *)sectionList EmptyData:(NSObject *)emptyData
+-(MTImagePlayViewModel *)imagePlayViewModel
+{
+    if(!_imagePlayViewModel)
+    {
+        _imagePlayViewModel = MTImagePlayViewModel.new;
+    }
+    
+    return [self.viewModel isKindOfClass:NSClassFromString(@"MTImagePlayViewModel")] ? (id)self.viewModel : _imagePlayViewModel;    
+}
+
+-(void)reloadDataWithDataList:(NSArray *)dataList SectionList:(NSArray *)sectionList EmptyData:(NSObject *)emptyData SetupDefaultDict:(NSDictionary *)setupDefaultDict
 {
     MTImagePlayViewModel* imagePlayViewModel = (id) self.viewModel;
     if(imagePlayViewModel.pageChange)
         imagePlayViewModel.pageChange(0);
     
-    [super reloadDataWithDataList:dataList SectionList:sectionList EmptyData:emptyData];
+    [super reloadDataWithDataList:dataList SectionList:sectionList EmptyData:emptyData SetupDefaultDict:setupDefaultDict];
+}
+
+-(MTCollectionViewScaleLayout *)scaleLayout
+{
+    return [self.layout isKindOfClass:MTCollectionViewScaleLayout.class] ? (id) self.layout : nil;
+}
+
+-(MTCollectionViewScaleLayout2 *)scaleLayout2
+{
+    return [self.layout isKindOfClass:MTCollectionViewScaleLayout2.class] ? (id) self.layout : nil;
 }
 
 @end

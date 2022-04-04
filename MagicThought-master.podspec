@@ -29,12 +29,22 @@ TODO: Add long description of the pod here.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
+#  s.swift_version = '5.5'
   
   s.resources = ['MagicThought-master/Classes/MagicThought/MTHud/MTHud.bundle',
   'MagicThought-master/Classes/MagicThought/MTPhoto/MTPhoto.bundle',
   'MagicThought-master/Classes/MagicThought/Library/TZImagePickerController/TZImagePickerController.bundle']
-  s.source_files = 'MagicThought-master/Classes/**/*'
-  s.xcconfig = {'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'}
+  s.source_files = 'MagicThought-master/Classes/**/*.{h,m}'
+#  s.public_header_files = 'MagicThought-master/Classes/MagicThought/public_header.h'
+  
+  s.xcconfig = {
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+#    'SWIFT_OBJC_INTERFACE_HEADER_NAME' => 'MagicThought-master/Classes/MagicThought/MagicThought_master-Swift.h'
+  }
+  
+  
+  
+  
   
 #  s.subspec 'MagicThought' do |ss|
 #  ss.source_files = 'MagicThought-master/Classes/MagicThought/**/*'
@@ -43,10 +53,12 @@ TODO: Add long description of the pod here.
   # s.resource_bundles = {
   #   'MagicThought-master' => ['MagicThought-master/Assets/*.png']
   # }
-
+  s.static_framework = true
+  
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'MTSwiftLibrary'
   s.dependency 'MJRefresh'
   s.dependency 'MJExtension'
   s.dependency 'MBProgressHUD'

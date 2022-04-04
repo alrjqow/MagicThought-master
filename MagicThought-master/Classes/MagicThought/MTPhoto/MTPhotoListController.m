@@ -16,10 +16,12 @@ NSString *const kMTPhotoListCameraCell = @"MTPhotoListCameraCell";
 #import "MTTimer.h"
 #import "NSObject+ReuseIdentifier.h"
 #import "MTImageShowViewContentModel.h"
+#import "MTPopTipServiceModel.h"
+
 
 @interface MTPhotoListController ()
 
-//@property (nonatomic,strong) XHPopTipServiceModel* popTipServiceModel;
+@property (nonatomic,strong) MTPopTipServiceModel* popTipServiceModel;
 
 @property (nonatomic,strong) MTImageShowControllModel* imageShowControllModel;
 
@@ -68,8 +70,8 @@ propertyBool(isSelfNavigationBar)
             
             if(weakSelf.photoServiceModel.actuallyAssetMediaType)
                 [weakSelf goBack];
-            //                    else
-            //                        [weakSelf.popTipServiceModel showPopTips];
+            else
+                [weakSelf.popTipServiceModel showPopTips];
         });
     }
 }
@@ -291,50 +293,48 @@ propertyBool(isSelfNavigationBar)
     return _photoServiceModel;
 }
 
-//-(XHPopTipServiceModel *)popTipServiceModel
-//{
-//    if(!_popTipServiceModel)
-//    {
-//        __weak typeof(self) weakSelf = self;
-//
-//        _popTipServiceModel = XHPopTipServiceModel.new(self);
-//        _popTipServiceModel.popViewSize = CGSizeMake(120, 200);
-//        _popTipServiceModel.fromRect = [self.navigationBar convertRect:self.navigationBar.button3.frame toView:self.view];
-//
-////        _popTipServiceModel.popTip.offset = -6;
-//
-//        _popTipServiceModel.dataList = (NSArray*)@[
-//
-//            @{
-//                kTitle : mt_content(@"图片")
-//            },
-//            @{
-//                kTitle : mt_content(@"视频")
-//            },
-//            @{
-//                kTitle : mt_content(@"图片和视频")
-//            },
-//        ]
-//        .bind(@"XHTextPopTipCell")
-//        .automaticDimension()
-//        .bindClick(^(NSIndexPath* indexPath){
-//
-//            if(indexPath.row == 0)
-//                weakSelf.photoServiceModel.assetMediaType = PHAssetMediaTypeImage;
-//            else if(indexPath.row == 1)
-//                weakSelf.photoServiceModel.assetMediaType = PHAssetMediaTypeVideo;
-//            else if(indexPath.row == 2)
-//                weakSelf.photoServiceModel.assetMediaType = 0;
-//
-//            [weakSelf.photoServiceModel clearSelectedIndex];
-//            [weakSelf.photoServiceModel getMediaWithType];
-//            [weakSelf loadData];
-//            [weakSelf.popTipServiceModel dismissPopTips];
-//        });
-//    }
-//
-//    return _popTipServiceModel;
-//}
+-(MTPopTipServiceModel *)popTipServiceModel
+{
+    if(!_popTipServiceModel)
+    {
+        __weak typeof(self) weakSelf = self;
+
+        _popTipServiceModel = MTPopTipServiceModel.new(self);
+        _popTipServiceModel.popViewSize = CGSizeMake(120, 200);
+        _popTipServiceModel.fromRect = [self.navigationBar convertRect:self.navigationBar.button3.frame toView:self.view];
+
+//        _popTipServiceModel.popTip.offset = -6;
+
+        _popTipServiceModel.dataList = (NSArray*)@[
+
+            @{
+                kTitle : mt_content(@"图片")
+            },
+            @{
+                kTitle : mt_content(@"视频")
+            },
+            @{
+                kTitle : mt_content(@"图片和视频")
+            },
+        ]
+        .bind(@"XHTextPopTipCell")
+        .automaticDimension()
+        .bindClick(^(NSIndexPath* indexPath){
+            
+            if(indexPath.row == 0)
+                [weakSelf.photoServiceModel loadMediaWithType:PHAssetMediaTypeImage];
+            else if(indexPath.row == 1)
+                [weakSelf.photoServiceModel loadMediaWithType:PHAssetMediaTypeVideo];
+            else if(indexPath.row == 2)
+                [weakSelf.photoServiceModel loadMediaWithType:PHAssetMediaTypeUnknown];
+                            
+            [weakSelf loadData];
+            [weakSelf.popTipServiceModel dismissPopTips];
+        });
+    }
+
+    return _popTipServiceModel;
+}
 
 -(MTImageShowControllModel *)imageShowControllModel
 {
@@ -403,8 +403,6 @@ propertyBool(isSelfNavigationBar)
 @property (nonatomic,assign) CGFloat contentWidth;
 
 @property (nonatomic,strong) CALayer* imageViewLayer;
-
-//@property (nonatomic,weak) XHPhotoServiceModel* photoServiceModel;
 
 @end
 

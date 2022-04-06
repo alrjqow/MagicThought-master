@@ -13,7 +13,7 @@
 #import "MJRefresh.h"
 
 
-@interface MTBaseListController : MTViewController<MTDelegateViewDataProtocol>
+@interface MTBaseListController : MTViewController<MTDelegateViewDataProtocol, UIScrollViewDelegate>
 
 /**懒加载，默认不添加到父级*/
 @property (nonatomic, strong) MTDelegateTableView *mtBase_tableView;

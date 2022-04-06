@@ -24,6 +24,15 @@ propertyClass(MTLoginServiceModel, loginServiceModel)
 
 @implementation MTLoginController
 
+-(void)setupSubview
+{
+    [super setupSubview];
+    
+    if(self.loginServiceModel.setupSubview)
+        self.loginServiceModel.setupSubview(self);
+}
+
+
 -(void)successDefaultHandle:(NSString *)tagIdentifier
 {
     if(![tagIdentifier isEqualToString:kIsVfcode])

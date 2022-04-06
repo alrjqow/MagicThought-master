@@ -8,4 +8,4 @@
 
 #import "MTServiceModel.h"
 #import "MTPopTipServiceModel.h"
-
+#import "MTZoomTitleImageServiceModel.h"

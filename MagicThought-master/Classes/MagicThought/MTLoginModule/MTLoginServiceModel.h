@@ -19,6 +19,7 @@
 
 @property (nonatomic,assign, readonly) NSTimeInterval isVfCodeOver;
 
+@property (nonatomic,strong) void (^setupSubview)(MTViewController* loginController);
 
 propertyString(vfCodeIdentifier);
 

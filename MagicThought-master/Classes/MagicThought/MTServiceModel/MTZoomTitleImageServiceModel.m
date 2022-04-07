@@ -13,6 +13,7 @@
 @property (nonatomic,strong) UIImageView* imageView;
 
 @property (nonatomic,assign) CGFloat imageViewY;
+@property (nonatomic,assign) CGFloat imageViewX;
 
 @property (nonatomic,strong) UIView* bottomZoomView;
 
@@ -29,8 +30,9 @@
         
     layout(self.imageView);
     self.imageView.bindHeight(self.imageView.height);
+    self.imageViewX = self.imageView.x;
     self.imageViewY = self.imageView.y;
-    
+        
     [self.controller.view insertSubview:self.imageView atIndex:0];
 }
 
@@ -75,7 +77,7 @@
     if(scrollView.offsetY <= -scrollView.contentInset.top)
     {
         _imageView.height = _imageView.mt_itemHeight - scrollView.offsetY - scrollView.contentInset.top;
-        _imageView.x = 0;
+        _imageView.x = self.imageViewX;
         _imageView.y = self.imageViewY;        
         
         _topZoomView.height =  _topZoomView.mt_itemHeight - scrollView.offsetY - scrollView.contentInset.top;

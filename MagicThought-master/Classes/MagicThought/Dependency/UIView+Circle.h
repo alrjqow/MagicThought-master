@@ -37,6 +37,8 @@
 
 -(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect;
 
+-(void)fillGradientBackgroundColor_CenterLeftRight:(NSArray<UIColor*> *)colors Rect:(CGRect)rect;
+
 @end
 
 

@@ -275,6 +275,16 @@
 
 -(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect
 {
+    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0.5, 0) EndPoint:CGPointMake(0.5, 1)];
+}
+
+-(void)fillGradientBackgroundColor_CenterLeftRight:(NSArray<UIColor*> *)colors Rect:(CGRect)rect
+{
+    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0, 0.5) EndPoint:CGPointMake(1, 0.5)];
+}
+
+-(void)fillGradientBackgroundColor:(NSArray<UIColor*> *)colors Rect:(CGRect)rect StartPoint:(CGPoint)startPoint EndPoint:(CGPoint)endPoint
+{
     if(!colors.count)
         return;
     
@@ -283,18 +293,17 @@
     NSMutableArray* array = NSMutableArray.new;
     for (UIColor* color in colors) {
         [array addObject:(id) color.CGColor];
-    }    
+    }
     gradientLayer.colors = array;
     
     
-    gradientLayer.startPoint = CGPointMake(0.5, 0);
-    gradientLayer.endPoint = CGPointMake(0.5, 1);
+    gradientLayer.startPoint = startPoint;
+    gradientLayer.endPoint = endPoint;
     gradientLayer.frame = rect;
     gradientLayer.zPosition = -1;
     
     [self.layer addSublayer:gradientLayer];
 }
-
     
 @end
 

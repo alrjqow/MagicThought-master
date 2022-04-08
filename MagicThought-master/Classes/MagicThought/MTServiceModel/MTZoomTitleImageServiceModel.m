@@ -67,8 +67,10 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat maxOffsetY = scrollView.contentSize.height - scrollView.height - (kIsHairScreen() ? 34 : 0);
-     
-    if(maxOffsetY >= 0 && scrollView.offsetY >= maxOffsetY)
+    if(scrollView.contentSize.height < scrollView.height)
+        maxOffsetY = 0;
+    
+    if((maxOffsetY >= 0 || !scrollView.contentSize.height) && scrollView.offsetY >= maxOffsetY)
     {
         _bottomZoomView.height = scrollView.offsetY - maxOffsetY;
         _bottomZoomView.maxY = self.controller.view.height;

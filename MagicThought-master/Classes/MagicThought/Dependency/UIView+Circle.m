@@ -111,6 +111,22 @@
     if([self isKindOfClass:NSClassFromString(@"MTBaseHeaderFooterView")])
         return self;
     
+    if (@available(iOS 11.0, *)) {
+        self.layer.maskedCorners = border.borderCorners;
+    } else {
+       
+    }
+    self.layer.cornerRadius = border.borderRadius;
+    self.layer.borderColor = border.borderColor.CGColor;
+    self.layer.borderWidth = border.borderWidth;
+    if(border.fillColor)
+        self.backgroundColor = border.fillColor;
+    if(border.borderMasksToBounds || [self isKindOfClass:[UILabel class]])
+        self.clipsToBounds = YES;
+    
+    return self;
+    
+    
     if((border.borderCorners == UIRectCornerAllCorners) && !border.borderWeak)
     {
         self.layer.cornerRadius = border.borderRadius;

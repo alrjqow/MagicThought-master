@@ -113,9 +113,28 @@
     
     _isViewDidLoad = YES;
     
-    if(!self.navigationBarHidden)
-        [self.view bringSubviewToFront:self.navigationBar];
-    [self.view bringSubviewToFront:[MBProgressHUD HUDForView:self.view]];
+    NSInteger index = -1;
+    for (UIViewController* subController in self.childViewControllers)        
+        if([subController isKindOfClass:NSClassFromString(@"MTPopupController")] && subController.view.superview == self.view)
+        {
+            NSInteger subIndex = [self.view.subviews indexOfObject:subController.view];
+            if(index < 0 || index > subIndex)
+                index = subIndex;
+        }
+    
+    if(index >= 0)
+    {
+        UIView* subView = self.view.subviews[index];
+        if(!self.navigationBarHidden)
+            [self.view insertSubview:self.navigationBar belowSubview:subView];
+        [self.view insertSubview:[MBProgressHUD HUDForView:self.view] belowSubview:subView];
+    }
+    else
+    {
+        if(!self.navigationBarHidden)
+            [self.view bringSubviewToFront:self.navigationBar];
+        [self.view bringSubviewToFront:[MBProgressHUD HUDForView:self.view]];
+    }
 }
 
 /**缺省加载圈*/

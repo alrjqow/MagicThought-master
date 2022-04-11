@@ -37,6 +37,7 @@
 #import "MTAlert.h"
 #import "MTAlert2.h"
 #import "MTHud.h"
+#import "MTPopupController.h"
 
 #import "MTTextFieldVerify.h"
 #import "MTJsonTransform.h"

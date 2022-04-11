@@ -224,14 +224,6 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self setupWebView];
-    [self setupNavigationItem];
-
-    self.webView.UIDelegate = self;
-    self.webView.navigationDelegate = self;
-    self.webView.scrollView.delegate = self;
-    
     if(self.isWait)
         self.isWait = false;
     else if(self.htmlString.length)
@@ -244,18 +236,17 @@
 
 #pragma mark - 初始化
 
--(instancetype)init
+-(void)setupDefault
 {
-    if(self = [super init])
-    {
-        self.loadWebTitle = YES;
-    }
+    [super setupDefault];
     
-    return self;
+    self.loadWebTitle = YES;
 }
 
--(void)setupWebView
+-(void)setupSubview
 {
+    [super setupSubview];
+    
     if (@available(iOS 11.0, *)) {
         self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
@@ -278,9 +269,12 @@
             weakSelf.webView.frame = CGRectMake(0, weakSelf.navigationBarHidden ? 0 : weakSelf.navigationBar.maxY, kScreenWidth_mt(), weakSelf.bodyHeight);
         };
     }
-        
-                
+                        
     self.layoutWebView(self.view);
+    
+    self.webView.UIDelegate = self;
+    self.webView.navigationDelegate = self;
+    self.webView.scrollView.delegate = self;
 }
 
 -(void)setupNavigationItem

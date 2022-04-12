@@ -106,6 +106,6 @@ typedef MTWordStyle* (^FontName)(NSString* wordFontName);
 @end
 
 
-CG_EXTERN MTWordStyle* mt_WordStyleMake(CGFloat wordSize, NSString* wordName,UIColor* wordColor);
-CG_EXTERN MTWordStyle* mt_AttributedWordStyleMake(CGFloat wordSize, NSString* wordName, UIColor* wordColor);
+CG_EXTERN MTWordStyle* mt_WordStyleMake(CGFloat wordSize, UIColor* wordColor, NSString* wordName);
+CG_EXTERN MTWordStyle* mt_AttributedWordStyleMake(CGFloat wordSize, UIColor* wordColor, NSString* wordName);
 

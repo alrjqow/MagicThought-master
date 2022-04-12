@@ -136,7 +136,7 @@
         return CGSizeMake(self.model.titleViewModel.cellWidth, collectionView.height);
     
     NSArray* titleList = [self.model valueForKey:@"titleList"];
-    return CGSizeMake([[self.fitLabel setWordWithStyle:mt_WordStyleMake(self.model.titleViewModel.normalStyle.wordSize, titleList[indexPath.row], nil)] sizeThatFits:CGSizeMake(MAXFLOAT, collectionView.height)].width, collectionView.height);
+    return CGSizeMake([[self.fitLabel setWordWithStyle:mt_WordStyleMake(self.model.titleViewModel.normalStyle.wordSize, nil, titleList[indexPath.row])] sizeThatFits:CGSizeMake(MAXFLOAT, collectionView.height)].width, collectionView.height);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

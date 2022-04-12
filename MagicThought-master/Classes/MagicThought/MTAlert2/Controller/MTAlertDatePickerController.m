@@ -225,7 +225,7 @@
     
     //设置文字的属性
     UILabel *genderLabel = [view isKindOfClass:[UILabel class]] ? (UILabel*)view : [UILabel new];
-    [genderLabel setWordWithStyle:mt_WordStyleMake(12, @"", row == selectedRow ? hex(0x2976f4) : hex(0x333333))];
+    [genderLabel setWordWithStyle:mt_WordStyleMake(12, row == selectedRow ? hex(0x2976f4) : hex(0x333333), @"")];
     genderLabel.textAlignment = NSTextAlignmentCenter;
     if (component == 0) {
         genderLabel.text = self.yearArray[row];

@@ -23,7 +23,7 @@
 {
     [super setupDefault];
     
-    [self.textLabel setWordWithStyle:mt_WordStyleMake(12, nil, hex(0x333333))];
+    [self.textLabel setWordWithStyle:mt_WordStyleMake(12, hex(0x333333), nil)];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 

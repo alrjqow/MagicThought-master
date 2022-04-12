@@ -17,13 +17,13 @@
 
 +(void)setUpControllBarOnController:(MTBaseAlertController*)controller Layout:(void (^)(UIButton* cancelBtn, UIButton* enterBtn, UIView* sepLine))layout
 {
-    UIButton* cancelBtn = [[UIButton new] setWordWithStyle:mt_WordStyleMake(15, @"取消", hex(0x888888))];
+    UIButton* cancelBtn = [[UIButton new] setWordWithStyle:mt_WordStyleMake(15, hex(0x888888), @"取消")];
     cancelBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 26, 0, 0);
     cancelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     cancelBtn.frame = CGRectMake(0, 0, 100, 48);
     [cancelBtn addTarget:controller action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton* enterBtn = [[UIButton new] setWordWithStyle:mt_WordStyleMake(15, @"确定", hex(0x2976f4))];
+    UIButton* enterBtn = [[UIButton new] setWordWithStyle:mt_WordStyleMake(15, hex(0x2976f4), @"确定")];
     enterBtn.tag = 1;
     enterBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 26);
     enterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

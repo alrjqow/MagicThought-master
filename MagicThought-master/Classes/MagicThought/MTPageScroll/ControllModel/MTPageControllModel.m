@@ -466,6 +466,9 @@
     CGFloat titleViewX = 0;
     NSMutableArray* titleViewSectionList;
     
+    if(!self.titleControllModel.dataSourceModel.setupDefaultDict && [self.delegate respondsToSelector:@selector(setupDefaultDict)])
+        self.titleControllModel.dataSourceModel.setupDefaultDict = self.delegate.setupDefaultDict;
+    
     if(!self.titleControllModel.dataSourceModel.dataList && [self.delegate respondsToSelector:@selector(pageScrollTitleDataList)] && (self.delegate.pageScrollTitleDataList.count > 0))
         self.titleControllModel.dataSourceModel.dataList = self.delegate.pageScrollTitleDataList;
     if(!self.titleControllModel.dataSourceModel.dataList)
@@ -477,11 +480,11 @@
     {
         NSObject* obj = dataList[index];
 
-        CGFloat cellWidth = self.titleControllModel.isEqualCellWidth ? self.titleControllModel.cellWidth : [UILabel getRectWithRect:CGRectMake(0, 0, 0, self.titleControllModel.titleViewHeight) WordStyle:mt_WordStyleMake(self.titleControllModel.normalStyle.wordSize, obj.mt_tagIdentifier, nil)].size.width;
+        CGFloat cellWidth = self.titleControllModel.isEqualCellWidth ? self.titleControllModel.cellWidth : [UILabel getRectWithRect:CGRectMake(0, 0, 0, self.titleControllModel.titleViewHeight) WordStyle:mt_WordStyleMake(self.titleControllModel.normalStyle.wordSize, nil, obj.mt_tagIdentifier)].size.width;
         titleViewX += cellWidth;
                 
         [self.cellWidthList addObject:@(cellWidth)];
-        [self.selectedCellWidthList addObject:@([UILabel getRectWithRect:CGRectMake(0, 0, 0, self.titleControllModel.titleViewHeight) WordStyle:mt_WordStyleMake(self.titleControllModel.selectedStyle.wordSize, obj.mt_tagIdentifier, nil)].size.width)];
+        [self.selectedCellWidthList addObject:@([UILabel getRectWithRect:CGRectMake(0, 0, 0, self.titleControllModel.titleViewHeight) WordStyle:mt_WordStyleMake(self.titleControllModel.selectedStyle.wordSize, nil, obj.mt_tagIdentifier)].size.width)];
         [self.cellCenterXList addObject:@(titleViewX - cellWidth * 0.5)];
   
         if(titleViewSectionList)

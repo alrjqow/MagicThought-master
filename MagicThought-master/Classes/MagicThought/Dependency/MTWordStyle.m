@@ -416,7 +416,7 @@
     return _attributedDict;
 }
 
-MTWordStyle* mt_WordStyleMake(CGFloat wordSize, NSString* wordName,UIColor* wordColor)
+MTWordStyle* mt_WordStyleMake(CGFloat wordSize, UIColor* wordColor, NSString* wordName)
 {
     MTWordStyle* word = [MTWordStyle new];
     
@@ -428,7 +428,7 @@ MTWordStyle* mt_WordStyleMake(CGFloat wordSize, NSString* wordName,UIColor* word
     return word;
 }
 
-MTWordStyle* mt_AttributedWordStyleMake(CGFloat wordSize, NSString* wordName, UIColor* wordColor)
+MTWordStyle* mt_AttributedWordStyleMake(CGFloat wordSize, UIColor* wordColor, NSString* wordName)
 {
     MTWordStyle* word = [MTWordStyle new];
     

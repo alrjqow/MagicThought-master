@@ -353,10 +353,10 @@ propertyBool(isSelfNavigationBar)
         
         navigationBar.button2.defaultViewStateContent(
                                              @(kDisabled),
-                                             mt_WordStyleMake(16, @"完成", [UIColor whiteColor]).bold(YES),
+                                             mt_WordStyleMake(16, [UIColor whiteColor], @"完成").bold(YES),
                                              mt_BorderStyleMake(0, 10, nil).fill(hex(0xFA6521)),
                                              mt_disabledContent(
-                                                                mt_WordStyleMake(16, @"完成", hex(0xC1C1C1)).bold(YES),
+                                                                mt_WordStyleMake(16, hex(0xC1C1C1), @"完成").bold(YES),
                                                                 mt_BorderStyleMake(0, 10, nil).fill(hex(0xEEEEEE)),
                                                                 )
                                              );
@@ -367,7 +367,7 @@ propertyBool(isSelfNavigationBar)
         
         navigationBar.button3.defaultViewContent(
                                                  kImageInBundle(@"MTPhoto.bundle/arrowBottom", @"MTPhotoListController"),
-                                        mt_WordStyleMake(16, @"图片和视频", [UIColor blackColor]).bold(YES)
+                                        mt_WordStyleMake(16, [UIColor blackColor], @"图片和视频").bold(YES)
                                         );
         
     }, ^CGSize(MTNavigationBar* navigationBar, CGFloat contentWidth, CGFloat contentHeight) {
@@ -436,12 +436,12 @@ propertyBool(isSelfNavigationBar)
     self.detailTextLabel.defaultViewStateContent(
                                         @(kDefaultForever),
                                         mt_BorderStyleMake(1, 12, [UIColor whiteColor]).fill([UIColor clearColor]),
-                                        mt_WordStyleMake(16, nil, [UIColor whiteColor]).bold(YES).horizontalAlignment(NSTextAlignmentCenter),
+                                        mt_WordStyleMake(16, [UIColor whiteColor], nil).bold(YES).horizontalAlignment(NSTextAlignmentCenter),
                                         mt_selectedContent(mt_BorderStyleMake(0, 12, nil).fill(hex(0xFA6521)))
                                         );
     
     self.textLabel.defaultViewContent(
-                                      mt_WordStyleMake(12, nil, [UIColor whiteColor]).bold(YES)
+                                      mt_WordStyleMake(12, [UIColor whiteColor], nil).bold(YES)
                                       );
     
     self.imageView2.defaultViewContent(

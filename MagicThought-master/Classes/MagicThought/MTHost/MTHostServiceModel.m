@@ -127,7 +127,7 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
     [self.contentModelList addObject:
      @{
          kTitle : mt_content(
-                             mt_WordStyleMake(15, @"取消", hex(0x999999))
+                             mt_WordStyleMake(15, hex(0x999999), @"取消")
                              .horizontalAlignment(NSTextAlignmentCenter)
                              )
      }
@@ -158,7 +158,7 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
     if(!_currentHostModel)
     {
         _currentHostModel = mt_content(
-                                       mt_WordStyleMake(14, nil, hex(0xdbb76c))
+                                       mt_WordStyleMake(14, hex(0xdbb76c), nil)
                                        .horizontalAlignment(NSTextAlignmentCenter)
                                        );
     }
@@ -229,7 +229,7 @@ NSString* MTHostNumViewIndex = @"MTHostNumViewIndex";
         
     self.backgroundColor = [UIColor whiteColor];
     self.textLabel.defaultViewContent(
-                                      mt_WordStyleMake(15, nil, hex(0x4d63fd))
+                                      mt_WordStyleMake(15, hex(0x4d63fd), nil)
                                       .horizontalAlignment(NSTextAlignmentCenter)
                                       );
 }

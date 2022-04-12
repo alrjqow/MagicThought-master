@@ -26,7 +26,7 @@
      self.view.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
     
     UIButton* btn = [UIButton new];
-    [btn setWordWithStyle:mt_WordStyleMake(13, @"push", [UIColor blackColor])];
+    [btn setWordWithStyle:mt_WordStyleMake(13, [UIColor blackColor], @"push")];
     [btn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     btn.frame = CGRectMake(100, 100, 100, 100);
     

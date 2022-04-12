@@ -29,7 +29,7 @@
 {
     if(!_normalStyle)
     {
-        _normalStyle = mt_WordStyleMake(14, @"", [UIColor blackColor]);
+        _normalStyle = mt_WordStyleMake(14, [UIColor blackColor], @"");
     }
     
     return _normalStyle;
@@ -39,7 +39,7 @@
 {
     if(!_selectedStyle)
     {
-        _selectedStyle = mt_WordStyleMake(18, @"", hex(0x2976f4)).bold(YES);
+        _selectedStyle = mt_WordStyleMake(18, hex(0x2976f4), @"").bold(YES);
     }
     
     return _selectedStyle;

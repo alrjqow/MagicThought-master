@@ -19,16 +19,28 @@
 
 @property (nonatomic,strong) UIView* topZoomView;
 
+@property (nonatomic,strong) UIView* shadowCardView;
+@property (nonatomic,assign) CGFloat shadowCardViewY;
+
 @end
 
 @implementation MTZoomTitleImageServiceModel
+
+-(void)setShadowCardViewWithLayout:(void (^)(UIView* shadowCardView))layout
+{
+    if(layout)
+        layout(self.shadowCardView);
+    self.shadowCardViewY = self.shadowCardView.y;
+    [self.controller.view insertSubview:self.shadowCardView atIndex:0];
+}
 
 -(void)setTitleImageZoomWithLayout:(void (^)(UIImageView* imageView))layout
 {
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
         
-    layout(self.imageView);
+    if(layout)
+        layout(self.imageView);
     self.imageView.bindHeight(self.imageView.height);
     self.imageViewX = self.imageView.x;
     self.imageViewY = self.imageView.y;
@@ -65,7 +77,9 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+{    
+    _shadowCardView.y = self.shadowCardViewY - scrollView.offsetY - scrollView.contentInset.top;
+    
     CGFloat maxOffsetY = scrollView.contentSize.height - scrollView.height - (kIsHairScreen() ? 34 : 0);
     if(scrollView.contentSize.height < scrollView.height)
         maxOffsetY = 0;
@@ -116,6 +130,16 @@
     }
     
     return _topZoomView;
+}
+
+-(UIView *)shadowCardView
+{
+    if(!_shadowCardView)
+    {
+        _shadowCardView = UIView.new;
+    }
+    
+    return _shadowCardView;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "UILabel+Size.h"
+#import "UIView+Frame.h"
 
 @implementation UILabel (Size)
 
@@ -29,5 +30,45 @@
     
     return label.frame;
 }
+
+@end
+
+
+UILabel* stringLabel(void)
+{
+    static UILabel* stringLabel;
+    
+    if(!stringLabel)
+        stringLabel = UILabel.new;
+    
+    return stringLabel;
+}
+
+@implementation NSString (WordSize)
+
+-(CGFloat)calculateHeightWithWidth:(CGFloat)width WordStyle:(MTWordStyle*)wordStyle
+{
+    wordStyle.wordName = self;
+    
+    UILabel* label = stringLabel();    
+    [label setWordWithStyle:wordStyle];
+
+    label.width = width;
+    [label sizeToFit];
+    
+    return label.height;
+}
+
+-(CGFloat)calculateWidthWithHeight:(CGFloat)height WordStyle:(MTWordStyle*)wordStyle
+{
+    UILabel* label = stringLabel();
+    [label setWordWithStyle:wordStyle];
+
+    label.height = height;
+    [label sizeToFit];
+    
+    return label.width;
+}
+
 
 @end

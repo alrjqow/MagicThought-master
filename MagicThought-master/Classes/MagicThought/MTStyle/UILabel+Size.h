@@ -16,3 +16,9 @@
 
 @end
 
+@interface NSString (WordSize)
+
+-(CGFloat)calculateHeightWithWidth:(CGFloat)width WordStyle:(MTWordStyle*)wordStyle;
+-(CGFloat)calculateWidthWithHeight:(CGFloat)height WordStyle:(MTWordStyle*)wordStyle;
+
+@end

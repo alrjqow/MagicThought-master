@@ -18,6 +18,8 @@
 
 -(void)setBottomZoomWithColor:(UIColor*)backgroundColor;
 
+-(void)setShadowCardViewWithLayout:(void (^)(UIView* shadowCardView))layout;
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end

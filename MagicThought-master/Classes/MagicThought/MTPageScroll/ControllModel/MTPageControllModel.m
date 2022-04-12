@@ -12,6 +12,7 @@
 #import "MTPageScrollController.h"
 #import "MTContentModelPropertyConst.h"
 #import "UILabel+Size.h"
+#import "UIView+Circle.h"
 
 @interface MTPageControllModel ()
 {
@@ -194,7 +195,13 @@
         self.pageTitleView.bottomLine.image = self.titleControllModel.bottomLineImage;
     else
         self.pageTitleView.bottomLine.backgroundColor = self.titleControllModel.bottomLineColor;
-         
+        
+    if(self.titleControllModel.bottomLineBorderStyle)
+        [self.pageTitleView.bottomLine becomeCircleWithBorder:self.titleControllModel.bottomLineBorderStyle];
+    
+    if(self.titleControllModel.bottomLineShadowStyle)
+        [self.pageTitleView.bottomLine becomeShadow:self.titleControllModel.bottomLineShadowStyle];
+    
     self.pageTitleView.bottomLine.width = self.titleControllModel.isEqualBottomLineWidth ? self.titleControllModel.bottomLineWidth :  [self.selectedCellWidthList[self.currentIndex] floatValue];
     if(self.titleControllModel.isEqualBottomLineWidth)
         self.pageTitleView.bottomLine.height = self.titleControllModel.bottomLineHeight;

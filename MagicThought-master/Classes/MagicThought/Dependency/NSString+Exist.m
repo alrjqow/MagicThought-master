@@ -15,6 +15,11 @@
     return NSClassFromString(self);
 }
 
+-(id)newObject
+{    
+    return self.classFromString.new;
+}
+
 +(BOOL) isEmpty:(NSString*)str
 {
     if ([str isEqual:[NSNull null]]) {

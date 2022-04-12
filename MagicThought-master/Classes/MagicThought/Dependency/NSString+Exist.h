@@ -12,6 +12,8 @@ typedef NSString* (^OrderAppend) (NSString* str);
 
 @interface NSString (Exist)
 
+@property (nonatomic,copy,readonly) id newObject;
+
 @property (nonatomic,copy,readonly) Class classFromString;
 
 @property (nonatomic,copy,readonly) OrderAppend orderAppend;

@@ -10,6 +10,7 @@
 
 #import "MTConst.h"
 #import "MTWordStyle.h"
+#import "MTBorderStyle.h"
 #import "MTDataSourceModel.h"
 
 typedef enum : NSInteger {
@@ -41,6 +42,12 @@ typedef enum : NSInteger {
 
 /**固定下划线距离底部距离*/
 @property (nonatomic,assign) CGFloat bottomLineBottomMargin;
+
+/**下划线边框*/
+@property (nonatomic,strong) MTBorderStyle* bottomLineBorderStyle;
+
+/**下划线阴影*/
+@property (nonatomic,strong) MTShadowStyle* bottomLineShadowStyle;
 
 /**下划线变化样式*/
 @property (nonatomic,assign) MTPageTitleViewBottomLineStyle bottomLineStyle;

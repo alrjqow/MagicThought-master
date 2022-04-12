@@ -1127,11 +1127,11 @@ static NSString* mt_titleForRowAtIndexPath(id self, SEL cmd, UIPickerView * pick
 
 -(void)setMt_data:(NSObject *)mt_data
 {
+    NSObject* metaData = mt_data;
+    mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
+        
     if(![mt_data isKindOfClass:self.classOfResponseObject])
     {
-        NSObject* metaData = mt_data;
-        mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
-                
         if([mt_data isKindOfClass:[NSDictionary class]] && [self.classOfResponseObject isSubclassOfClass:[NSObject class]])
         {
             NSObject* model = [self.classOfResponseObject mj_objectWithKeyValues:mt_data];
@@ -1257,11 +1257,11 @@ static NSString* mt_titleForRowAtIndexPath(id self, SEL cmd, UIPickerView * pick
 
 -(void)setMt_data:(NSObject *)mt_data
 {
+    NSObject* metaData = mt_data;
+    mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
+    
     if(![mt_data isKindOfClass:self.classOfResponseObject])
     {
-        NSObject* metaData = mt_data;
-        mt_data = [mt_data isKindOfClass:[NSReuseObject class]] ? ((NSReuseObject*)mt_data).data : ([mt_data isKindOfClass:[NSWeakReuseObject class]] ? ((NSWeakReuseObject*)mt_data).data : mt_data);
-        
         if([mt_data isKindOfClass:[NSDictionary class]] && [self.classOfResponseObject isSubclassOfClass:[NSObject class]])
         {
             NSObject* model = [self.classOfResponseObject mj_objectWithKeyValues:mt_data];

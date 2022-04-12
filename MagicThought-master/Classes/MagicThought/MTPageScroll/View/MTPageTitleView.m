@@ -37,6 +37,8 @@
 {
     [super layoutSubviews];
     
+    [self sendSubviewToBack:self.bottomLine];
+    
     self.bottomLine.maxY = self.height -  - self.pageControllModel.titleControllModel.bottomLineBottomMargin;
 }
 

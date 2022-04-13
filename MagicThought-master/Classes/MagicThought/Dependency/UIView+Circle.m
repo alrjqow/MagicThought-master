@@ -323,4 +323,37 @@
     
 @end
 
-
+void kSetWeakLine(UIColor* lineColor, CGFloat lineWidth, CGFloat lineMargin, CGPoint startPoint, CGPoint endPoint)
+{
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    
+    // 设置线条的样式
+       CGContextSetLineCap(context, kCGLineCapRound);
+       
+    // 绘制线的宽度
+       CGContextSetLineWidth(context, 1);
+    
+    // 线的颜色
+       CGContextSetStrokeColorWithColor(context, lineColor.CGColor);
+    
+    // 开始绘制
+       CGContextBeginPath(context);
+    
+    // 设置虚线绘制起点
+       CGContextMoveToPoint(context, startPoint.x, startPoint.y);
+    
+       // lengths的值｛10,10｝表示先绘制10个点，再跳过10个点，如此反复
+       CGFloat lengths[] = {lineWidth,lineMargin};
+    
+       // 虚线的起始点
+       CGContextSetLineDash(context, 0, lengths,2);
+    
+       // 绘制虚线的终点
+       CGContextAddLineToPoint(context, endPoint.x, endPoint.y);
+    
+       // 绘制
+       CGContextStrokePath(context);
+    
+       // 关闭图像
+       CGContextClosePath(context);
+}

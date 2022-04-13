@@ -42,3 +42,6 @@
 @end
 
 
+extern void kSetWeakLine(UIColor* lineColor, CGFloat lineWidth, CGFloat lineMargin, CGPoint startPoint, CGPoint endPoint);
+
+

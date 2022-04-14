@@ -45,6 +45,8 @@
     for (NSObject* subObject in array) {
         if([subObject isKindOfClass:[MTAlertConfig class]])
             config = (MTAlertConfig*)subObject;
+        if([subObject isKindOfClass:[NSString class]])
+            self.bind((id)subObject);
     }
     
     if(!config)

@@ -92,7 +92,10 @@ NSString* UserToken_mt()
 
 void setUserToken_mt(NSString* token)
 {
-    [[NSUserDefaults standardUserDefaults] setObject:(token) forKey:@"UserToken"];
+    if(!token)
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UserToken"];
+    else
+        [[NSUserDefaults standardUserDefaults] setObject:(token) forKey:@"UserToken"];
 }
 
 //设置登录账号

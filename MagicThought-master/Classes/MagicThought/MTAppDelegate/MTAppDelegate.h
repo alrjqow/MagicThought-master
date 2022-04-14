@@ -77,6 +77,7 @@ typedef enum : NSUInteger {
 /**去登录*/
 -(void)goToLogin;
 -(void)loginSuccess:(NSString*)token;
+-(void)logoutSuccess;
 
 + (instancetype)sharedDefault;
 

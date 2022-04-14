@@ -72,7 +72,7 @@
 -(void)setBottomZoomWithColor:(UIColor *)backgroundColor
 {
     self.bottomZoomView.backgroundColor = backgroundColor;
-    [self.controller.view addSubview:self.bottomZoomView];
+    [self.controller.view insertSubview:self.bottomZoomView atIndex:0];
     self.bottomZoomView.frame = CGRectMake(0, 0, self.controller.view.width, 0);
 }
 

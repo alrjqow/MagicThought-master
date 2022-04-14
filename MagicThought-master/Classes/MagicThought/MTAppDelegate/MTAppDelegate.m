@@ -123,6 +123,11 @@
     self.windowNum = MTAppDelegateWindowNumMain;
 }
 
+-(void)logoutSuccess
+{
+    setUserToken_mt(nil);
+    self.windowNum = MTAppDelegateWindowNumLogin;    
+}
 
 + (instancetype)sharedDefault
 {

@@ -416,7 +416,7 @@
     return _attributedDict;
 }
 
-MTWordStyle* mt_BoldWordStyleMake(CGFloat wordSize, UIColor* wordColor, NSString* wordName)
+MTWordStyle* mt_WordStyleMake_Bold(CGFloat wordSize, UIColor* wordColor, NSString* wordName)
 {
     MTWordStyle* word = mt_WordStyleMake(wordSize, wordColor, wordName);
     word.wordBold = YES;

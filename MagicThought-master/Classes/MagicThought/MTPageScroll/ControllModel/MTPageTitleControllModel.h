@@ -39,6 +39,8 @@ typedef enum : NSInteger {
 @property (nonatomic,assign) CGFloat bottomLineWidth;
 /**固定下划线高度*/
 @property (nonatomic,assign) CGFloat bottomLineHeight;
+/**下划线延伸的宽度*/
+@property (nonatomic,assign) CGFloat bottomLinePadding;
 
 /**固定下划线距离底部距离*/
 @property (nonatomic,assign) CGFloat bottomLineBottomMargin;

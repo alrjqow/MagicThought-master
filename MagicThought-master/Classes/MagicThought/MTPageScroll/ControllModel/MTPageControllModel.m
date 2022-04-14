@@ -341,7 +341,7 @@
             self.pageTitleView.bottomLine.centerX = currentCellCenterX + (nextCellCenterX - currentCellCenterX) * rate;
             
             if(!self.titleControllModel.isEqualBottomLineWidth)
-                self.pageTitleView.bottomLine.width = currentCellWidth + (nextCellWidth - currentCellWidth)*rate;
+                self.pageTitleView.bottomLine.width = currentCellWidth + (nextCellWidth - currentCellWidth)*rate + self.titleControllModel.bottomLinePadding * 2;
             break;
         }
     }

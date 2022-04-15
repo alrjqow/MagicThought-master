@@ -304,7 +304,18 @@
     if(!colors.count)
         return;
     
-    CAGradientLayer* gradientLayer = CAGradientLayer.new;
+    CAGradientLayer* gradientLayer;
+    
+    for (CALayer* subLayer in self.layer.sublayers) {
+        if(![subLayer isKindOfClass:CAGradientLayer.class])
+            continue;
+        
+        gradientLayer = (id) subLayer;
+        break;
+    }
+    
+    if(!gradientLayer)
+        gradientLayer = CAGradientLayer.new;
     
     NSMutableArray* array = NSMutableArray.new;
     for (UIColor* color in colors) {

@@ -125,15 +125,17 @@
             closeValue += self.padding.left;
             closeValue += self.padding.right;
             
-            if(self.imageView.x < self.titleLabel.x)
+            if(self.layoutType == MTLayoutButtonLayoutImageInLeft)
+            {
                 self.imageView.x = self.padding.left;
-            else
-                self.titleLabel.x = self.padding.left;
-                
-            if(self.imageView.maxX > self.titleLabel.maxX)
-                self.imageView.maxX = closeValue - self.padding.right;
-            else
                 self.titleLabel.maxX = closeValue - self.padding.right;
+            }
+            
+            if(self.layoutType == MTLayoutButtonLayoutImageInRight)
+            {
+                self.titleLabel.x = self.padding.left;
+                self.imageView.maxX = closeValue - self.padding.right;
+            }
         }
         else
         {
@@ -144,15 +146,17 @@
             closeValue += self.padding.top;
             closeValue += self.padding.bottom;
             
-            if(self.imageView.y < self.titleLabel.y)
+            if(self.layoutType == MTLayoutButtonLayoutImageInTop)
+            {
                 self.imageView.y = self.padding.top;
-            else
-                self.titleLabel.y = self.padding.top;
-                
-            if(self.imageView.maxY > self.titleLabel.maxY)
-                self.imageView.maxY = closeValue - self.padding.bottom;
-            else
                 self.titleLabel.maxY = closeValue - self.padding.bottom;
+            }
+            
+            if(self.layoutType == MTLayoutButtonLayoutImageInBottom)
+            {
+                self.titleLabel.y = self.padding.top;
+                self.imageView.maxY = closeValue - self.padding.bottom;
+            }
         }
     }
       
@@ -340,7 +344,7 @@
             case MTLayoutButtonLayoutImageInLeft:
             case MTLayoutButtonLayoutImageInRight:
             {
-                contentWidth = self.imageView.width + self.titleLabel.height + paddingLeft + paddingRight;
+                contentWidth = self.imageView.width + self.titleLabel.width + paddingLeft + paddingRight + xImageSpacing;
                 contentHeight = (self.imageView.height > self.titleLabel.height ? self.imageView.height : self.titleLabel.height) + paddingTop + paddingBottom;
                 break;
             }
@@ -362,7 +366,7 @@
         case MTLayoutButtonLayoutImageInLeft:
         case MTLayoutButtonLayoutImageInRight:
         {
-            self.titleLabel.width = contentWidth - self.imageView.width - xImageSpacing;
+            self.titleLabel.width = contentWidth - self.imageView.width - xImageSpacing - paddingLeft - paddingRight;
             self.imageView.centerY = self.titleLabel.centerY = half(contentHeight);
             break;
         }

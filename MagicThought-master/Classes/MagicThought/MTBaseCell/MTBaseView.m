@@ -38,6 +38,14 @@
 -(void)whenGetResponseObject:(MTViewContentModel *)contentModel
 {
     self.contentModel = contentModel;
+    
+    if(self.setupDefaultModel)
+    {
+        if(self.setupDefaultModel.adjustSetContentModel)
+            self.setupDefaultModel.adjustSetContentModel(self, contentModel);
+        else if(self.setupDefaultModel.setContentModel)
+            self.setupDefaultModel.setContentModel(self, contentModel);
+    }
 }
 
 -(void)setContentModel:(MTViewContentModel *)contentModel
@@ -218,6 +226,12 @@
     [self layoutSubviews];
     
     return automaticDimension;
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    if(self.setupDefaultModel && self.setupDefaultModel.drawRectHandle)
+        self.setupDefaultModel.drawRectHandle(self);
 }
 
 #pragma mark - 代理

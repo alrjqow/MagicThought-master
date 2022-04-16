@@ -32,6 +32,14 @@
     [self.dataSourceModel reloadListView:_imagePlayView];    
 }
 
+-(void)setImagePlayViewLayout:(UICollectionViewLayout *)imagePlayViewLayout
+{
+    _imagePlayViewLayout = imagePlayViewLayout;
+    
+    [_imagePlayView removeFromSuperview];
+    self.imagePlayView = [[MTImagePlayView alloc] initWithFrame:CGRectZero collectionViewLayout:imagePlayViewLayout];
+}
+
 -(void)setImagePlayView:(MTImagePlayView *)imagePlayView
 {
     _imagePlayView = imagePlayView;
@@ -52,7 +60,7 @@
             weakSelf.setupDefaultModel.updateLayoutSubviews(weakSelf, weakSelf.width, weakSelf.height);
     };
     
-    [self addSubview:_imagePlayView];
+    [self.contentView addSubview:_imagePlayView];
 }
 
 -(void)setupCurrentPage:(NSInteger)page

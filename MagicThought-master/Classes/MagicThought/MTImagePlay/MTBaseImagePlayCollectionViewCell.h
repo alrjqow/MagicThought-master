@@ -13,6 +13,7 @@
 
 @interface MTBaseImagePlayCollectionViewCell : MTBaseCollectionViewCell
 
+@property (nonatomic,strong) UICollectionViewLayout* imagePlayViewLayout;
 @property (nonatomic,strong) MTImagePlayView* imagePlayView;
 
 @property (nonatomic,strong) MTPageControl* pageControl;

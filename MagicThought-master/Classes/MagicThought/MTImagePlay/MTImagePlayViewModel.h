@@ -10,6 +10,8 @@
 
 @interface MTImagePlayViewModel : NSObject<MTViewModelProtocol>
 
+@property (nonatomic,assign) BOOL isBase;
+
 /**是否滚动有限*/
 @property (nonatomic,assign) BOOL isScrollLimit;
 

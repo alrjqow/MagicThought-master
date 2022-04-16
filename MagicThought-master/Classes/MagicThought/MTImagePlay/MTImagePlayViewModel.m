@@ -211,7 +211,13 @@
 }
 
 
-
+-(void)setIsBase:(BOOL)isBase
+{
+    _isBase = isBase;
+    
+    self.isScrollLimit = YES;
+    self.isStopTimer = YES;
+}
 
 
 @end

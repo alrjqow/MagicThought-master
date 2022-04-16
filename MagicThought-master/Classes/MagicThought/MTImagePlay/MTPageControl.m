@@ -7,6 +7,7 @@
 
 #import "MTPageControl.h"
 #import "UIView+Frame.h"
+#import "UIView+Circle.h"
 #import "MTConst.h"
 
 
@@ -18,8 +19,8 @@
     {
         self.pointSize = CGSizeMake(18, 2);
         self.pointMargin = 10;
-        self.selectColor = [UIColor whiteColor];
-        self.normalColor = hex(0xF0F0F0);
+        self.selectBorderStyle = mt_BorderStyleMake(0, 0, nil).fill([UIColor whiteColor]);
+        self.normalBorderStyle = mt_BorderStyleMake(0, 0, nil).fill(hex(0xF0F0F0));
     }
     
     return self;
@@ -29,11 +30,13 @@
 {
     [super layoutSubviews];
     
-    if(CGSizeEqualToSize(self.pointSize, CGSizeZero))
+
+    if(!self.pointSize.width || !self.pointSize.height)
         return;
     
-    
-    NSInteger x = self.halfWidth - (self.numberOfPages * self.pointSize.width + (self.numberOfPages - 1) * self.pointMargin) * 0.5;
+    BOOL isSelectedPointSize = self.selectedPointSize.width && self.selectedPointSize.height;
+        
+    NSInteger x = self.halfWidth - ((self.numberOfPages - (isSelectedPointSize ? 1 : 0)) * self.pointSize.width + (isSelectedPointSize ? self.selectedPointSize.width : 0) + (self.numberOfPages - 1) * self.pointMargin) * 0.5;
     UIView* contentView;
     if (@available(iOS 14.0, *))
     {
@@ -65,8 +68,12 @@
     {
         UIView* subView = contentView.subviews[i];
         
-        subView.width = self.pointSize.width;
-        subView.height = self.pointSize.height;
+        CGSize pointSize = self.pointSize;
+        if(self.currentPage == i && self.selectedPointSize.width && self.selectedPointSize.height)
+            pointSize = self.selectedPointSize;
+                
+        subView.width = pointSize.width;
+        subView.height = pointSize.height;
                 
         subView.x = x;
         x = subView.maxX + self.pointMargin;
@@ -77,7 +84,8 @@
         else
         {
             subView.subviews.firstObject.frame = subView.bounds;
-            subView.subviews.firstObject.backgroundColor = self.currentPage == i ? self.selectColor : self.normalColor;
+            
+            [subView.subviews.firstObject becomeCircleWithBorder:self.currentPage == i ? self.selectBorderStyle : self.normalBorderStyle];
         }
     }
 }

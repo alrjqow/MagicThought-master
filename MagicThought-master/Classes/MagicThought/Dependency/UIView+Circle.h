@@ -36,6 +36,7 @@
 @interface UIView (GradientLayer)
 
 -(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect;
+-(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect Location:(NSArray<NSNumber *>*)locations;
 
 -(void)fillGradientBackgroundColor_CenterLeftRight:(NSArray<UIColor*> *)colors Rect:(CGRect)rect;
 

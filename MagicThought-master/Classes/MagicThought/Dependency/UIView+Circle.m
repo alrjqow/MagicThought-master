@@ -290,16 +290,19 @@
 @implementation UIView (GradientLayer)
 
 -(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect
+{[self fillGradientBackgroundColor_CenterTopBottom:colors Rect:rect Location:nil];}
+
+-(void)fillGradientBackgroundColor_CenterTopBottom:(NSArray<UIColor*> *)colors Rect:(CGRect)rect Location:(NSArray<NSNumber *>*)locations
 {
-    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0.5, 0) EndPoint:CGPointMake(0.5, 1)];
+    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0.5, 0) EndPoint:CGPointMake(0.5, 1) Location:locations];
 }
 
 -(void)fillGradientBackgroundColor_CenterLeftRight:(NSArray<UIColor*> *)colors Rect:(CGRect)rect
 {
-    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0, 0.5) EndPoint:CGPointMake(1, 0.5)];
+    [self fillGradientBackgroundColor:colors Rect:rect StartPoint:CGPointMake(0, 0.5) EndPoint:CGPointMake(1, 0.5) Location:nil];
 }
 
--(void)fillGradientBackgroundColor:(NSArray<UIColor*> *)colors Rect:(CGRect)rect StartPoint:(CGPoint)startPoint EndPoint:(CGPoint)endPoint
+-(void)fillGradientBackgroundColor:(NSArray<UIColor*> *)colors Rect:(CGRect)rect StartPoint:(CGPoint)startPoint EndPoint:(CGPoint)endPoint Location:(NSArray<NSNumber *>*)locations
 {
     if(!colors.count)
         return;
@@ -326,6 +329,9 @@
     
     gradientLayer.startPoint = startPoint;
     gradientLayer.endPoint = endPoint;
+    if(locations)
+        gradientLayer.locations = locations;
+    
     gradientLayer.frame = rect;
     gradientLayer.zPosition = -1;
     

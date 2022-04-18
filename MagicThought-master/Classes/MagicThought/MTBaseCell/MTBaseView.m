@@ -234,6 +234,12 @@
         self.setupDefaultModel.drawRectHandle(self);
 }
 
+-(void)setNeedsLayout
+{
+    [super setNeedsLayout];
+    self.automaticDimension();
+}
+
 #pragma mark - 代理
 
 -(void)didTextValueChange:(UITextField *)textField

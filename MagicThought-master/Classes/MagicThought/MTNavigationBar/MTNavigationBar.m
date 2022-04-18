@@ -57,7 +57,7 @@
     if(self.setupDefaultModel && self.setupDefaultModel.layoutSubviews)
         size = self.setupDefaultModel.layoutSubviews(self, contentWidth, contentHeight);
             
-    return size;
+    return CGSizeMake(kScreenWidth_mt(), kNavigationBarHeight_mt());
 }
 
 @end
